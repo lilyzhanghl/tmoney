@@ -15,7 +15,7 @@ public class TestPaper {
 //    private String validobjid = Data4Test.getInstance().getValidPaperId();
 //    private String validStuffid =Data4Test.getInstance().getValidStaffId();
 //
-
+/*
 
     static Paper paper = new Paper();
 
@@ -54,5 +54,5 @@ public class TestPaper {
                 .body("ret",equalTo(0))
                 .body("retdata.personInfo.name",notNullValue())
                 .statusCode(200);
-    }
+    }*/
 }

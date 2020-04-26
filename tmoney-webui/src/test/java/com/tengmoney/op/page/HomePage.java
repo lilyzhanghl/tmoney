@@ -1,7 +1,7 @@
 package com.tengmoney.op.page;
 
-import commons.ReadProperties;
-import commons.WechatLoginConfig;
+import com.tengmoney.op.util.ReadYAML;
+import com.tengmoney.op.util.WechatLoginConfig;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 
@@ -13,13 +13,13 @@ import org.openqa.selenium.support.FindBy;
  * @Verion: 1.0
  */
 public class HomePage extends BasePage {
-    private String userId = WechatLoginConfig.getInstance().getUserId();
-    private String corpId = WechatLoginConfig.getInstance().getCorpId();
-    private String loginURL = ReadProperties.getInstance().getConfig("host")
-            + WechatLoginConfig.getInstance().getOpAuth()
-            + "?userId=" + userId + "&corpId=" + corpId;
-    private String homepageURL = ReadProperties.getInstance().getConfig("host")
-            + ReadProperties.getInstance().getConfig("caizhi_op");
+    private WechatLoginConfig config = ReadYAML.getYamlConfig(src, WechatLoginConfig.class);
+    public static final String hostEnv = "test";
+
+    private String loginURL = ((String) config.host.get(hostEnv))
+            + ((String) config.auth.get("op").toString());
+    private String homepageURL = ((String) config.host.get(hostEnv))
+            + ((String) config.homepage.get("op").toString());
     private WebDriver driver = BasePage.getDriver();
 
     public HomePage(WebDriver driver) {
@@ -46,16 +46,13 @@ public class HomePage extends BasePage {
     WebElement noonPageButton;
 
     public Boolean isLoginSuccess() {
+        waitForLoad(newsManagerButton);
         return hasElement(newsManagerButton);
     }
 
-    public HomePage loginWithCookie() throws InterruptedException {
+    public HomePage loginWithCookie(String userId, String corpId) throws InterruptedException {
         Thread.sleep(500);
-        driver.get(loginURL);
-        Thread.sleep(500);
-        driver.manage().addCookie(
-                driver.manage().getCookieNamed("morning_paper_cookie")
-        );
+        driver.get(loginURL + "?userId=" + userId + "&corpId=" + corpId);
         Thread.sleep(500);
         driver.get(homepageURL);
         driver.manage().window().maximize();
@@ -64,7 +61,6 @@ public class HomePage extends BasePage {
         }
         hideElement(titleBanner);
         return this;
-
     }
 
 

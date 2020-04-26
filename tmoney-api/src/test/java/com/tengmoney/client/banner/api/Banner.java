@@ -1,11 +1,8 @@
 package com.tengmoney.client.banner.api;
 
-import commons.ExeConfig;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-
 import java.util.HashMap;
-
 import static io.restassured.RestAssured.given;
 
 /**
@@ -16,7 +13,7 @@ import static io.restassured.RestAssured.given;
  * @Verion: 1.0
  */
 public class Banner {
-    ExeConfig config = ExeConfig.getInstance();
+    /*ExeConfig config = ExeConfig.getInstance();
     private String filterListapi = config.getPaperFilterListAPI();
     private String url = config.getHost();
     private String paperBannerAPI = config.getPaperFilterListAPI();
@@ -36,9 +33,9 @@ public class Banner {
 //                .cookie(cookie)
                 .contentType(ContentType.JSON)
                 .body(data)
-                .post(url+paperBannerAPI)
+//                .post(url+paperBannerAPI)
                 .then()
                 .log().all()
                 .extract().response();
-    }
+    }*/
 }

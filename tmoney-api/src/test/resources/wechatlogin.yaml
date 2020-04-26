@@ -1,3 +1,8 @@
-miniAuth: "/caizhi_mkto/index/auth.do"
-userId: "mr.joker"
-corpId: "ww8c83d949a80b562d"
+host:
+  dev: ""
+  test: "https://test.tengmoney.com"
+  prod: ""
+auth:
+  manage: "/caizhi_manage/index/auth.do"
+  op: "/caizhi_mkto/index/auth.do"
+  minipro: "/caizhi_miniapi/index/auth.do"

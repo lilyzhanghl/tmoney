@@ -1,6 +1,5 @@
 package com.tengmoney.op.page;
 
-import commons.ReadProperties;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -17,8 +16,7 @@ import java.util.Date;
  **/
 public class AddMorPaperPage extends BasePage {
     private WebDriver driver = BasePage.getDriver();
-    String url = ReadProperties.getInstance().getConfig("newsUrl");
-
+    private String paperURL = config.newsURL;
     public AddMorPaperPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
@@ -103,7 +101,7 @@ public class AddMorPaperPage extends BasePage {
                 click(newsTab);
             }
             click(addButton);
-            sendKeys(urlSentence,url);
+            sendKeys(urlSentence,paperURL);
             click(confirmButton);
             while(hasElement(confirmButton));
             sendKeys(overviewSentence,"overview");
@@ -113,7 +111,6 @@ public class AddMorPaperPage extends BasePage {
     }
 
     private void releasePaper() {
-//        click(previewButton);
         click(saveButton);
         click(confirmButton);
 //        click(releaseButton);

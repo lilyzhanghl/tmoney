@@ -1,12 +1,15 @@
 package com.tengmoney.op.page;
 
-import commons.ReadProperties;
+import com.tengmoney.op.util.ReadYAML;
+import com.tengmoney.op.util.WechatLoginConfig;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.io.File;
 
 /**
  * tmoneyapi
@@ -17,19 +20,25 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  **/
 public class BasePage {
     private static WebDriver driver;
+    public static final String src = "src/test/resources/wechatlogin.yaml";
+    public static final WechatLoginConfig config = ReadYAML.getYamlConfig(src,WechatLoginConfig.class);
+
+
     public BasePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
-    public static WebDriver getDriver (){
-        if(driver==null){
-            System.setProperty("webdriver.chrome.driver", ReadProperties.getInstance().getConfig("chromedrvierpath"));
+
+    public static WebDriver getDriver() {
+        if (driver == null) {
+            System.setProperty("webdriver.chrome.driver",config.chromedrvierPath);
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.setPageLoadStrategy(PageLoadStrategy.NONE);
             driver = new ChromeDriver(chromeOptions);
         }
         return driver;
     }
+
     public static void waitForLoad(WebDriver driver, final By locator, int timeOut) {
         WebDriverWait wait = new WebDriverWait(driver, timeOut);// timeOut为等待时间，单位秒
         wait.until(new ExpectedCondition<Boolean>() {
@@ -39,6 +48,7 @@ public class BasePage {
             }
         });
     }
+
     public static void waitForLoad(final WebElement element) {
         WebDriverWait wait = new WebDriverWait(driver, 30);// timeOut为等待时间，单位秒
         wait.until(new ExpectedCondition<Boolean>() {
@@ -48,11 +58,13 @@ public class BasePage {
             }
         });
     }
-    public void click(WebElement element){
+
+    public void click(WebElement element) {
         waitForLoad(element);
         moveTo(element);
         element.click();
     }
+
     public void moveTo(WebElement element) {
         if (hasElement(element)) {
             String js = "arguments[0].scrollIntoView(true);";
@@ -61,12 +73,15 @@ public class BasePage {
             throw new NoSuchElementException("找不到该元素");
         }
     }
-    public void hideElement(WebElement element){
+
+    public void hideElement(WebElement element) {
         String js = "arguments[0].style.display=\"none\";";
         ((JavascriptExecutor) driver).executeScript(js, element);
     }
+
     public Boolean hasElement(WebElement element) {
         try {
+            waitForLoad(element);
             if (element.isDisplayed()) {
                 return true;
             } else {
@@ -78,11 +93,13 @@ public class BasePage {
             return false;
         }
     }
-    public void sendKeys(WebElement element,String str){
+
+    public void sendKeys(WebElement element, String str) {
         waitForLoad(element);
         moveTo(element);
         element.sendKeys(str);
     }
+
     public Boolean isDisplayed(By by) {
         try {
             driver.findElement(by).isDisplayed();

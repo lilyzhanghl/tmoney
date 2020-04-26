@@ -1,7 +1,6 @@
 package com.tengmoney.client.paper.api;
 
 import com.tengmoney.client.product.Product;
-import commons.ExeConfig;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
@@ -12,7 +11,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 
-public class Paper {
+public class Paper {/*
     public String host= ExeConfig.getInstance().getHost();
     public String selProdListAPI=ExeConfig.getInstance().getSelProdListAPI();
     public String updateProdListAPI=ExeConfig.getInstance().getUpdateProdListAPI();
@@ -54,5 +53,5 @@ public class Paper {
                 .then().log().all()
                 .body("ret", equalTo(0))
                 .extract().response();
-    }
+    }*/
 }
