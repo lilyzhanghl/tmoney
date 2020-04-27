@@ -10,11 +10,6 @@ import java.util.HashMap;
  * @Verion: 1.0
  */
 public class WechatLoginConfig {
-    public String userId;
-    public String corpId;
-    public String chromedrvierPath;
-    public String newsURL;
     public HashMap<String,Object> host;
     public HashMap<String,Object> auth;
-    public HashMap<String,Object> homepage;
 }

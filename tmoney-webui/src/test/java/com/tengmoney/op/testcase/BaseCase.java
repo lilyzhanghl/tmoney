@@ -5,10 +5,8 @@ import com.tengmoney.op.page.HomePage;
 import com.tengmoney.op.util.Data4TestConfig;
 import com.tengmoney.op.util.ReadYAML;
 import com.tengmoney.op.util.WechatLoginConfig;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import io.qameta.allure.Description;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import java.net.MalformedURLException;
 /**
@@ -25,18 +23,15 @@ public class BaseCase {
 
     public static HomePage page ;
     @BeforeAll
-    public static void loginWithCookie() throws MalformedURLException {
+    public static void loginWithCookie() throws MalformedURLException, InterruptedException {
         page= new HomePage(driver);
-        try {
             page.loginWithCookie(userId,corpId);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     @Test
+    @Description("验证登录op是否成功")
     public void testLogin() throws InterruptedException {
-        Assertions.assertTrue(page.isLoginSuccess(),"登录失败");
+        Assertions.assertTrue(page.isLoginSuccess());
     }
 
 //    @AfterAll

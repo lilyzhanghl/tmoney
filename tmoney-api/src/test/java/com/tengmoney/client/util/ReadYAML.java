@@ -18,10 +18,10 @@ public class ReadYAML<T> {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         mapper.findAndRegisterModules();
         try {
-           T t =mapper.readValue(
-                            new File(filePath),
-                            clazz);
-           return t;
+            T t =mapper.readValue(
+                    new File(filePath),
+                    clazz);
+            return t;
         } catch (IOException e) {
             e.printStackTrace();
         }

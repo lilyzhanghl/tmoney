@@ -10,8 +10,7 @@ import java.util.HashMap;
  * @Verion: 1.0
  */
 public class ApiConfig {
-    public String userId;
-    public String corpId;
+
     public HashMap<String,Object> paper;
     public HashMap<String,Object> banner;
 

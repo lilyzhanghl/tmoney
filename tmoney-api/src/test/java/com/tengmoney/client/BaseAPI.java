@@ -17,10 +17,10 @@ import static io.restassured.RestAssured.given;
 public class BaseAPI {
     public static final String src = "src/test/resources/wechatlogin.yaml";
     public static final String apisrc = "src/test/resources/apilist.yaml";
-    public static final WechatLoginConfig config = ReadYAML.getYamlConfig(src, WechatLoginConfig.class);
-    public static final ApiConfig apiconfig = ReadYAML.getYamlConfig(apisrc, ApiConfig.class);
     public static final String hostEnv = "test";
 
+    public static final WechatLoginConfig config = ReadYAML.getYamlConfig(src, WechatLoginConfig.class);
+    public static final ApiConfig apiconfig = ReadYAML.getYamlConfig(apisrc, ApiConfig.class);
     public static Response loginWithCookie(String userId, String corpId) {
         String url = ((String) config.host.get(hostEnv))
                 + ((String) config.auth.get("minipro"))
