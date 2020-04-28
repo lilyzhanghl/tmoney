@@ -12,13 +12,15 @@ import java.util.List;
  * @Verion: 1.0
  */
 public class PageObjectMethod {
-    public List<HashMap<String, String>> getSteps() {
-        return steps;
+
+
+    public List<HashMap<String,String>> step = new ArrayList<>();
+
+    public List<HashMap<String, String>> getStep() {
+        return step;
     }
 
-    public void setSteps(List<HashMap<String, String>> steps) {
-        this.steps = steps;
+    public void setStep(List<HashMap<String, String>> step) {
+        this.step = step;
     }
-
-    public List<HashMap<String,String>> steps = new ArrayList<>();
 }

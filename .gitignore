@@ -1,3 +1,4 @@
 /.idea/
 /tmoney-api/target/
 /tmoney-webui/target/
+/tmoney-api/tmoney-api.iml

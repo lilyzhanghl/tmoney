@@ -1,9 +1,6 @@
 package com.tengmoney.op.practise;
 
-import com.tengmoney.op.page.MorPaperPage;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 /**
  * @ClassName: HomePage2
@@ -15,7 +12,7 @@ import org.openqa.selenium.support.FindBy;
 public class HomePage2{
 
     public HomePage2 loginWithCookie(String userId, String corpId) throws InterruptedException {
-        PageObjectModel.parseSteps("loginWithCookie","src/test/resources/applictaion-test.yaml");
+        PageObjectModel.parseSteps("loginWithCookie","src/test/resources/application-test.yaml");
         return this;
     }
     @Test

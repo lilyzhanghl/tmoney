@@ -12,13 +12,13 @@ import java.util.List;
  * @Verion: 1.0
  */
 public class PageObjectAssert {
-    public List<HashMap<String,String>> asserts = new ArrayList<>();
+    public List<HashMap<String,String>> result = new ArrayList<>();
 
-    public List<HashMap<String, String>> getAsserts() {
-        return asserts;
+    public List<HashMap<String, String>> getResult() {
+        return result;
     }
 
-    public void setAsserts(List<HashMap<String, String>> asserts) {
-        this.asserts = asserts;
+    public void setResult(List<HashMap<String, String>> result) {
+        this.result = result;
     }
 }
