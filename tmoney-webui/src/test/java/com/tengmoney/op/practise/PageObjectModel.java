@@ -72,6 +72,7 @@ public class PageObjectModel {
         wait.until(new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver d) {
                 boolean loadcomplete = d.findElement(locator).isDisplayed();
+                log.info("元素查找结果为："+loadcomplete);
                 return loadcomplete;
             }
         });
@@ -157,7 +158,7 @@ public class PageObjectModel {
             String linkText = step.get("linkText");
             String aid = step.get("aid");
             String send = step.get("send");
-
+            log.info("aid is "+aid);
             if (url != null) {
                 log.info("访问链接："+url);
                 driver.get(url);
@@ -175,9 +176,10 @@ public class PageObjectModel {
             } else if (linkText != null) {
                 log.info("按照linktext搜索元素，linktext="+linkText);
                 element = findElement(driver,By.linkText(linkText));
-            } else if (aid != null) {
+            }
+            if (aid != null) {
                 if (aid.equals("click")) {
-                    log.info("点击元素");
+                    log.info("点击元素:"+element.getText());
                     click(driver,element);
                 } else if (aid.equals("hide")) {
                     log.info("隐藏元素");

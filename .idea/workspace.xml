@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cdb277d2-c367-4181-a843-bb20bd3ef44e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/bin/allure" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/bin/allure.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/config/allure-cucumber.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/config/allure-junit.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/config/allure.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/allure-commandline-2.4.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/allure-generator-2.4.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/allure-plugin-api-2.4.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/allure1-model-1.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/allure2-model-api-1.0-BETA4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/allure2-model-jackson-1.0-BETA4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/allure2-model-pojo-1.0-BETA4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/commons-codec-1.9.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/commons-io-2.5.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/commons-logging-1.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/config/jetty-logging.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/config/log4j.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/flexmark-0.27.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/flexmark-util-0.27.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/freemarker-2.3.23.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/httpclient-4.5.3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/httpcore-4.4.6.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/jackson-annotations-2.9.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/jackson-core-2.9.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/jackson-databind-2.9.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/jackson-dataformat-xml-2.9.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/jackson-dataformat-yaml-2.9.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/jackson-module-jaxb-annotations-2.9.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/javax.servlet-api-3.1.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/jaxb-api-2.3.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/jaxb-utils-1.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/jcommander-1.72.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/jetty-http-9.4.7.v20170914.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/jetty-io-9.4.7.v20170914.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/jetty-server-9.4.7.v20170914.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/jetty-util-9.4.7.v20170914.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/log4j-1.2.17.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/properties-2.0.RC5.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/slf4j-api-1.7.25.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/slf4j-log4j12-1.7.25.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/snakeyaml-1.18.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/stax2-api-3.1.4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/tika-core-1.16.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/lib/woodstox-core-5.0.3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/plugins/README.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/plugins/behaviors-plugin/allure-plugin.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/plugins/behaviors-plugin/plugin.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/plugins/behaviors-plugin/static/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/plugins/custom-logo-plugin/allure-plugin.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/plugins/custom-logo-plugin/static/custom-logo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/plugins/custom-logo-plugin/static/styles.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/plugins/junit-xml-plugin/allure-plugin.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/plugins/junit-xml-plugin/junit-xml-plugin-2.4.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/plugins/packages-plugin/allure-plugin.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/plugins/packages-plugin/plugin.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/plugins/packages-plugin/static/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/plugins/screen-diff-plugin/allure-plugin.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/plugins/screen-diff-plugin/static/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/plugins/screen-diff-plugin/static/styles.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/plugins/trx-plugin/allure-plugin.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/plugins/trx-plugin/trx-plugin-2.4.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/plugins/xctest-plugin/allure-plugin.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/plugins/xctest-plugin/lib/xmlwise-1.2.11.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/plugins/xctest-plugin/xctest-plugin-2.4.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/plugins/xunit-xml-plugin/allure-plugin.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/.allure/allure-2.4.1/plugins/xunit-xml-plugin/xunit-xml-plugin-2.4.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/target/test-classes/com/tengmoney/op/page/AddMorPaperPage$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/target/test-classes/com/tengmoney/op/page/AddMorPaperPage.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/target/test-classes/com/tengmoney/op/page/BasePage$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/target/test-classes/com/tengmoney/op/page/BasePage$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/target/test-classes/com/tengmoney/op/page/BasePage.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/target/test-classes/com/tengmoney/op/page/CreateNewsPage.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/target/test-classes/com/tengmoney/op/page/HomePage.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/target/test-classes/com/tengmoney/op/page/MorPaperPage.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/target/test-classes/com/tengmoney/op/page/NewsListPage.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/target/test-classes/com/tengmoney/op/page/NoonPaperPage.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/target/test-classes/com/tengmoney/op/testcase/BaseCase.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/target/test-classes/com/tengmoney/op/testcase/TestAddMorPaperPage.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/target/test-classes/com/tengmoney/op/testcase/TestMorPaperPage.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/target/test-classes/com/tengmoney/op/testcase/TestNewsListPage.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/target/test-classes/staffinfo.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/target/test-classes/wechatlogin.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney-webui/tmoney-webui.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmoney.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmoney-webui/src/test/java/com/tengmoney/op/practise/HomePage2.java" beforeDir="false" afterPath="$PROJECT_DIR$/tmoney-webui/src/test/java/com/tengmoney/op/practise/HomePage2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmoney-webui/src/test/java/com/tengmoney/op/practise/PageObjectModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/tmoney-webui/src/test/java/com/tengmoney/op/practise/PageObjectModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmoney-webui/src/test/resources/application-test.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/tmoney-webui/src/test/resources/application-test.yaml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="C:\Users\yzz\IdeaProjects\tmoney\.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1ayYrvux5worjUjMv8D0SYZ7VDk" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="MyBatisLogPluginparameters" value="Parameters:" />
+    <property name="MyBatisLogPluginpreparing" value="Preparing:" />
+    <property name="MyBatisLogPluginrunning" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/tmoney-webui/src/main/resources" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\yzz\IdeaProjects\tmoney\tmoney-webui\src\test\resources" />
+      <recent name="C:\Users\yzz\IdeaProjects\tmoney\tmoney-webui\src\test\resources\chromedriver" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\yzz\IdeaProjects\tmoney\tmoney-webui\src\main\resources" />
+      <recent name="C:\Users\yzz\IdeaProjects\tmoney\tmoney-api\src\test\java\com\tengmoney\client\util" />
+      <recent name="C:\Users\yzz\IdeaProjects\tmoney\tmoney-webui\src\test\java\com\tengmoney\op" />
+      <recent name="C:\Users\yzz\IdeaProjects\tmoney\tmoney-api\src\test\resources" />
+      <recent name="C:\Users\yzz\IdeaProjects\tmoney\tmoney-api\src\test\java" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="commons" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.tengmoney.client.util" />
+    </key>
+  </component>
+  <component name="RestServicesNavigator">
+    <treeState>
+      <expand />
+      <select />
+    </treeState>
+  </component>
+  <component name="RunManager" selected="JUnit.HomePage2.test">
+    <configuration name="BaseCase (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tmoney-api" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tengmoney.client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.tengmoney.client" />
+      <option name="MAIN_CLASS_NAME" value="com.tengmoney.client.BaseCase" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BaseCase.testLogin" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tmoney-webui" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tengmoney.op.practise.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.tengmoney.op.testcase" />
+      <option name="MAIN_CLASS_NAME" value="com.tengmoney.op.testcase.BaseCase" />
+      <option name="METHOD_NAME" value="testLogin" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HomePage2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tmoney-webui" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tengmoney.op.practise.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.tengmoney.op.practise" />
+      <option name="MAIN_CLASS_NAME" value="com.tengmoney.op.practise.HomePage2" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HomePage2.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tmoney-webui" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tengmoney.op.practise.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.tengmoney.op.practise" />
+      <option name="MAIN_CLASS_NAME" value="com.tengmoney.op.practise.HomePage2" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestAddMorPaperPage.testAddMorPaper" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tmoney-webui" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tengmoney.op.practise.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.tengmoney.op.testcase" />
+      <option name="MAIN_CLASS_NAME" value="com.tengmoney.op.testcase.TestAddMorPaperPage" />
+      <option name="METHOD_NAME" value="testAddMorPaper" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.HomePage2.test" />
+        <item itemvalue="JUnit.HomePage2" />
+        <item itemvalue="JUnit.BaseCase (1)" />
+        <item itemvalue="JUnit.TestAddMorPaperPage.testAddMorPaper" />
+        <item itemvalue="JUnit.BaseCase.testLogin" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cdb277d2-c367-4181-a843-bb20bd3ef44e" name="Default Changelist" comment="" />
+      <created>1587709502490</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1587709502490</updated>
+      <workItem from="1587709506306" duration="10056000" />
+      <workItem from="1587719598408" duration="8354000" />
+      <workItem from="1587896321142" duration="11043000" />
+      <workItem from="1587956991099" duration="19409000" />
+      <workItem from="1588050240268" duration="651000" />
+      <workItem from="1588050914242" duration="477000" />
+      <workItem from="1588051417840" duration="233000" />
+      <workItem from="1588051677609" duration="266000" />
+      <workItem from="1588052499681" duration="277000" />
+      <workItem from="1588052815882" duration="300000" />
+      <workItem from="1588053238183" duration="41000" />
+      <workItem from="1588053310015" duration="304000" />
+      <workItem from="1588053645270" duration="5000" />
+      <workItem from="1588054545189" duration="15502000" />
+    </task>
+    <task id="LOCAL-00001" summary="重构">
+      <created>1587727576025</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1587727576025</updated>
+    </task>
+    <task id="LOCAL-00002" summary="重构">
+      <created>1587907271904</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1587907271905</updated>
+    </task>
+    <task id="LOCAL-00003" summary="重构">
+      <created>1587992511304</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1587992511304</updated>
+    </task>
+    <task id="LOCAL-00004" summary="优化：yaml配置用例">
+      <created>1588071769826</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1588071769826</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="重构" />
+    <MESSAGE value="优化：yaml配置用例" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化：yaml配置用例" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="239" y="227" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588053104580">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="239" y="227" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588053104580" />
+    <state x="680" y="352" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1587902909375">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="680" y="352" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1587902909375" />
+    <state x="1010" y="126" key="#com.intellij.ide.util.MemberChooser" timestamp="1588056978811">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1010" y="126" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588056978811" />
+    <state x="191" y="497" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1587727436482">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="191" y="497" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1587727436482" />
+    <state x="1044" y="522" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1587719469886" />
+    <state x="1077" y="395" width="431" height="272" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1587896989857">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1077" y="395" width="431" height="272" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1587896989857" />
+    <state x="1237" y="482" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1587719471923">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1237" y="482" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1920.1040@0.0.1920.1040" timestamp="1587719471923" />
+    <state x="676" y="195" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1587904439530">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="676" y="195" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1587710141830" />
+    <state x="676" y="195" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1587904439530" />
+    <state x="427" y="123" key="CommitChangelistDialog2" timestamp="1588071768699">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="427" y="123" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588071768699" />
+    <state x="427" y="123" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1587907268562" />
+    <state x="436" y="205" width="440" height="489" key="FileChooserDialogImpl" timestamp="1588051376516">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="436" y="205" width="440" height="489" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588051376516" />
+    <state width="1749" height="369" key="GridCell.Tab.0.bottom" timestamp="1588072371619">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1749" height="369" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588072371619" />
+    <state width="1586" height="348" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587907380733" />
+    <state width="1749" height="369" key="GridCell.Tab.0.center" timestamp="1588072371619">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1749" height="369" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588072371619" />
+    <state width="1586" height="348" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587907380733" />
+    <state width="1749" height="369" key="GridCell.Tab.0.left" timestamp="1588072371619">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1749" height="369" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588072371619" />
+    <state width="1586" height="348" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587907380733" />
+    <state width="1749" height="369" key="GridCell.Tab.0.right" timestamp="1588072371619">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1749" height="369" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588072371619" />
+    <state width="1586" height="348" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587907380733" />
+    <state width="1749" height="298" key="GridCell.Tab.1.bottom" timestamp="1588069494496">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1749" height="298" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588069494496" />
+    <state width="1749" height="298" key="GridCell.Tab.1.center" timestamp="1588069494495">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1749" height="298" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588069494495" />
+    <state width="1749" height="298" key="GridCell.Tab.1.left" timestamp="1588069494495">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1749" height="298" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588069494495" />
+    <state width="1749" height="298" key="GridCell.Tab.1.right" timestamp="1588069494495">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1749" height="298" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588069494495" />
+    <state x="818" y="201" key="RollbackChangesDialog" timestamp="1588050987658">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="818" y="201" key="RollbackChangesDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588050987658" />
+    <state x="754" y="154" key="SettingsEditor" timestamp="1588053616068">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="754" y="154" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588053616068" />
+    <state x="449" y="262" key="Vcs.Push.Dialog.v2" timestamp="1588071779556">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="449" y="262" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588071779556" />
+    <state x="449" y="262" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1587907276229" />
+    <state x="324" y="92" key="com.intellij.ide.util.TipDialog" timestamp="1588053310029">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="324" y="92" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588053310029" />
+    <state x="295" y="0" width="1208" height="864" key="dock-window-1" timestamp="1588066456575">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="295" y="0" width="1208" height="864" key="dock-window-1/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588066456575" />
+    <state x="812" y="225" width="1015" height="610" key="dock-window-1/0.0.1920.1040@0.0.1920.1040" timestamp="1587902314529" />
+    <state x="250" y="141" width="1208" height="491" key="dock-window-2" timestamp="1588057288390">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="250" y="141" width="1208" height="491" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588057288390" />
+    <state x="0" y="0" width="1602" height="903" key="dock-window-2/0.0.1920.1040@0.0.1920.1040" timestamp="1587903758982" />
+    <state x="0" y="102" width="1027" height="568" key="dock-window-3" timestamp="1588072479789">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="0" y="102" width="1027" height="568" key="dock-window-3/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588072479789" />
+    <state x="0" y="0" width="1264" height="634" key="dock-window-3/0.0.1920.1040@0.0.1920.1040" timestamp="1587906191758" />
+    <state x="0" y="0" width="1027" height="901" key="dock-window-4" timestamp="1588072730775">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="0" y="0" width="1027" height="901" key="dock-window-4/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588072730775" />
+    <state x="0" y="0" width="1264" height="527" key="dock-window-4/0.0.1920.1040@0.0.1920.1040" timestamp="1587907135679" />
+    <state x="700" y="307" key="git4idea.merge.GitPullDialog" timestamp="1588051036622">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="700" y="307" key="git4idea.merge.GitPullDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588051036622" />
+    <state x="446" y="200" key="new project wizard" timestamp="1587709541112">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="446" y="200" key="new project wizard/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1587709541112" />
+    <state x="875" y="257" width="711" height="626" key="org.intellij.images.editor.actions.BackgroundImageDialog" timestamp="1588050819457">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="875" y="257" width="711" height="626" key="org.intellij.images.editor.actions.BackgroundImageDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588050819457" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1587715754636">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1587715754636" />
+    <state x="956" y="266" width="672" height="678" key="search.everywhere.popup" timestamp="1588071881994">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="956" y="266" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588071881994" />
+    <state x="956" y="266" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1587903773946" />
+  </component>
+</project>

@@ -1,0 +1,12 @@
+chromedrvierPath: "src/test/resources/chromedriver/chromedriver81.exe"
+newsURL: "https://mp.weixin.qq.com/s/a8LEK2r1EwJBWOriIVLpNQ"
+host:
+  dev: ""
+  test: "https://test.tengmoney.com"
+  prod: ""
+auth:
+  manage: "/caizhi_manage/index/auth.do"
+  op: "/caizhi_mkto/index/auth.do"
+  minipro: "/caizhi_miniapi/index/auth.do"
+homepage:
+  op: "/caizhi_op/#/login"

@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
  * @Verion: 1.0
  */
 public class HomePage2{
-
     public HomePage2 loginWithCookie(String userId, String corpId) throws InterruptedException {
         PageObjectModel.parseSteps("loginWithCookie","src/test/resources/application-test.yaml");
         return this;
@@ -18,6 +17,7 @@ public class HomePage2{
     @Test
     public void test() throws InterruptedException {
         loginWithCookie("","");
+
     }
 
 //    public MorPaperPage toMorPaper() {
