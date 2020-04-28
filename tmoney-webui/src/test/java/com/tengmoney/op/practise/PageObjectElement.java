@@ -12,13 +12,14 @@ import java.util.List;
  * @Verion: 1.0
  */
 public class PageObjectElement {
-    public HashMap<String,String> elements = new HashMap<>();
-
-    public HashMap<String, String> getElements() {
+    public List<HashMap<String, String>> getElements() {
         return elements;
     }
 
-    public void setElements(HashMap<String, String> elements) {
+    public void setElements(List<HashMap<String, String>> elements) {
         this.elements = elements;
     }
+
+    public List<HashMap<String,String>> elements = new ArrayList<>();
+
 }

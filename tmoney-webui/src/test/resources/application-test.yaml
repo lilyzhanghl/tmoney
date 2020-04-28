@@ -1,0 +1,35 @@
+#方法
+methods:
+  loginWithCookie:
+    steps:
+      - url: authurl
+      - url: loginurl
+      - css: login
+        aid: click
+      - css: titleBanner
+        aid: hide
+      - linkText: morPaperButton
+        aid: click
+    # - xxx : xxx
+    #   aid : sendkeys
+    #   send : yyy
+  toMorPaper:
+    steps:
+      - xpath: newsManagerButton
+#定位符
+elements:
+  homepage:
+    element:
+      -authurl: https://test.tengmoney.com/caizhi_mkto/index/auth.do?userId=mr.joker&corpId=ww8c83d949a80b562d
+      -loginurl: https://test.tengmoney.com/caizhi_op/#/login
+      -newsManagerButton: //span[.='文章管理']
+      -login: button.authBtn
+      -titleBanner: .show-menu-hearder.ant-layout-header
+      -morPaperButton: 每日早报
+
+#断言
+asserts:
+  loginWithCookie:
+    assert:
+      - xpath: newsManagerButton
+        aid: isDisplayed
