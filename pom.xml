@@ -11,6 +11,7 @@
     <modules>
         <module>tmoney-api</module>
         <module>tmoney-webui</module>
+        <module>tmoney-webui-new</module>
     </modules>
 
 
