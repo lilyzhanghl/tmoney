@@ -28,7 +28,7 @@ public class PageObjectModel {
     public HashMap<String, PageObjectElement> elements = new HashMap<String,PageObjectElement>();
     public HashMap<String, PageObjectAssert> asserts = new HashMap<String,PageObjectAssert>();
 
-    private static WebDriver driver;
+
 
     /**
      *
@@ -51,104 +51,56 @@ public class PageObjectModel {
         }
         return null;
     }
-    private static final WebDriver setDriver(PageObjectModel model) {
-        if (driver == null) {
-            log.info("初始化webDriver");
-            System.setProperty("webdriver.chrome.driver",model.basis.get("chromeDriverPath"));
-            ChromeOptions chromeOptions = new ChromeOptions();
-            chromeOptions.setPageLoadStrategy(PageLoadStrategy.NONE);
-            driver = new ChromeDriver(chromeOptions);
-        }
-        return driver;
+
+    /**
+     * 加工普通测试类的yaml地址，默认该yaml地址和测试类同一个路径
+     * 且yaml文件名称为该测试类的小写
+     * @return
+     */
+    private static String transClasspathToYamlpath(Class clazz){
+        return "src/test/java/"+clazz.getCanonicalName()
+                .replace(".","/")
+                .toLowerCase()
+                +".yaml";
     }
-    public static void parseSteps(String method, String path) {
+    private String handleMethod(Class clazz){
+        return "";
+    }
+
+    /**
+     * 设置解析普通的yaml文件的step的名称
+     * @param method
+     */
+    public static void parseStepsUseHandledPath(String method,Class frontTestClazz) {
+        String path = transClasspathToYamlpath(frontTestClazz);
+        PageObjectModel model = getYamlConfig(transClasspathToYamlpath(frontTestClazz),PageObjectModel.class);
+        log.info("载入yaml中写的执行步骤");
+        parseStepsFromYaml(path,model.methods.get(method));
+    }
+
+    /**
+     * 设置解析的step的名称
+     * @param method
+     */
+    public static void parseSteps(String method,String path) {
         PageObjectModel model = getYamlConfig(path,PageObjectModel.class);
         log.info("载入yaml中写的执行步骤");
-        parseStepsFromYaml(model,model.methods.get(method));
+        parseStepsFromYaml(path,model.methods.get(method));
     }
-    public static void waitForLoad(WebDriver driver, final By locator, int timeOut) {
-        log.info("等待By操作搜索element，最长等待（秒）："+timeOut);
-        WebDriverWait wait = new WebDriverWait(driver, timeOut);// timeOut为等待时间，单位秒
-        wait.until(new ExpectedCondition<Boolean>() {
-            public Boolean apply(WebDriver d) {
-                boolean loadcomplete = d.findElement(locator).isDisplayed();
-                log.info("元素查找结果为："+loadcomplete);
-                return loadcomplete;
-            }
-        });
+    public static String parseBasis(String key,String path){
+        PageObjectModel model = getYamlConfig(path,PageObjectModel.class);
+        log.info("读取basis");
+        return model.basis.get(key);
     }
-
-    public static void waitForLoad(WebDriver driver,final WebElement element) {
-        WebDriverWait wait = new WebDriverWait(driver, 5);// timeOut为等待时间，单位秒
-        wait.until(new ExpectedCondition<Boolean>() {
-            public Boolean apply(WebDriver d) {
-                boolean loadcomplete = element.isDisplayed();
-                return loadcomplete;
-            }
-        });
+    public static WebDriver initDriver(String path){
+        return InitializeDriver.getDriver(parseBasis("chromeDriverPath",path));
     }
-
-    public static void click(WebDriver driver, WebElement element) {
-        log.info("即将点击元素，执行顺序：等待-移动-点击");
-        waitForLoad(driver,element);
-        moveTo(driver,element);
-        element.click();
-    }
-
-    public static void moveTo(WebDriver driver, WebElement element) {
-        log.info("等待元素加载---");
-        if (hasElement(driver,element)) {
-            String js = "arguments[0].scrollIntoView(true);";
-            ((JavascriptExecutor) driver).executeScript(js, element);
-        } else {
-            throw new NoSuchElementException("找不到该元素");
-        }
-    }
-
-    public static void hideElement(WebDriver driver, WebElement element) {
-        log.info("隐藏元素");
-        String js = "arguments[0].style.display=\"none\";";
-        ((JavascriptExecutor) driver).executeScript(js, element);
-    }
-
-    public static Boolean hasElement(WebDriver driver, WebElement element) {
-        log.info("查看是否有该元素");
-        try {
-            waitForLoad(driver,element);
-            if (element.isDisplayed()) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (NoSuchElementException e) {
-            log.warn("找不到目标元素");
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    public static void sendKeys(WebDriver driver, WebElement element, String str) {
-        log.info("在输入框中键入值："+str);
-        waitForLoad(driver,element);
-        moveTo(driver,element);
-        element.sendKeys(str);
-    }
-    public static WebElement findElement(WebDriver driver,By by){
-        log.info("开始查找元素---");
-        waitForLoad(driver,by,5);
-        return driver.findElement(by);
-    }
-    public Boolean isDisplayed(WebDriver driver,By by) {
-        try {
-            log.info("查看元素是否展示");
-            findElement(driver,by).isDisplayed();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-    private static void parseStepsFromYaml(PageObjectModel model ,PageObjectMethod steps) {
-        WebDriver driver = setDriver(model);
+    /**
+     * 解析step，将yaml中的配置转化为操作
+     * @param steps
+     */
+    private static void parseStepsFromYaml(String path ,PageObjectMethod steps) {
+        WebDriver driver = initDriver(path);
         steps.getStep().forEach(step -> {
             WebElement element = null;
             String url = step.get("url");
@@ -166,27 +118,27 @@ public class PageObjectModel {
                 driver.manage().window().maximize();
             } else if (id != null) {
                 log.info("按照id搜索元素，id="+id);
-                element = findElement(driver,By.id(id));
+                element = InitializeDriver.findElement(driver,By.id(id));
             } else if (xpath != null) {
                 log.info("按照xpath搜索元素，xpath="+xpath);
-                element = findElement(driver,By.xpath(xpath));
+                element = InitializeDriver.findElement(driver,By.xpath(xpath));
             } else if (css != null) {
                 log.info("按照css搜索元素，css="+css);
-                element = findElement(driver,By.cssSelector(css));
+                element = InitializeDriver.findElement(driver,By.cssSelector(css));
             } else if (linkText != null) {
                 log.info("按照linktext搜索元素，linktext="+linkText);
-                element = findElement(driver,By.linkText(linkText));
+                element = InitializeDriver.findElement(driver,By.linkText(linkText));
             }
             if (aid != null) {
                 if (aid.equals("click")) {
                     log.info("点击元素:"+element.getText());
-                    click(driver,element);
+                    InitializeDriver.click(driver,element);
                 } else if (aid.equals("hide")) {
                     log.info("隐藏元素");
-                    hideElement(driver,element);
+                    InitializeDriver.hideElement(driver,element);
                 } else if (aid.equals("sendkeys")) {
                     log.info("键入输入值");
-                    sendKeys(driver,element,send);
+                    InitializeDriver.sendKeys(driver,element,send);
                 }
             }
         });
