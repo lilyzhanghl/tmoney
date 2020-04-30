@@ -22,7 +22,7 @@ public class BaseCase {
     @BeforeAll
     public static void login() {
         log.info("before all :login");
-        login.loginWithCookie("", "");
+        login.loginWithCookie("mr.joker", "ww8c83d949a80b562d");
     }
 
     @Test

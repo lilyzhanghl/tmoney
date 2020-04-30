@@ -20,6 +20,8 @@ public class PageObjectModel {
     private static final Logger log = LoggerFactory.getLogger(PageObjectModel.class);
     private static WebDriver driver = InitializeDriver.getDriver();
     private static String host = LoadDefaultConfig.getHost();
+    private static HashMap<String, Object> params = new HashMap<>();
+
 
     public HashMap<String, String> basis = new HashMap<String, String>();
     public HashMap<String, PageObjectMethod> methods = new HashMap<String, PageObjectMethod>();
@@ -61,6 +63,40 @@ public class PageObjectModel {
         return model.basis.get(key);
     }
 
+    /**
+     * 判断yaml配置中是否有需要替换的参数，替换参数以$符号标记，该方法不够完善
+     *
+     * @param str
+     * @return
+     */
+    private static Boolean needTransParams(String str) {
+        return str.contains("$");
+    }
+
+    /**
+     * 对str做循环的判断，是否包含hashMap中的$key，如果包含，就将$key替换为value
+     *
+     * @param str
+     * @return
+     */
+    private static String transParams(String str) {
+        getParams().forEach(
+                (k, v) ->
+                {
+                    log.info("key :"+k+",value: "+v);
+                    switch (k) {
+                        case "userId":
+                            str.replace("$userId", v.toString());
+                        case "corpId":
+                            str.replace("$coprId", v.toString());
+                        case "sendText":
+                            str.replace("$sendText", v.toString());
+                    }
+                }
+        );
+        return str;
+    }
+    //todo 优化代码结构,对arraylist内部的HashMap做扫描和str替换
 
     /**
      * 解析step，将yaml中的配置转化为操作
@@ -69,6 +105,7 @@ public class PageObjectModel {
      */
     private static void parseStepsFromYaml(WebDriver driver, PageObjectMethod steps) {
         steps.getStep().forEach(step -> {
+//            step.forEach((k,v)->{});
             WebElement element = null;
             String url = step.get("url");
             String id = step.get("id");
@@ -79,8 +116,13 @@ public class PageObjectModel {
             String send = step.get("send");
             log.info("aid is " + aid);
             if (url != null) {
-                log.info("访问链接：" +host+ url);
-                driver.get(host+url);
+                log.info(needTransParams(url).toString());
+                if (needTransParams(url)) {
+
+                    url = transParams(url);
+                }
+                log.info("访问链接：" + host + url);
+                driver.get(host + url);
                 log.info("最大化窗口");
                 driver.manage().window().maximize();
             } else if (id != null) {
@@ -111,4 +153,11 @@ public class PageObjectModel {
         });
     }
 
+    public void setParams(HashMap<String, Object> params) {
+        this.params = params;
+    }
+
+    public static HashMap<String, Object> getParams() {
+        return params;
+    }
 }
