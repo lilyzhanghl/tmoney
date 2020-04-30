@@ -105,8 +105,23 @@ public class PageObjectModel {
      */
     private static void parseStepsFromYaml(WebDriver driver, PageObjectMethod steps) {
         steps.getStep().forEach(step -> {
-//            step.forEach((k,v)->{});
             WebElement element = null;
+            step.forEach((k,v)->{
+                 WebElement element1 = null;
+                switch(k){
+                    case "url":
+                        driver.get(v);
+                        driver.manage().window().maximize();
+                    case "id":
+                        element1 = InitializeDriver.findElement(driver, By.id(v));
+                    case "xpath":
+                        element1 = InitializeDriver.findElement(driver, By.xpath(v));
+                    case "css":
+                        element1 = InitializeDriver.findElement(driver, By.cssSelector(v));
+                    case "linkText":
+                        element1 = InitializeDriver.findElement(driver, By.linkText(v));
+                }
+            });
             String url = step.get("url");
             String id = step.get("id");
             String xpath = step.get("xpath");
