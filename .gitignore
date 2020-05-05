@@ -2,3 +2,5 @@
 /tmoney-api/target/
 /tmoney-webui/target/
 /tmoney-api/tmoney-api.iml
+/tmoney-webui/.allure/allure-2.4.1/
+/tmoney-webui/.allure/
