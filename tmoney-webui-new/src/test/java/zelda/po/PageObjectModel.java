@@ -8,6 +8,8 @@ import zelda.util.LoadDefaultConfig;
 import zelda.util.ReadYAML;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * @ClassName: PageObjectModel
@@ -106,73 +108,54 @@ public class PageObjectModel {
             throw new NullPointerException("step中没有执行步骤");
         steps.getStep().forEach(
                 step -> {
-
-                    step.forEach((k, v) -> {
-                        if (v.equals(null)) {
-                            throw new NullPointerException("step" + k.toString() + "没有对应操作");
+                    Iterator<Map.Entry<String, String>> map1it = step.entrySet().iterator();
+                    WebElement element = null;
+                    String sendText = "";
+                    while (map1it.hasNext()) {
+                        Map.Entry<String, String> entry = (Map.Entry<String, String>) map1it.next();
+                        if (entry.getValue().equals(null)) {
+                            throw new NullPointerException("step" + entry.getKey() + "没有对应操作");
                         }
-                        WebElement element=null;
-                        String sendText = "";
-                        log.info("k is " + k + ",v is" + v);
-                        if(k.equals("url")){
-                            String url = transParams(host + v);
-                            driver.get(url);
-                            driver.manage().window().maximize();
-                        }else if (k.equals("id")){
-                            element = InitializeDriver.findElement(driver, By.id(v));
-                        }else if (k.equals("xpath")){
-                            element = InitializeDriver.findElement(driver, By.xpath(v));
-                        }else if (k.equals("css")){
-                            element = InitializeDriver.findElement(driver, By.cssSelector(v));
-                            log.info("element is displayed:"+element.isDisplayed());
-                        }else if(k.equals("linkText")){
-                            element = InitializeDriver.findElement(driver, By.linkText(v));
-                        }else if(k.equals("send")){
-                            sendText = transParams(v);
-                        }else {
-                            log.info("当前定位符为:"+k+",该操作无对应内容");
-                        }
-                        //todo 使用switch后，在switch内部进行的对element对象的赋值，并没有保存到switch语句结束后
-                        /*switch (k) {
+                        log.info("k is " + entry.getKey() + ",v is" + entry.getValue());
+                        switch (entry.getKey()) {
                             case "url":
-                                String url = transParams(host + v);
+                                String url = transParams(host + entry.getValue());
                                 driver.get(url);
                                 driver.manage().window().maximize();
                                 break;
                             case "id":
-                                element = InitializeDriver.findElement(driver, By.id(v));
+                                element = InitializeDriver.findElement(driver, By.id(entry.getValue()));
                                 break;
                             case "xpath":
-                                element = InitializeDriver.findElement(driver, By.xpath(v));
+                                element = InitializeDriver.findElement(driver, By.xpath(entry.getValue()));
                                 break;
                             case "css":
-                                element = InitializeDriver.findElement(driver, By.cssSelector(v));
-                                log.info("element is displayed:"+element.isDisplayed());
+                                element = InitializeDriver.findElement(driver, By.cssSelector(entry.getValue()));
+                                log.info("element is displayed:" + element.isDisplayed());
                                 break;
                             case "linkText":
-                                element = InitializeDriver.findElement(driver, By.linkText(v));
+                                element = InitializeDriver.findElement(driver, By.linkText(entry.getValue()));
                                 break;
                             case "send":
-                                sendText = transParams(v);
+                                sendText = transParams(entry.getValue());
+                                break;
+                            case "aid":
+                                if (entry.getValue().equals("click")) {
+//                                System.out.println("element is displayed:"+element.isDisplayed());
+                                    InitializeDriver.click(driver, element);
+                                    log.info("点击元素:" + element.getText());
+                                } else if (entry.getValue().equals("hide")) {
+                                    InitializeDriver.hideElement(driver, element);
+                                    log.info("隐藏元素");
+                                } else if (entry.getValue().equals("sendkeys")) {
+                                    InitializeDriver.sendKeys(driver, element, sendText);
+                                    log.info("键入输入值");
+                                }
                                 break;
                             default:
-                                log.info("当前定位符为:"+k);
-                                break;
-                        }*/
-                        if (k.equals("aid")) {
-                            if (v.equals("click")) {
-//                                System.out.println("element is displayed:"+element.isDisplayed());
-                                InitializeDriver.click(driver, element);
-                                log.info("点击元素:" + element.getText());
-                            } else if (v.equals("hide")) {
-                                InitializeDriver.hideElement(driver, element);
-                                log.info("隐藏元素");
-                            } else if (v.equals("sendkeys")) {
-                                InitializeDriver.sendKeys(driver, element, sendText);
-                                log.info("键入输入值");
-                            }
+                                log.info("当前定位符为:" + entry.getKey() + ",该操作无对应内容");
                         }
-                    });
+                    }
                 });
     }
 

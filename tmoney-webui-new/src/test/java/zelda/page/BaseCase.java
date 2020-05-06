@@ -29,7 +29,7 @@ public class BaseCase {
     public void testLogin() throws InterruptedException {
     }
 
-//    @AfterAll
+    @AfterAll
     public static void shutdown() {
         login.getDriver().quit();
     }
