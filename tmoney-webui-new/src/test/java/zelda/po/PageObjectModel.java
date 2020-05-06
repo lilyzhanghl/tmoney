@@ -21,13 +21,10 @@ public class PageObjectModel {
     private static WebDriver driver = InitializeDriver.getDriver();
     private static String host = LoadDefaultConfig.getHost();
     private static HashMap<String, Object> params = new HashMap<>();
-
-
     public HashMap<String, String> basis = new HashMap<String, String>();
     public HashMap<String, PageObjectMethod> methods = new HashMap<String, PageObjectMethod>();
     public HashMap<String, PageObjectElement> elements = new HashMap<String, PageObjectElement>();
     public HashMap<String, PageObjectAssert> asserts = new HashMap<String, PageObjectAssert>();
-
 
     /**
      * 加工普通测试类的yaml地址，默认该yaml地址和测试类同一个路径
@@ -41,7 +38,6 @@ public class PageObjectModel {
                 .toLowerCase()
                 + ".yaml";
     }
-
 
     /**
      * 根据传入class，解析同名yaml配置
@@ -80,20 +76,22 @@ public class PageObjectModel {
      * @return
      */
     private static String transParams(String str) {
-        getParams().forEach(
-                (k, v) ->
-                {
-                    log.info("key :"+k+",value: "+v);
-                    switch (k) {
-                        case "userId":
-                            str.replace("$userId", v.toString());
-                        case "corpId":
-                            str.replace("$coprId", v.toString());
-                        case "sendText":
-                            str.replace("$sendText", v.toString());
-                    }
-                }
-        );
+        if (getParams().size() <= 0) {
+            log.info("没有需要进行字符串转换的参数");
+            return str;
+        }
+        log.info("before replace ,the str is :" + str);
+        for (String k : getParams().keySet()) {
+            if (k.equals("userId")) {
+                str = str.replace("$userId", getParams().get(k).toString());
+                log.info("");
+            } else if (k.equals("corpId")) {
+                str = str.replace("$corpId", getParams().get(k).toString());
+            } else if (k.equals("sendText")) {
+                str = str.replace("$sendText", getParams().get(k).toString());
+            }
+        }
+        log.info("after replace,the string is  :" + str);
         return str;
     }
     //todo 优化代码结构,对arraylist内部的HashMap做扫描和str替换
@@ -104,68 +102,78 @@ public class PageObjectModel {
      * @param steps
      */
     private static void parseStepsFromYaml(WebDriver driver, PageObjectMethod steps) {
-        steps.getStep().forEach(step -> {
-            WebElement element = null;
-            step.forEach((k,v)->{
-                 WebElement element1 = null;
-                switch(k){
-                    case "url":
-                        driver.get(v);
-                        driver.manage().window().maximize();
-                    case "id":
-                        element1 = InitializeDriver.findElement(driver, By.id(v));
-                    case "xpath":
-                        element1 = InitializeDriver.findElement(driver, By.xpath(v));
-                    case "css":
-                        element1 = InitializeDriver.findElement(driver, By.cssSelector(v));
-                    case "linkText":
-                        element1 = InitializeDriver.findElement(driver, By.linkText(v));
-                }
-            });
-            String url = step.get("url");
-            String id = step.get("id");
-            String xpath = step.get("xpath");
-            String css = step.get("css");
-            String linkText = step.get("linkText");
-            String aid = step.get("aid");
-            String send = step.get("send");
-            log.info("aid is " + aid);
-            if (url != null) {
-                log.info(needTransParams(url).toString());
-                if (needTransParams(url)) {
+        if (steps.getStep().size() <= 0)
+            throw new NullPointerException("step中没有执行步骤");
+        steps.getStep().forEach(
+                step -> {
 
-                    url = transParams(url);
-                }
-                log.info("访问链接：" + host + url);
-                driver.get(host + url);
-                log.info("最大化窗口");
-                driver.manage().window().maximize();
-            } else if (id != null) {
-                log.info("按照id搜索元素，id=" + id);
-                element = InitializeDriver.findElement(driver, By.id(id));
-            } else if (xpath != null) {
-                log.info("按照xpath搜索元素，xpath=" + xpath);
-                element = InitializeDriver.findElement(driver, By.xpath(xpath));
-            } else if (css != null) {
-                log.info("按照css搜索元素，css=" + css);
-                element = InitializeDriver.findElement(driver, By.cssSelector(css));
-            } else if (linkText != null) {
-                log.info("按照linktext搜索元素，linktext=" + linkText);
-                element = InitializeDriver.findElement(driver, By.linkText(linkText));
-            }
-            if (aid != null) {
-                if (aid.equals("click")) {
-                    log.info("点击元素:" + element.getText());
-                    InitializeDriver.click(driver, element);
-                } else if (aid.equals("hide")) {
-                    log.info("隐藏元素");
-                    InitializeDriver.hideElement(driver, element);
-                } else if (aid.equals("sendkeys")) {
-                    log.info("键入输入值");
-                    InitializeDriver.sendKeys(driver, element, send);
-                }
-            }
-        });
+                    step.forEach((k, v) -> {
+                        if (v.equals(null)) {
+                            throw new NullPointerException("step" + k.toString() + "没有对应操作");
+                        }
+                        WebElement element=null;
+                        String sendText = "";
+                        log.info("k is " + k + ",v is" + v);
+                        if(k.equals("url")){
+                            String url = transParams(host + v);
+                            driver.get(url);
+                            driver.manage().window().maximize();
+                        }else if (k.equals("id")){
+                            element = InitializeDriver.findElement(driver, By.id(v));
+                        }else if (k.equals("xpath")){
+                            element = InitializeDriver.findElement(driver, By.xpath(v));
+                        }else if (k.equals("css")){
+                            element = InitializeDriver.findElement(driver, By.cssSelector(v));
+                            log.info("element is displayed:"+element.isDisplayed());
+                        }else if(k.equals("linkText")){
+                            element = InitializeDriver.findElement(driver, By.linkText(v));
+                        }else if(k.equals("send")){
+                            sendText = transParams(v);
+                        }else {
+                            log.info("当前定位符为:"+k+",该操作无对应内容");
+                        }
+                        //todo 使用switch后，在switch内部进行的对element对象的赋值，并没有保存到switch语句结束后
+                        /*switch (k) {
+                            case "url":
+                                String url = transParams(host + v);
+                                driver.get(url);
+                                driver.manage().window().maximize();
+                                break;
+                            case "id":
+                                element = InitializeDriver.findElement(driver, By.id(v));
+                                break;
+                            case "xpath":
+                                element = InitializeDriver.findElement(driver, By.xpath(v));
+                                break;
+                            case "css":
+                                element = InitializeDriver.findElement(driver, By.cssSelector(v));
+                                log.info("element is displayed:"+element.isDisplayed());
+                                break;
+                            case "linkText":
+                                element = InitializeDriver.findElement(driver, By.linkText(v));
+                                break;
+                            case "send":
+                                sendText = transParams(v);
+                                break;
+                            default:
+                                log.info("当前定位符为:"+k);
+                                break;
+                        }*/
+                        if (k.equals("aid")) {
+                            if (v.equals("click")) {
+//                                System.out.println("element is displayed:"+element.isDisplayed());
+                                InitializeDriver.click(driver, element);
+                                log.info("点击元素:" + element.getText());
+                            } else if (v.equals("hide")) {
+                                InitializeDriver.hideElement(driver, element);
+                                log.info("隐藏元素");
+                            } else if (v.equals("sendkeys")) {
+                                InitializeDriver.sendKeys(driver, element, sendText);
+                                log.info("键入输入值");
+                            }
+                        }
+                    });
+                });
     }
 
     public void setParams(HashMap<String, Object> params) {

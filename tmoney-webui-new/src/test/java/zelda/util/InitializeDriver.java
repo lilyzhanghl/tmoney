@@ -52,7 +52,7 @@ public class InitializeDriver {
     }
 
     public static void waitForLoad(WebDriver driver,final WebElement element) {
-        WebDriverWait wait = new WebDriverWait(driver, 5);// timeOut为等待时间，单位秒
+        WebDriverWait wait = new WebDriverWait(driver, 500);// timeOut为等待时间
         wait.until(new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver d) {
                 boolean loadcomplete = element.isDisplayed();
