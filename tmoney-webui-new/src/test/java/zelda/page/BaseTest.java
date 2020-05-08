@@ -15,9 +15,9 @@ import org.slf4j.LoggerFactory;
  * @Date: 2020-04-29 15:47
  * @Verion: 1.0
  */
-public class BaseCase {
+public class BaseTest {
     private static AppLogin login = new AppLogin();
-    static final Logger log = LoggerFactory.getLogger(BaseCase.class);
+    static final Logger log = LoggerFactory.getLogger(BaseTest.class);
 
     @BeforeAll
     public static void login() {

@@ -1,0 +1,8 @@
+paper:
+  paperId: ""
+  paperDetailAPI: "/caizhi_miniapi/api/applet/staffCard/detail"
+  paperViewAPI: "/caizhi_miniapi/api/applet/morning/paper/view.do"
+  paperFilterListAPI: "/caizhi_miniapi/api/applet/banner/filter_list.do"
+  paperConfigAPI: "/caizhi_miniapi/api/applet/finance/config.do"
+  paperSaveAPI: "/caizhi_miniapi/api/applet/snapshot/save.do"
+  paperListAPI: "/caizhi_miniapi/relate/product/v2/list"

@@ -1,0 +1,5 @@
+host:
+  test : "https://test.tengmoney.com"
+  dev : ""
+current:
+  host : "test"

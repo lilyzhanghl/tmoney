@@ -1,0 +1,5 @@
+login:
+  api:
+params:
+  userId:
+  corpId:

@@ -32,6 +32,9 @@ public class InitializeDriver {
                     return driver;
                 case "firefox":
                     System.setProperty("webdriver.firefox.driver",browserVersion);
+                    return driver;
+                default:
+                    log.info("没有设置浏览器类型，默认使用无图像浏览器html什么的，懒得写了不搞了");
                     //....
             }
         }
