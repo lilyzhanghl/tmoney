@@ -1,8 +1,8 @@
 package horizon.page.base;
 
-import io.qameta.allure.Description;
-import org.junit.jupiter.api.BeforeAll;
+import po.APINotFoundException;
 import org.junit.jupiter.api.Test;
+
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
 
@@ -14,28 +14,17 @@ import static org.hamcrest.Matchers.not;
  * @Verion: 1.0
  */
 public class BaseTest {
-    /*public static  BaseAPI baseapi;
-    public static final String testsrc = "src/test/resources/apilist-yaml";
-    public static final Data4TestConfig testConfig = ReadYAML.getYamlConfig(testsrc, Data4TestConfig.class);
-
-    @BeforeAll
-    public static void setUp(){
-        baseapi.loginWithCookie(testConfig.userId,testConfig.corpId);
+    private BaseAPI api = new BaseAPI();
+    @Test
+    public void testLoginSuccess() throws APINotFoundException {
+        api.login("mr.joker","ww8c83d949a80b562d")
+        .then()
+        .body("ret",equalTo(0));
     }
     @Test
-    @Description("登录成功")
-    public void loginSuccess(){
-        baseapi.loginWithCookie(testConfig.userId,testConfig.corpId)
-                .then()
-                .body("ret",equalTo(0));
+    public void testLoginFailure() throws APINotFoundException {
+        api.login("zhangsan","ali")
+        .then()
+        .body("ret",not(0));
     }
-    @Test
-    @Description("登录失败")
-    public void loginFailure(){
-        baseapi.loginWithCookie(testConfig.userId,"")
-                .then()
-                .body("ret",not(0));
-    }
-
-     */
 }

@@ -1,4 +1,5 @@
-package horizon.util;
+package util;
+
 
 import java.util.HashMap;
 

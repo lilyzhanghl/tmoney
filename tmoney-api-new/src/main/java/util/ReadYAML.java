@@ -1,4 +1,4 @@
-package horizon.util;
+package util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -26,5 +26,11 @@ public class ReadYAML<T> {
             e.printStackTrace();
         }
         return null;
+    }
+    public static String transClasspathToYamlpath(Class clazz) {
+        return "src/test/java/" + clazz.getCanonicalName()
+                .replace(".", "/")
+                .toLowerCase()
+                + ".yaml";
     }
 }

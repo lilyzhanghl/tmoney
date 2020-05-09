@@ -96,7 +96,6 @@ public class PageObjectModel {
         log.info("after replace,the string is  :" + str);
         return str;
     }
-    //todo 优化代码结构,对arraylist内部的HashMap做扫描和str替换
 
     /**
      * 解析step，将yaml中的配置转化为操作
@@ -105,12 +104,15 @@ public class PageObjectModel {
      */
     private static void parseStepsFromYaml(WebDriver driver, PageObjectMethod steps) {
         if (steps.getStep().size() <= 0)
-            throw new NullPointerException("step中没有执行步骤");
+            throw new NullPointerException("step中没有执行方法");
         steps.getStep().forEach(
                 step -> {
                     Iterator<Map.Entry<String, String>> map1it = step.entrySet().iterator();
                     WebElement element = null;
                     String sendText = "";
+                    if(step.size()<=0){
+                        throw new NullPointerException("该方法没有执行步骤");
+                    }
                     while (map1it.hasNext()) {
                         Map.Entry<String, String> entry = (Map.Entry<String, String>) map1it.next();
                         if (entry.getValue().equals(null)) {

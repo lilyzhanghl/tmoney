@@ -1,0 +1,4 @@
+apilist:
+  login:
+    api:
+      get: /caizhi_miniapi/index/auth.do?userId=$userId&corpId=$corpId
