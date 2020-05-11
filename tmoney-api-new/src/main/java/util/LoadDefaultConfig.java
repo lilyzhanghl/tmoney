@@ -13,7 +13,7 @@ import java.util.HashMap;
 public class LoadDefaultConfig {
     public HashMap<String, String> host = new HashMap<>();
     public HashMap<String, String> current = new HashMap<String, String>();
-    static String srcPath = "src/test/resources/application.yaml";
+    static String srcPath = "src/main/resources/application.yaml";
     public static String getHost() {
         LoadDefaultConfig config = ReadYAML
                 .getYamlConfig(srcPath, LoadDefaultConfig.class);

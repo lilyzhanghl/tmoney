@@ -21,9 +21,9 @@ public class PageObjectModel {
     private static final Logger log = LoggerFactory.getLogger(PageObjectModel.class);
     public HashMap<String, PageObjectAPI> apilist;
     private static String host = LoadDefaultConfig.getHost();
-    private static HashMap<String, Object> params = new HashMap<>();
+    private static HashMap<String, String> params = new HashMap<>();
 
-    public static void setParams(HashMap<String, Object> params) {
+    public static void setParams(HashMap<String, String> params) {
         PageObjectModel.params = params;
     }
 
@@ -36,7 +36,7 @@ public class PageObjectModel {
         log.info("载入method :" + methodname);
         return  parseApiFromYaml(model.apilist.get(methodname));
     }
-    public static HashMap<String, Object> getParams() {
+    public static HashMap<String, String> getParams() {
         return params;
     }
 

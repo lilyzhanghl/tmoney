@@ -27,4 +27,9 @@ public class BaseTest {
         .then()
         .body("ret",not(0));
     }
+    @Test
+    public void testGetAuthCookie() throws APINotFoundException {
+        System.out.println(api.getAuthCookie("lisi", "baidu"));
+
+    }
 }
