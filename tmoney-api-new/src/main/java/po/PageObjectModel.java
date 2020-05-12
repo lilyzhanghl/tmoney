@@ -20,35 +20,48 @@ import static io.restassured.RestAssured.when;
 public class PageObjectModel {
     private static final Logger log = LoggerFactory.getLogger(PageObjectModel.class);
     public HashMap<String, PageObjectAPI> apilist;
+    public HashMap<String, PageObjectParam> paramlist;
     private static String host = LoadDefaultConfig.getHost();
-    private static HashMap<String, String> params = new HashMap<>();
 
-    public static void setParams(HashMap<String, String> params) {
-        PageObjectModel.params = params;
+    public static Response parseAPI(Class frontAPIClazz,HashMap<String,String> map) throws APINotFoundException {
+        String path = ReadYAML.transClasspathToYamlpath(frontAPIClazz);
+        log.info(" parse the path : " + path);
+        PageObjectModel model = ReadYAML.getYamlConfig(path, PageObjectModel.class);
+        log.info("载入yaml中写的apilist");
+        String methodname = Thread.currentThread().getStackTrace()[2].getMethodName();
+        log.info("载入method :" + methodname);
+        return  parseApiFromYaml(model.apilist.get(methodname),map);
+    }
+    public static HashMap<String,String> parseParam(Class frontAPIClazz) {
+        String path = ReadYAML.transClasspathToYamlpath(frontAPIClazz);
+        log.info(" parse the path : " + path);
+        PageObjectModel model = ReadYAML.getYamlConfig(path, PageObjectModel.class);
+        log.info("载入yaml中写的apilist");
+        String methodname = Thread.currentThread().getStackTrace()[2].getMethodName();
+        log.info("载入method :" + methodname);
+        return  model.paramlist.get(methodname).getParam();
     }
 
-    public static Response parseAPI(Class frontTestClazz) throws APINotFoundException {
+    public static HashMap<String,String> getParam(Class frontTestClazz)   {
         String path = ReadYAML.transClasspathToYamlpath(frontTestClazz);
         log.info(" parse the path : " + path);
         PageObjectModel model = ReadYAML.getYamlConfig(path, PageObjectModel.class);
         log.info("载入yaml中写的apilist");
         String methodname = Thread.currentThread().getStackTrace()[2].getMethodName();
         log.info("载入method :" + methodname);
-        return  parseApiFromYaml(model.apilist.get(methodname));
-    }
-    public static HashMap<String, String> getParams() {
-        return params;
+        return  model.paramlist.get(methodname).getParam();
     }
 
-    private static String transParams(String str) {
-        if (getParams().size() <= 0) {
+
+    private static String transParams(String str,HashMap<String,String> map) {
+        if (map.size() <= 0) {
             log.info("没有需要进行字符串转换的参数");
             return str;
         }
         log.info("before replace ,the str is :" + str);
-        for (String k : getParams().keySet()) {
+        for (String k : map.keySet()) {
             if (str.contains("$"+k)) {
-                str = str.replace("$"+k, getParams().get(k).toString());
+                str = str.replace("$"+k, map.get(k));
                 log.info("");
             }
         }
@@ -56,13 +69,13 @@ public class PageObjectModel {
         return str;
     }
 
-    private static Response parseApiFromYaml(PageObjectAPI apilist) throws APINotFoundException {
+    private static Response parseApiFromYaml(PageObjectAPI apilist,HashMap<String,String>map) throws APINotFoundException {
         if (apilist.getApi().size() <= 0) {
             log.info("没找到配置的api信息");
             throw new APINotFoundException("yaml 配置错误，未找到配置的api");
         }
         for(String apiType: apilist.getApi().keySet()){
-            String apiParam = transParams(apilist.getApi().get(apiType));
+            String apiParam = transParams(apilist.getApi().get(apiType),map);
             log.info("k is "+apiType+",v is "+apiParam);
             if(apiType.equals("get")){
                 log.info("get方法，api is "+apiType);

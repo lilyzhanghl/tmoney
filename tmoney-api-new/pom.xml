@@ -8,10 +8,10 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <artifactId>tmoney-api-new</artifactId>
     <properties>
         <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
     </properties>
-    <artifactId>tmoney-api-new</artifactId>
     <dependencies>
         <!--api test-->
         <dependency>
@@ -68,9 +68,7 @@
                 <configuration>
                     <reportVersion>2.4.1</reportVersion>
                 </configuration>
-
             </plugin>
-
         </plugins>
     </build>
 </project>

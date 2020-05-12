@@ -1,5 +1,4 @@
 package horizon.page.base;
-import io.restassured.http.Cookie;
 import po.APINotFoundException;
 import po.PageObjectModel;
 import io.restassured.response.Response;
@@ -14,14 +13,20 @@ import java.util.Map;
  * @Verion: 1.0
  */
 public class BaseAPI {
-    public Response login(String userId, String corpId) throws APINotFoundException {
-        HashMap<String,String> map = new HashMap<>(2);
-        map.put("userId",userId);
-        map.put("corpId",corpId);
-        PageObjectModel.setParams(map);
-        return PageObjectModel.parseAPI(BaseAPI.class);
+    public Map<String ,String >getAuthCookie()  {
+        HashMap<String,String> map = PageObjectModel.parseParam(BaseAPI.class);
+            return login(map).cookies();
     }
-    public Map<String, String> getAuthCookie(String userId, String corpId) throws APINotFoundException {
-        return login(userId,corpId).cookies();
+    public Response login(HashMap<String,String> map){
+
+        try {
+            return PageObjectModel.parseAPI(BaseAPI.class,map);
+        } catch (APINotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public Map<String, String> getAuthCookie(HashMap<String,String> map)  {
+        return login(map).cookies();
     }
 }

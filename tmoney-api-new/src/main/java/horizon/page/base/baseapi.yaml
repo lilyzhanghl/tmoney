@@ -2,3 +2,20 @@ apilist:
   login:
     api:
       get: /caizhi_miniapi/index/auth.do?userId=$userId&corpId=$corpId
+paramlist:
+  getAuthCookie:
+    param:
+      userId: mr.joker
+      corpId: ww8c83d949a80b562d
+  testLoginSuccess:
+    param:
+      userId: mr.joker
+      corpId: ww8c83d949a80b562d
+  testLoginFailure:
+    param:
+      userId: zhangsan
+      corpId: ww8c83d949a80b562d
+  testGetAuthCookie:
+    param:
+      userId: lisi
+      corpId: ww8c83d949a80b562d
