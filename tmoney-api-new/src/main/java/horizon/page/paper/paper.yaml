@@ -1,8 +1,27 @@
-paper:
-  paperId: ""
-  paperDetailAPI: "/caizhi_miniapi/api/applet/staffCard/detail"
-  paperViewAPI: "/caizhi_miniapi/api/applet/morning/paper/view.do"
-  paperFilterListAPI: "/caizhi_miniapi/api/applet/banner/filter_list.do"
-  paperConfigAPI: "/caizhi_miniapi/api/applet/finance/config.do"
-  paperSaveAPI: "/caizhi_miniapi/api/applet/snapshot/save.do"
-  paperListAPI: "/caizhi_miniapi/relate/product/v2/list"
+apilist:
+  getDetail:
+    api:
+      get: /caizhi_miniapi/api/applet/staffCard/detail
+      cookie: caizhi_key,caizhi_h5_key
+  viewPaper:
+    api:
+      post: /caizhi_miniapi/api/applet/morning/paper/view.do
+      cookie: caizhi_key,caizhi_h5_key
+      contentType: application/json
+      json: id
+  fil:
+    api:
+      post: "/caizhi_miniapi/api/applet/banner/filter_list.do"
+  paperConfigAPI:
+    api:
+      post: "/caizhi_miniapi/api/applet/finance/config.do"
+  paperSaveAPI:
+    api:
+      post: "/caizhi_miniapi/api/applet/snapshot/save.do"
+  paperListAPI:
+    api:
+      post: "/caizhi_miniapi/relate/product/v2/list"
+paramlist:
+  testViewPaper:
+    param:
+      id: f09a04b775974f98bee9aaed8c492d24

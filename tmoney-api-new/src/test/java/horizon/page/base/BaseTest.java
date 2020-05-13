@@ -19,30 +19,36 @@ import static org.hamcrest.Matchers.not;
  */
 public class BaseTest {
     private BaseAPI api = new BaseAPI();
+
     @Test
-    public void testLoginSuccess() throws APINotFoundException {
+    public void testLoginSuccess()   {
         HashMap map = PageObjectModel.parseParam(BaseAPI.class);
         api.login(map)
-        .then()
-        .body("ret",equalTo(0));
+                .then()
+                .body("ret", equalTo(0));
     }
+
     @Test
-    public void testLoginFailure() throws APINotFoundException {
+    public void testLoginFailure()   {
         HashMap map = PageObjectModel.parseParam(BaseAPI.class);
         api.login(map)
-        .then()
-        .body("ret",not(0));
+                .then()
+                .body("ret", not(0));
     }
-    @Test
-    public void testGetAuthCookie() throws APINotFoundException {
+
+//    @Test
+    public void testGetAuthCookie()   {
         HashMap map = PageObjectModel.parseParam(BaseAPI.class);
         api.getAuthCookie(map);
     }
-    @Test
-    public void test() {
+
+//    @Test
+    public void test()   {
         Map map = api.getAuthCookie();
-        for(Object str:map.keySet()){
-            System.out.println(str+","+map.get(str));
-        };
+        for (Object str : map.keySet()) {
+            System.out.println(str + "," + map.get(str));
+        }
+        ;
     }
+
 }

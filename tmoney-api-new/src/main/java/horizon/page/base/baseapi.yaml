@@ -1,8 +1,13 @@
 apilist:
   login:
     api:
-      get: /caizhi_miniapi/index/auth.do?userId=$userId&corpId=$corpId
+      get: /caizhi_miniapi/index/auth.do
+      params: userId,corpId
 paramlist:
+  test:
+    param:
+      userId: mr.joker
+      corpId: ww8c83d949a80b562d
   getAuthCookie:
     param:
       userId: mr.joker

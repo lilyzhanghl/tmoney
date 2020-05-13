@@ -24,6 +24,12 @@
             <artifactId>json-schema-validator</artifactId>
             <version>4.1.2</version>
         </dependency>
+        <!-- json 模板化工具-->
+        <dependency>
+            <groupId>com.github.spullara.mustache.java</groupId>
+            <artifactId>compiler</artifactId>
+            <version>0.9.6</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

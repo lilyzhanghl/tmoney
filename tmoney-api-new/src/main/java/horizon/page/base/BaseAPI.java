@@ -13,20 +13,16 @@ import java.util.Map;
  * @Verion: 1.0
  */
 public class BaseAPI {
-    public Map<String ,String >getAuthCookie()  {
+    public static Map<String ,String >getAuthCookie()  {
         HashMap<String,String> map = PageObjectModel.parseParam(BaseAPI.class);
             return login(map).cookies();
     }
-    public Response login(HashMap<String,String> map){
 
-        try {
+    public static Response login(HashMap<String, String> map)   {
             return PageObjectModel.parseAPI(BaseAPI.class,map);
-        } catch (APINotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
-    public Map<String, String> getAuthCookie(HashMap<String,String> map)  {
+
+    public Map<String, String> getAuthCookie(HashMap<String,String> map)   {
         return login(map).cookies();
     }
 }
