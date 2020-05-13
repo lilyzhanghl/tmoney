@@ -1,12 +1,19 @@
 package po;
 
+import com.github.mustachejava.DefaultMustacheFactory;
+import com.github.mustachejava.Mustache;
+import com.github.mustachejava.MustacheFactory;
 import io.restassured.specification.RequestSpecification;
+import util.JSONTemplate;
 import util.LoadDefaultConfig;
 import util.ReadYAML;
 import io.restassured.response.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.*;
 
 import static io.restassured.RestAssured.given;
@@ -24,19 +31,27 @@ public class PageObjectModel {
     public HashMap<String, PageObjectParam> paramlist;
     private static String host = LoadDefaultConfig.getHost();
 
+
+    public static String transClasspathToYamlpath(Class clazz) {
+        return "src/main/java/" + clazz.getCanonicalName()
+                .replace(".", "/")
+                .toLowerCase()
+                + ".yaml";
+    }
+
     public static Response parseAPI(Class frontAPIClazz, Map<String, String> map) {
-        String path = ReadYAML.transClasspathToYamlpath(frontAPIClazz);
+        String path = transClasspathToYamlpath(frontAPIClazz);
         log.info(" parse the path : " + path);
         PageObjectModel model = ReadYAML.getYamlConfig(path, PageObjectModel.class);
         log.info("载入yaml中写的apilist");
         String methodname = Thread.currentThread().getStackTrace()[2].getMethodName();
         log.info("载入method :" + methodname);
-        log.info(model.apilist.get(methodname).getApi().size()+"");
+        log.info(model.apilist.get(methodname).getApi().size() + "");
         return parseApiFromYaml(model.apilist.get(methodname), map);
     }
 
     public static HashMap<String, String> parseParam(Class frontAPIClazz) {
-        String path = ReadYAML.transClasspathToYamlpath(frontAPIClazz);
+        String path = transClasspathToYamlpath(frontAPIClazz);
         log.info(" parse the path : " + path);
         PageObjectModel model = ReadYAML.getYamlConfig(path, PageObjectModel.class);
         log.info("载入yaml中写的apilist");
@@ -46,7 +61,7 @@ public class PageObjectModel {
     }
 
     public static HashMap<String, String> getParam(Class frontTestClazz) {
-        String path = ReadYAML.transClasspathToYamlpath(frontTestClazz);
+        String path = transClasspathToYamlpath(frontTestClazz);
         log.info(" parse the path : " + path);
         PageObjectModel model = ReadYAML.getYamlConfig(path, PageObjectModel.class);
         log.info("载入yaml中写的paramlist");
@@ -63,7 +78,7 @@ public class PageObjectModel {
         }
         log.info("before replace ,the str is :" + str);
         List<String> paramlist = Arrays.asList(str.split(","));
-        log.info("用来转换的参数列表："+paramlist.toString());
+        log.info("用来转换的参数列表：" + paramlist.toString());
         HashMap<String, String> resultMap = new HashMap<>();
         for (String param : paramlist) {
             if (map.containsKey(param)) {
@@ -100,43 +115,44 @@ public class PageObjectModel {
                 request = request.contentType(apiItems.get("contentType"));
                 apiItems.remove("contentType");
             }
-            if (apiItems.containsKey("json")) {
-                String jsonName = apiItems.get("json");
-                HashMap<String, String> apiParam = transParams(apiItems.get("json"), map);
-                String jsonPath = apiParam.get(jsonName);
-                if (!jsonPath.contains("/")) {
-                    request = request.body(apiParam);
-//request = request .body("{\"id\": \"f09a04b775974f98bee9aaed8c492d24\"}");
-                } else {
-                    //todo jsonPath转成json
-                }
-
+            if (apiItems.containsKey("json")&&apiItems.containsKey("jsonFile")) {
+                String jsonFile = apiItems.get("jsonFile");
+                String jsonValue= JSONTemplate.template(jsonFile,transParams(apiItems.get("json"), map));
+                request = request.body(jsonValue);
+            }else if (apiItems.containsKey("json")){
+                request = request.body(transParams(apiItems.get("json"), map));
                 apiItems.remove("json");
+            }else if(apiItems.containsKey("jsonFile")){
+                String jsonFile = apiItems.get("jsonFile");
+                request = request.body(JSONTemplate.template(jsonFile));
             }
         }
-        if (apiItems.containsKey("get")) {
-            Response response = (Response) request.when()
-                    .log().all()
-                    .get(host + apiItems.get("get"))
-                    .then()
-                    .log().all()
-                    .extract();
-            apiItems.remove("get");
-            return response;
-        } else if (apiItems.containsKey("post")) {
-            Response response = (Response) request.when()
-                    .log().all()
-                    .post(host + apiItems.get("post"))
-                    .then()
-                    .log().all()
-                    .extract();
-            apiItems.remove("post");
-            return response;
-        } else {
-            log.info("还没写" + apiItems.keySet());
-        }
-//     throw new APINotFoundException("解析失败");
-        return null;
-    }
 
-}
+            if (apiItems.containsKey("get")) {
+                Response response = request.when()
+                        .log().all()
+                        .get(host + apiItems.get("get"))
+                        .then()
+                        .log().all()
+                        .extract()
+                        .response();
+                apiItems.remove("get");
+                return response;
+            } else if (apiItems.containsKey("post")) {
+                Response response = request.when()
+                        .log().all()
+                        .post(host + apiItems.get("post"))
+                        .then()
+                        .log().all()
+                        .extract()
+                        .response();
+                apiItems.remove("post");
+                return response;
+            } else {
+                log.info("还没写" + apiItems.keySet());
+            }
+//     throw new APINotFoundException("解析失败");
+            return null;
+        }
+
+    }

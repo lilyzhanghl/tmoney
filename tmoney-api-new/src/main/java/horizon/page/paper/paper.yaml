@@ -9,6 +9,7 @@ apilist:
       cookie: caizhi_key,caizhi_h5_key
       contentType: application/json
       json: id
+      jsonFile: viewPaper.json
   fil:
     api:
       post: "/caizhi_miniapi/api/applet/banner/filter_list.do"

@@ -14,6 +14,9 @@ public class LoadDefaultConfig {
     public HashMap<String, String> host = new HashMap<>();
     public HashMap<String, String> current = new HashMap<String, String>();
     //todo 优化硬编码
+
+    //
+//    this.getClass().getResource("");
     static String srcPath = "src/main/resources/application.yaml";
     public static String getHost() {
         LoadDefaultConfig config = ReadYAML
