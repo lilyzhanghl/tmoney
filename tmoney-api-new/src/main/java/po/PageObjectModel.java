@@ -81,6 +81,11 @@ public class PageObjectModel {
             log.info("没找到配置的api信息");
             throw new APINotFoundException("yaml 配置错误，未找到配置的api");
         }
+        //todo 优化代码结构，增加post接口时的json模板化
+
+
+
+
         for(String apiType: apilist.getApi().keySet()){
             String apiParam = transParams(apilist.getApi().get(apiType),map);
             log.info("k is "+apiType+",v is "+apiParam);
