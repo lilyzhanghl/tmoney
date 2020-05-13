@@ -27,10 +27,5 @@ public class ReadYAML<T> {
         }
         return null;
     }
-    public static String transClasspathToYamlpath(Class clazz) {
-        return "src/main/java/" + clazz.getCanonicalName()
-                .replace(".", "/")
-                .toLowerCase()
-                + ".yaml";
-    }
+
 }

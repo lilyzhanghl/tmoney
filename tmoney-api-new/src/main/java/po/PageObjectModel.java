@@ -21,10 +21,17 @@ public class PageObjectModel {
     private static final Logger log = LoggerFactory.getLogger(PageObjectModel.class);
     public HashMap<String, PageObjectAPI> apilist;
     public HashMap<String, PageObjectParam> paramlist;
-    private static String host = LoadDefaultConfig.getHost();
+    private static String HOST = LoadDefaultConfig.getHost();
 
+
+    public static String transClasspathToYamlpath(Class clazz) {
+        return "src/main/java/" + clazz.getCanonicalName()
+                .replace(".", "/")
+                .toLowerCase()
+                + ".yaml";
+    }
     public static Response parseAPI(Class frontAPIClazz,HashMap<String,String> map) throws APINotFoundException {
-        String path = ReadYAML.transClasspathToYamlpath(frontAPIClazz);
+        String path = transClasspathToYamlpath(frontAPIClazz);
         log.info(" parse the path : " + path);
         PageObjectModel model = ReadYAML.getYamlConfig(path, PageObjectModel.class);
         log.info("载入yaml中写的apilist");
@@ -33,7 +40,7 @@ public class PageObjectModel {
         return  parseApiFromYaml(model.apilist.get(methodname),map);
     }
     public static HashMap<String,String> parseParam(Class frontAPIClazz) {
-        String path = ReadYAML.transClasspathToYamlpath(frontAPIClazz);
+        String path = transClasspathToYamlpath(frontAPIClazz);
         log.info(" parse the path : " + path);
         PageObjectModel model = ReadYAML.getYamlConfig(path, PageObjectModel.class);
         log.info("载入yaml中写的apilist");
@@ -43,7 +50,7 @@ public class PageObjectModel {
     }
 
     public static HashMap<String,String> getParam(Class frontTestClazz)   {
-        String path = ReadYAML.transClasspathToYamlpath(frontTestClazz);
+        String path = transClasspathToYamlpath(frontTestClazz);
         log.info(" parse the path : " + path);
         PageObjectModel model = ReadYAML.getYamlConfig(path, PageObjectModel.class);
         log.info("载入yaml中写的apilist");
@@ -80,13 +87,13 @@ public class PageObjectModel {
             if(apiType.equals("get")){
                 log.info("get方法，api is "+apiType);
                 return
-                        (Response) when().get(host+apiParam)
+                        (Response) when().get(HOST+apiParam)
                         .then()
                                 .log().all()
                         .extract();
             }else if (apiType.equals("post")){
                 log.info("post方法，api is "+apiParam);
-                return (Response) when().post(host+apiParam)
+                return (Response) when().post(HOST+apiParam)
                         .then()
                         .log().all()
                         .extract();

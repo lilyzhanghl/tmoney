@@ -1,6 +1,5 @@
 package horizon.page.base;
 
-import po.APINotFoundException;
 import org.junit.jupiter.api.Test;
 import po.PageObjectModel;
 
@@ -20,28 +19,29 @@ import static org.hamcrest.Matchers.not;
 public class BaseTest {
     private BaseAPI api = new BaseAPI();
     @Test
-    public void testLoginSuccess() throws APINotFoundException {
-        HashMap map = PageObjectModel.parseParam(BaseAPI.class);
+    public void testLoginSuccess()   {
+        HashMap<String,String> map = PageObjectModel.parseParam(BaseAPI.class);
         api.login(map)
         .then()
         .body("ret",equalTo(0));
     }
     @Test
-    public void testLoginFailure() throws APINotFoundException {
-        HashMap map = PageObjectModel.parseParam(BaseAPI.class);
+    public void testLoginFailure()   {
+        HashMap<String,String> map = PageObjectModel.parseParam(BaseAPI.class);
         api.login(map)
         .then()
         .body("ret",not(0));
     }
     @Test
-    public void testGetAuthCookie() throws APINotFoundException {
-        HashMap map = PageObjectModel.parseParam(BaseAPI.class);
+    public void testGetAuthCookie()   {
+        HashMap<String,String> map = PageObjectModel.parseParam(BaseAPI.class);
         api.getAuthCookie(map);
     }
     @Test
     public void test() {
-        Map map = api.getAuthCookie();
-        for(Object str:map.keySet()){
+        Map<String,String> map = api.getAuthCookie();
+        if(map.size()<=0)return ;
+        for(String str:map.keySet()){
             System.out.println(str+","+map.get(str));
         };
     }
