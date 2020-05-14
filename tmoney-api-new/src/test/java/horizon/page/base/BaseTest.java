@@ -1,6 +1,5 @@
 package horizon.page.base;
 
-import po.APINotFoundException;
 import org.junit.jupiter.api.Test;
 import po.PageObjectModel;
 

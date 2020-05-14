@@ -13,15 +13,8 @@ import java.util.Map;
 public class Paper {
     private static final Logger log = LoggerFactory.getLogger(Paper.class);
     Map cookie = BaseAPI.getAuthCookie();
-/*    public Response viewPaper(Map<String, String> map) {
-        return PageObjectModel.parseAPI(Paper.class, combineMap(map,cookie));
-    }*/
-public Response viewPaper(Map map) {
-    return PageObjectModel.parseAPI(Paper.class, APITools.combineMap(cookie,map));
-}
 
-
-
-
-
+    public Response viewPaper(Map map) {
+        return PageObjectModel.parseAPI(Paper.class, APITools.combineMap(cookie, map));
+    }
 }
