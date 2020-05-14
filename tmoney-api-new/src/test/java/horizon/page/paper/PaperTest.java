@@ -1,5 +1,6 @@
 package horizon.page.paper;
 
+import io.qameta.allure.Description;
 import org.junit.jupiter.api.Test;
 import po.PageObjectModel;
 
@@ -14,10 +15,12 @@ import static org.hamcrest.Matchers.equalTo;
  */
 public class PaperTest {
     private Paper paper = new Paper();
+
     @Test
-    public void testViewPaper()   {
+    @Description("查看早报view.do")
+    public void testViewPaper() {
         paper.viewPaper(PageObjectModel.parseParam(Paper.class)).
                 then().
-                body("ret",equalTo(0));
+                body("retdata.personInfo.name", equalTo("尹珍枝"));
     }
 }

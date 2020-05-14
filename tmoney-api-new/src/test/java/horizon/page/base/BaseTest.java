@@ -1,5 +1,6 @@
 package horizon.page.base;
 
+import io.qameta.allure.Description;
 import org.junit.jupiter.api.Test;
 import po.PageObjectModel;
 
@@ -17,8 +18,9 @@ import static org.hamcrest.Matchers.not;
  * @Verion: 1.0
  */
 public class BaseTest {
-    private BaseAPI api = new BaseAPI();
+    private BaseAPI api = BaseAPI.getInstance();
     @Test
+    @Description("登录成功")
     public void testLoginSuccess()   {
         HashMap map = PageObjectModel.parseParam(BaseAPI.class);
         api.login(map)
@@ -27,6 +29,7 @@ public class BaseTest {
     }
 
     @Test
+    @Description("登录失败")
     public void testLoginFailure()   {
         HashMap map = PageObjectModel.parseParam(BaseAPI.class);
         api.login(map)
@@ -34,19 +37,6 @@ public class BaseTest {
                 .body("ret", not(0));
     }
 
-//    @Test
-    public void testGetAuthCookie()   {
-        HashMap map = PageObjectModel.parseParam(BaseAPI.class);
-        api.getAuthCookie(map);
-    }
 
-//    @Test
-    public void test()   {
-        Map map = api.getAuthCookie();
-        for (Object str : map.keySet()) {
-            System.out.println(str + "," + map.get(str));
-        }
-        ;
-    }
 
 }

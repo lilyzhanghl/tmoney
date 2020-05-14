@@ -46,6 +46,13 @@ paramlist:
 - yaml中的apilist的命名与对应业务调用.java文件中的调用方法名一致
 - yaml中的paramlist的命名与对应的业务测试.java文件中的调用方法名一致
 - yaml中的param中的参数与api中调用的需一致
+### 执行
+``` shell
+mvn clean test
+allure serve target/allure-results
+allure report
+```
+report地址： target/site/allure-maven-plugin/index.html
 ### 待完善
 - 报告自带restAssured日志
 - 报告发送邮件

@@ -4,10 +4,6 @@ apilist:
       get: /caizhi_miniapi/index/auth.do
       params: userId,corpId
 paramlist:
-  test:
-    param:
-      userId: YinZhenZhi
-      corpId: ww8c83d949a80b562d
   getAuthCookie:
     param:
       userId: YinZhenZhi
@@ -19,8 +15,4 @@ paramlist:
   testLoginFailure:
     param:
       userId: zhangsan
-      corpId: ww8c83d949a80b562d
-  testGetAuthCookie:
-    param:
-      userId: lisi
       corpId: ww8c83d949a80b562d
