@@ -138,13 +138,7 @@ public class PageObjectModel {
         }
         if (apiItems.containsKey("jsonFile")) {
             String jsonFile = transClasspathToJsonpath(frontAPIClazz, apiItems.get("jsonFile"));
-            log.info("=============");
-            log.info("=============");
-            log.info("=============");
-            log.info("=============");
-            log.info("=============");
-            log.info("=============");
-            log.info("jsonFile is "+jsonFile);
+            log.info("jsonFile is " + jsonFile);
             request = request.body(JSONTemplate.template(jsonFile));
         }
         if (apiItems.containsKey("get")) {

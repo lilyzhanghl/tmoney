@@ -1,10 +1,10 @@
 package horizon.page.paper;
 
+import io.qameta.allure.Description;
 import org.junit.jupiter.api.Test;
 import po.PageObjectModel;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.not;
 
 /**
  * @ClassName: PaperTest
@@ -17,6 +17,7 @@ public class PaperTest {
     private Paper paper = new Paper();
 
     @Test
+    @Description("查看早报view.do")
     public void testViewPaper() {
         paper.viewPaper(PageObjectModel.parseParam(Paper.class)).
                 then().

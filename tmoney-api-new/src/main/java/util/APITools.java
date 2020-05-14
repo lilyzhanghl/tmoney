@@ -17,18 +17,22 @@ import java.util.Map;
 public class APITools {
     private static final Logger log = LoggerFactory.getLogger(APITools.class);
     public static Map<String,String> combineMap(Map map1, Map map2){
-        if(map1.size()+map2.size()<=0){
-            return null;
-        }else if(map1.size()<=0 ){
-            return map2;
-        }else if (map2.size()<=0){
-            return map1;
-        }
         Map<String, String> combineMap = new HashMap<>();
-        log.info(map1.keySet().toString());
-        log.info(map2.keySet().toString());
-        combineMap.putAll(map1);
-        combineMap.putAll(map2);
-        return combineMap;
+        if(map1!=null && map2!=null){
+            log.info(map1.keySet().toString());
+            log.info(map2.keySet().toString());
+            combineMap.putAll(map1);
+            combineMap.putAll(map2);
+            return combineMap;
+        }else if(map1!=null ){
+            log.info(map1.keySet().toString());
+            return map1;
+        }else if (map2!=null ){
+            log.info(map2.keySet().toString());
+            return map2;
+        }else {
+            log.info("map都没有值，报错了");
+            return null;
+        }
     }
 }
