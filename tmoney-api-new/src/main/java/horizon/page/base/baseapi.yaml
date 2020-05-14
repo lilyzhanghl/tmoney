@@ -6,15 +6,15 @@ apilist:
 paramlist:
   test:
     param:
-      userId: mr.joker
+      userId: YinZhenZhi
       corpId: ww8c83d949a80b562d
   getAuthCookie:
     param:
-      userId: mr.joker
+      userId: YinZhenZhi
       corpId: ww8c83d949a80b562d
   testLoginSuccess:
     param:
-      userId: mr.joker
+      userId: YinZhenZhi
       corpId: ww8c83d949a80b562d
   testLoginFailure:
     param:

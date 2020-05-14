@@ -1,5 +1,4 @@
 package horizon.page.base;
-import po.APINotFoundException;
 import po.PageObjectModel;
 import io.restassured.response.Response;
 import java.util.HashMap;
