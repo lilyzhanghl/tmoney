@@ -1,8 +1,5 @@
 package po;
 
-import com.github.mustachejava.DefaultMustacheFactory;
-import com.github.mustachejava.Mustache;
-import com.github.mustachejava.MustacheFactory;
 import io.restassured.specification.RequestSpecification;
 import util.JSONTemplate;
 import util.LoadDefaultConfig;
@@ -10,10 +7,6 @@ import util.ReadYAML;
 import io.restassured.response.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.*;
 
 import static io.restassured.RestAssured.given;
@@ -38,6 +31,12 @@ public class PageObjectModel {
                 .toLowerCase()
                 + ".yaml";
     }
+    public static String transClasspathToJsonpath(Class clazz,String jsonFileName) {
+        return "src/main/java/" + clazz.getPackage().getName().replace(".", "/")+"/"+jsonFileName
+                .toLowerCase()
+                + ".json";
+
+    }
 
     public static Response parseAPI(Class frontAPIClazz, Map<String, String> map) {
         String path = transClasspathToYamlpath(frontAPIClazz);
@@ -47,14 +46,14 @@ public class PageObjectModel {
         String methodname = Thread.currentThread().getStackTrace()[2].getMethodName();
         log.info("载入method :" + methodname);
         log.info(model.apilist.get(methodname).getApi().size() + "");
-        return parseApiFromYaml(model.apilist.get(methodname), map);
+        return parseApiFromYaml(model.apilist.get(methodname), map,frontAPIClazz);
     }
 
     public static HashMap<String, String> parseParam(Class frontAPIClazz) {
         String path = transClasspathToYamlpath(frontAPIClazz);
         log.info(" parse the path : " + path);
         PageObjectModel model = ReadYAML.getYamlConfig(path, PageObjectModel.class);
-        log.info("载入yaml中写的apilist");
+        log.info("载入yaml中写的paramlist");
         String methodname = Thread.currentThread().getStackTrace()[2].getMethodName();
         log.info("载入method :" + methodname);
         return model.paramlist.get(methodname).getParam();
@@ -83,13 +82,13 @@ public class PageObjectModel {
         for (String param : paramlist) {
             if (map.containsKey(param)) {
                 resultMap.put(param, map.get(param));
-                log.info("put " + param + "into paramlist,value is   :" + map.get(param));
+                log.info("put " + param + " into paramlist,value is   :" + map.get(param));
             }
         }
         return resultMap;
     }
 
-    private static Response parseApiFromYaml(PageObjectAPI apilist, Map<String, String> map) {
+    private static Response parseApiFromYaml(PageObjectAPI apilist, Map<String, String> map,Class frontAPIClazz) {
         HashMap<String, String> apiItems = apilist.getApi();
         if (apiItems.size() <= 0) {
             log.info("没找到配置的api信息");
@@ -101,33 +100,44 @@ public class PageObjectModel {
         if (map.size() > 0) {
             if (apiItems.containsKey("params")) {
                 request = request.params(transParams(apiItems.get("params"), map));
+                log.info("配置params:"+apiItems.get("params"));
                 apiItems.remove("params");
             }
             if (apiItems.containsKey("cookie")) {
                 request = request.cookies(transParams(apiItems.get("cookie"), map));
+                log.info("配置cookies:"+apiItems.get("cookie"));
                 apiItems.remove("cookie");
             }
             if (apiItems.containsKey("header")) {
                 request = request.headers(transParams(apiItems.get("header"), map));
+                log.info("配置header:"+apiItems.get("header"));
                 apiItems.remove("header");
             }
-            if (apiItems.containsKey("contentType")) {
-                request = request.contentType(apiItems.get("contentType"));
-                apiItems.remove("contentType");
-            }
+
             if (apiItems.containsKey("json")&&apiItems.containsKey("jsonFile")) {
                 String jsonFile = apiItems.get("jsonFile");
-                String jsonValue= JSONTemplate.template(jsonFile,transParams(apiItems.get("json"), map));
+                String jsonPath = transClasspathToJsonpath(frontAPIClazz,jsonFile);
+                log.info("配置jsonPath:"+apiItems.get("jsonPath"));
+                log.info("json 配置内容："+apiItems.get("json")+",对应配置项 ："+map.keySet());
+                HashMap<String,String> jsonMap = transParams(apiItems.get("json"), map);
+                log.info("jsonMap is "+jsonMap.keySet());
+                String jsonValue= JSONTemplate.template(jsonPath,jsonMap);
                 request = request.body(jsonValue);
+                apiItems.remove("json");
+                apiItems.remove("jsonFile");
             }else if (apiItems.containsKey("json")){
                 request = request.body(transParams(apiItems.get("json"), map));
                 apiItems.remove("json");
-            }else if(apiItems.containsKey("jsonFile")){
-                String jsonFile = apiItems.get("jsonFile");
-                request = request.body(JSONTemplate.template(jsonFile));
             }
         }
-
+        if (apiItems.containsKey("contentType")) {
+            request = request.contentType(apiItems.get("contentType"));
+            apiItems.remove("contentType");
+        }
+        if(apiItems.containsKey("jsonFile")){
+            String jsonFile = apiItems.get("jsonFile");
+            request = request.body(JSONTemplate.template(jsonFile));
+        }
             if (apiItems.containsKey("get")) {
                 Response response = request.when()
                         .log().all()
