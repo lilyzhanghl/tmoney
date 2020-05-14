@@ -1,6 +1,5 @@
 package horizon.page.base;
 
-import po.APINotFoundException;
 import org.junit.jupiter.api.Test;
 import po.PageObjectModel;
 
@@ -19,7 +18,6 @@ import static org.hamcrest.Matchers.not;
  */
 public class BaseTest {
     private BaseAPI api = new BaseAPI();
-
     @Test
     public void testLoginSuccess()   {
         HashMap map = PageObjectModel.parseParam(BaseAPI.class);
