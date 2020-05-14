@@ -7,6 +7,7 @@ import util.ReadYAML;
 import io.restassured.response.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.*;
 
 import static io.restassured.RestAssured.given;
@@ -31,8 +32,9 @@ public class PageObjectModel {
                 .toLowerCase()
                 + ".yaml";
     }
-    public static String transClasspathToJsonpath(Class clazz,String jsonFileName) {
-        return "src/main/java/" + clazz.getPackage().getName().replace(".", "/")+"/"+jsonFileName
+
+    public static String transClasspathToJsonpath(Class clazz, String jsonFileName) {
+        return "src/main/java/" + clazz.getPackage().getName().replace(".", "/") + "/" + jsonFileName
                 .toLowerCase()
                 + ".json";
 
@@ -46,7 +48,7 @@ public class PageObjectModel {
         String methodname = Thread.currentThread().getStackTrace()[2].getMethodName();
         log.info("载入method :" + methodname);
         log.info(model.apilist.get(methodname).getApi().size() + "");
-        return parseApiFromYaml(model.apilist.get(methodname), map,frontAPIClazz);
+        return parseApiFromYaml(model.apilist.get(methodname), map, frontAPIClazz);
     }
 
     public static HashMap<String, String> parseParam(Class frontAPIClazz) {
@@ -88,7 +90,7 @@ public class PageObjectModel {
         return resultMap;
     }
 
-    private static Response parseApiFromYaml(PageObjectAPI apilist, Map<String, String> map,Class frontAPIClazz) {
+    private static Response parseApiFromYaml(PageObjectAPI apilist, Map<String, String> map, Class frontAPIClazz) {
         HashMap<String, String> apiItems = apilist.getApi();
         if (apiItems.size() <= 0) {
             log.info("没找到配置的api信息");
@@ -100,32 +102,32 @@ public class PageObjectModel {
         if (map.size() > 0) {
             if (apiItems.containsKey("params")) {
                 request = request.params(transParams(apiItems.get("params"), map));
-                log.info("配置params:"+apiItems.get("params"));
+                log.info("配置params:" + apiItems.get("params"));
                 apiItems.remove("params");
             }
             if (apiItems.containsKey("cookie")) {
                 request = request.cookies(transParams(apiItems.get("cookie"), map));
-                log.info("配置cookies:"+apiItems.get("cookie"));
+                log.info("配置cookies:" + apiItems.get("cookie"));
                 apiItems.remove("cookie");
             }
             if (apiItems.containsKey("header")) {
                 request = request.headers(transParams(apiItems.get("header"), map));
-                log.info("配置header:"+apiItems.get("header"));
+                log.info("配置header:" + apiItems.get("header"));
                 apiItems.remove("header");
             }
 
-            if (apiItems.containsKey("json")&&apiItems.containsKey("jsonFile")) {
+            if (apiItems.containsKey("json") && apiItems.containsKey("jsonFile")) {
                 String jsonFile = apiItems.get("jsonFile");
-                String jsonPath = transClasspathToJsonpath(frontAPIClazz,jsonFile);
-                log.info("配置jsonPath:"+apiItems.get("jsonPath"));
-                log.info("json 配置内容："+apiItems.get("json")+",对应配置项 ："+map.keySet());
-                HashMap<String,String> jsonMap = transParams(apiItems.get("json"), map);
-                log.info("jsonMap is "+jsonMap.keySet());
-                String jsonValue= JSONTemplate.template(jsonPath,jsonMap);
+                String jsonPath = transClasspathToJsonpath(frontAPIClazz, jsonFile);
+                log.info("配置jsonPath:" + apiItems.get("jsonPath"));
+                log.info("json 配置内容：" + apiItems.get("json") + ",对应配置项 ：" + map.keySet());
+                HashMap<String, String> jsonMap = transParams(apiItems.get("json"), map);
+                log.info("jsonMap is " + jsonMap.keySet());
+                String jsonValue = JSONTemplate.template(jsonPath, jsonMap);
                 request = request.body(jsonValue);
                 apiItems.remove("json");
                 apiItems.remove("jsonFile");
-            }else if (apiItems.containsKey("json")){
+            } else if (apiItems.containsKey("json")) {
                 request = request.body(transParams(apiItems.get("json"), map));
                 apiItems.remove("json");
             }
@@ -134,35 +136,42 @@ public class PageObjectModel {
             request = request.contentType(apiItems.get("contentType"));
             apiItems.remove("contentType");
         }
-        if(apiItems.containsKey("jsonFile")){
-            String jsonFile = apiItems.get("jsonFile");
+        if (apiItems.containsKey("jsonFile")) {
+            String jsonFile = transClasspathToJsonpath(frontAPIClazz, apiItems.get("jsonFile"));
+            log.info("=============");
+            log.info("=============");
+            log.info("=============");
+            log.info("=============");
+            log.info("=============");
+            log.info("=============");
+            log.info("jsonFile is "+jsonFile);
             request = request.body(JSONTemplate.template(jsonFile));
         }
-            if (apiItems.containsKey("get")) {
-                Response response = request.when()
-                        .log().all()
-                        .get(host + apiItems.get("get"))
-                        .then()
-                        .log().all()
-                        .extract()
-                        .response();
-                apiItems.remove("get");
-                return response;
-            } else if (apiItems.containsKey("post")) {
-                Response response = request.when()
-                        .log().all()
-                        .post(host + apiItems.get("post"))
-                        .then()
-                        .log().all()
-                        .extract()
-                        .response();
-                apiItems.remove("post");
-                return response;
-            } else {
-                log.info("还没写" + apiItems.keySet());
-            }
-//     throw new APINotFoundException("解析失败");
-            return null;
+        if (apiItems.containsKey("get")) {
+            Response response = request.when()
+                    .log().all()
+                    .get(host + apiItems.get("get"))
+                    .then()
+                    .log().all()
+                    .extract()
+                    .response();
+            apiItems.remove("get");
+            return response;
+        } else if (apiItems.containsKey("post")) {
+            Response response = request.when()
+                    .log().all()
+                    .post(host + apiItems.get("post"))
+                    .then()
+                    .log().all()
+                    .extract()
+                    .response();
+            apiItems.remove("post");
+            return response;
+        } else {
+            log.info("还没写" + apiItems.keySet());
         }
-
+//     throw new APINotFoundException("解析失败");
+        return null;
     }
+
+}

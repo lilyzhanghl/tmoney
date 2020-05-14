@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import po.PageObjectModel;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.not;
 
 /**
  * @ClassName: PaperTest
@@ -14,10 +15,11 @@ import static org.hamcrest.Matchers.equalTo;
  */
 public class PaperTest {
     private Paper paper = new Paper();
+
     @Test
-    public void testViewPaper()   {
+    public void testViewPaper() {
         paper.viewPaper(PageObjectModel.parseParam(Paper.class)).
                 then().
-                body("ret",equalTo(0));
+                body("retdata.personInfo.name", equalTo("尹珍枝"));
     }
 }
