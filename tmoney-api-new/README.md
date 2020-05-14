@@ -5,24 +5,32 @@
 - 测试用例加工： jacksonYaml,mustache
 - 测试报告优化： allure
 ###项目结构
+
 ![binaryTree](系统结构图.png "binaryTree")
 
 ###用例编写方式
-- src/main/java/com.example.page/xxx 定义业务调用.java，编写对应的调用yaml,json文件。
+- src/main/java/com.example.page/xxx 定义业务调用 Example.java，编写对应的调用yaml,json文件。
 - 示例：
-  yaml中不需要传入测试参数时，业务调用代码.java：
-``` java
-     public static Response login(){
-             return PageObjectModel.parseAPI(当前类类名.class);
-     }
-```
    yaml中需要传入测试参数时，业务调用代码.java：
 ``` java 
     public static Response login(HashMap<String, String> map)   {
             return PageObjectModel.parseAPI(当前类类名.class,map);
     }
 ```
-- src/test/java/com.example.page/xxx 定义测试调用.java。
+- src/main/java/com.example.page/xxx 定义配置 example.yaml
+``` yaml
+apilist:
+  login:
+    api:
+      get: /caizhi_miniapi/index/auth.do
+      params: userId,corpId
+paramlist:
+  testLoginSuccess:
+    param:
+      userId: YinZhenZhi
+      corpId: ww8c83d949a80b562d
+```
+- src/test/java/com.example.page/xxx 定义测试调用 ExampleTest.java。
 ``` java
     @Test
     public void testLoginSuccess()   {

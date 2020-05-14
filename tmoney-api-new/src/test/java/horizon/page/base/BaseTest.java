@@ -18,7 +18,6 @@ import static org.hamcrest.Matchers.not;
  */
 public class BaseTest {
     private BaseAPI api = new BaseAPI();
-
     @Test
     public void testLoginSuccess()   {
         HashMap map = PageObjectModel.parseParam(BaseAPI.class);
