@@ -1,6 +1,7 @@
 package po;
 
 import io.restassured.specification.RequestSpecification;
+import poexception.APINotFoundException;
 import util.JSONTemplate;
 import util.LoadDefaultConfig;
 import util.ReadYAML;
@@ -48,7 +49,13 @@ public class PageObjectModel {
         String methodname = Thread.currentThread().getStackTrace()[2].getMethodName();
         log.info("载入method :" + methodname);
         log.info(model.apilist.get(methodname).getApi().size() + "");
-        return parseApiFromYaml(model.apilist.get(methodname), map, frontAPIClazz);
+        try {
+            return parseApiFromYaml(model.apilist.get(methodname), map, frontAPIClazz);
+        } catch (APINotFoundException e) {
+            log.info(e.getMessage());
+            return null;
+        }
+
     }
 
     public static HashMap<String, String> parseParam(Class frontAPIClazz) {
@@ -75,7 +82,7 @@ public class PageObjectModel {
     private static HashMap<String, String> transParams(String str, Map<String, String> map) {
         if (map.size() <= 0) {
             log.info("没有需要进行字符串转换的参数");
-            return null;
+            throw new APINotFoundException("api ");
         }
         log.info("before replace ,the str is :" + str);
         List<String> paramlist = Arrays.asList(str.split(","));
@@ -90,12 +97,11 @@ public class PageObjectModel {
         return resultMap;
     }
 
-    private static Response parseApiFromYaml(PageObjectAPI apilist, Map<String, String> map, Class frontAPIClazz) {
+    private static Response parseApiFromYaml(PageObjectAPI apilist, Map<String, String> map, Class frontAPIClazz) throws APINotFoundException {
         HashMap<String, String> apiItems = apilist.getApi();
         if (apiItems.size() <= 0) {
             log.info("没找到配置的api信息");
-//            throw new APINotFoundException("yaml 配置错误，未找到配置的api");
-            return null;
+            throw new APINotFoundException("yaml 配置错误，未找到配置的api");
         }
         //todo 参数枚举化
         RequestSpecification request = given();
@@ -162,10 +168,10 @@ public class PageObjectModel {
             apiItems.remove("post");
             return response;
         } else {
-            log.info("还没写" + apiItems.keySet());
+            throw new APINotFoundException("解析失败");
         }
-//     throw new APINotFoundException("解析失败");
-        return null;
+
+//        return null;
     }
 
 }
