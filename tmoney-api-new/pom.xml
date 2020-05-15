@@ -9,9 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>tmoney-api-new</artifactId>
-<!--    <properties>
+    <properties>
         <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
-    </properties>-->
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
