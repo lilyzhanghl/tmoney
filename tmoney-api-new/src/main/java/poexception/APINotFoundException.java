@@ -19,6 +19,5 @@ public class APINotFoundException extends Exception {
     }
 
     public static void main(String[] args) {
-        log.
     }
 }

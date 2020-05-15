@@ -79,7 +79,7 @@ public class PageObjectModel {
     }
 
 
-    private static HashMap<String, String> transParams(String str, Map<String, String> map) {
+    private static HashMap<String, String> transParams(String str, Map<String, String> map) throws APINotFoundException {
         if (map.size() <= 0) {
             log.info("没有需要进行字符串转换的参数");
             throw new APINotFoundException("api ");
