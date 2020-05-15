@@ -1,6 +1,3 @@
 /.idea/
-/tmoney-api/target/
-/tmoney-webui/target/
-/tmoney-api/tmoney-api.iml
-/tmoney-webui/.allure/
-/tmoney-api-new/.allure/
+*/target/
+*/*.iml
