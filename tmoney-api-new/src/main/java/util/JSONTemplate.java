@@ -5,7 +5,6 @@ import com.github.mustachejava.Mustache;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import po.PageObjectModel;
 
 import java.io.*;
 import java.util.HashMap;
