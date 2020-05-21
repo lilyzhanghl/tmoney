@@ -1,7 +1,8 @@
 apilist:
   login:
     api:
-      get: /caizhi_miniapi/index/auth.do
+      url: /caizhi_miniapi/index/auth.do
+      method: get
       params: userId,corpId
 paramlist:
   getAuthCookie:

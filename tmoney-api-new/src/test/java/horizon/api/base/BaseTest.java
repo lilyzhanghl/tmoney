@@ -1,8 +1,8 @@
-package horizon.page.base;
+package horizon.api.base;
 
 import io.qameta.allure.Description;
 import org.junit.jupiter.api.Test;
-import po.PageObjectModel;
+import po.APIObjectModel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +22,7 @@ public class BaseTest {
     @Test
     @Description("登录成功")
     public void testLoginSuccess()   {
-        HashMap map = PageObjectModel.parseParam(BaseAPI.class);
+        HashMap map = APIObjectModel.parseParam(BaseAPI.class);
         api.login(map)
                 .then()
                 .body("ret", equalTo(0));
@@ -31,7 +31,7 @@ public class BaseTest {
     @Test
     @Description("登录失败")
     public void testLoginFailure()   {
-        HashMap map = PageObjectModel.parseParam(BaseAPI.class);
+        HashMap map = APIObjectModel.parseParam(BaseAPI.class);
         api.login(map)
                 .then()
                 .body("ret", not(0));

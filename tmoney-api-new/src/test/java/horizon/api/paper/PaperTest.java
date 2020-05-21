@@ -1,8 +1,8 @@
-package horizon.page.paper;
+package horizon.api.paper;
 
 import io.qameta.allure.Description;
 import org.junit.jupiter.api.Test;
-import po.PageObjectModel;
+import po.APIObjectModel;
 
 import static org.hamcrest.Matchers.equalTo;
 
@@ -19,7 +19,7 @@ public class PaperTest {
     @Test
     @Description("查看早报view.do")
     public void testViewPaper() {
-        paper.viewPaper(PageObjectModel.parseParam(Paper.class)).
+        paper.viewPaper(APIObjectModel.parseParam(Paper.class)).
                 then().
                 body("retdata.personInfo.name", equalTo("尹珍枝"));
     }

@@ -1,7 +1,7 @@
-package horizon.page.base;
+package horizon.api.base;
 
 import org.kohsuke.rngom.parse.host.Base;
-import po.PageObjectModel;
+import po.APIObjectModel;
 import io.restassured.response.Response;
 
 import java.util.HashMap;
@@ -21,10 +21,10 @@ public class BaseAPI {
         return api;
     }
     public Map<String, String> getAuthCookie() {
-        Map <String,String> map= PageObjectModel.parseParam(BaseAPI.class);
+        Map <String,String> map= APIObjectModel.parseParam(BaseAPI.class);
         return login(map).cookies();
     }
     public Response login( Map<String, String> map) {
-        return PageObjectModel.parseAPI(BaseAPI.class, map);
+        return APIObjectModel.parseAPI(BaseAPI.class, map);
     }
 }

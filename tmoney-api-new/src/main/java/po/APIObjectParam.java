@@ -8,7 +8,7 @@ import java.util.HashMap;
  *
  * @author zhzh.yin
  **/
-public class PageObjectParam {
+public class APIObjectParam {
     public HashMap<String,String> param;
     public HashMap<String,String> cookie;
     public HashMap<String,String> body;
