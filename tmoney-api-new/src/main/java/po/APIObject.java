@@ -1,6 +1,9 @@
 package po;
 
+import lombok.Data;
+
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * tmoney
@@ -8,24 +11,34 @@ import java.util.HashMap;
  *
  * @author zhzh.yin
  **/
+@Data
 public class APIObject {
     String url;
     String method;
     HashMap<String,Object> headers;
     String connection;
     String host;
-    List<String ,Object> params;
-    List<String,Object>cookies;
-    String json ;
+    List<String> params;
+    List<String> cookies;
+    List<String> json ;
     String jsonFile;
 
-    public String getJson() {
-        return json;
+    @Override
+    public String toString() {
+        return "APIObject{" +
+                "url='" + url + '\'' +
+                ", method='" + method + '\'' +
+                ", headers=" + headers +
+                ", connection='" + connection + '\'' +
+                ", host='" + host + '\'' +
+                ", params=" + params +
+                ", cookies=" + cookies +
+                ", json='" + json + '\'' +
+                ", jsonFile='" + jsonFile + '\'' +
+                '}';
     }
 
-    public void setJson(String json) {
-        this.json = json;
-    }
+
 
     public String getJsonFile() {
         return jsonFile;
@@ -35,16 +48,11 @@ public class APIObject {
         this.jsonFile = jsonFile;
     }
 
-    public List<String, Object> getCookies() {
-        return cookie;
-    }
 
-    public void setCookies(List<String, Object> cookies) {
-        this.cookies = cookies;
-    }
 
     public String getUrl() {
         return url;
+
     }
 
     public void setUrl(String url) {
@@ -83,11 +91,5 @@ public class APIObject {
         this.host = host;
     }
 
-    public List<String, Object> getParams() {
-        return params;
-    }
 
-    public void setParams(List<String, Object> params) {
-        this.params = params;
-    }
 }

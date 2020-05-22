@@ -1,6 +1,5 @@
 apilist:
   login:
-    api:
       url: /caizhi_miniapi/index/auth.do
       method: get
       params: userId,corpId

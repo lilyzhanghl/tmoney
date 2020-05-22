@@ -1,14 +1,13 @@
 package po;
 
 import io.restassured.specification.RequestSpecification;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import poexception.APINotFoundException;
 import util.JSONTemplate;
 import util.LoadDefaultConfig;
 import util.ReadYAML;
 import io.restassured.response.Response;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.*;
 
 import static io.restassured.RestAssured.given;
@@ -20,8 +19,9 @@ import static io.restassured.RestAssured.given;
  *
  * @author zhzh.yin
  **/
+@Slf4j
+@Data
 public class APIObjectModel {
-    private static final Logger log = LoggerFactory.getLogger(APIObjectModel.class);
     public HashMap<String, APIObject> apilist;
     public HashMap<String, APIObjectParam> paramlist;
     private static String host = LoadDefaultConfig.getHost();
@@ -48,7 +48,7 @@ public class APIObjectModel {
         log.info("载入yaml中写的apilist");
         String methodname = Thread.currentThread().getStackTrace()[2].getMethodName();
         log.info("载入method :" + methodname);
-        log.info(model.apilist.get(methodname).getApi().size() + "");
+        log.info(model.apilist.get(methodname).toString() + "");
         try {
             return parseApiFromYaml(model.apilist.get(methodname), map, frontAPIClazz);
         } catch (APINotFoundException e) {
@@ -100,15 +100,16 @@ public class APIObjectModel {
         String method = api.getMethod();
         HashMap<String,Object> headers  = api.getHeaders();
         String connection = api.getConnection();
-        String json = api.getJson();
+        List<String> json = api.getJson();
         String jsonFile = api.getJsonFile();
-        if(api.getHost()!=null){
-            String localHost  = api.getHost();
+        String localHost = "";
+        if (api.getHost() != null) {
+            localHost = api.getHost();
         }else {
-            localHost =host;
+            localHost = host;
         }
-        List<String ,Object> params = api.getParams();
-        List<String ,Object> cookies = api.getCookies();
+        List<String > params = api.getParams();
+        List<String > cookies = api.getCookies();
 
         if(method==""||method.equals(null)){
             throw  new APINotFoundException("没有写入method");
@@ -118,7 +119,7 @@ public class APIObjectModel {
         RequestSpecification request = given();
             if(params!=null){
                 request = request.params(transParams(params, map));
-                log.info("配置params:" + apiItems.get("params"));
+                log.info("配置params:" + api.getParams());
 
             }
 
@@ -128,7 +129,7 @@ public class APIObjectModel {
 
             }
             if (headers!=null) {
-                request = request.headers(transParams(headers, map));
+                request = request.headers(api.getHeaders());
                 log.info("配置header:" + headers);
             }
 
@@ -139,18 +140,17 @@ public class APIObjectModel {
                 request = request.body(jsonValue);
             } else if (json!=null) {
                 request = request.body(transParams(json, map));
-                apiItems.remove("json");
             }
 
         if (jsonFile!=null) {
-            String jsonFile = transClasspathToJsonpath(frontAPIClazz, jsonFile);
+            jsonFile = transClasspathToJsonpath(frontAPIClazz, jsonFile);
             log.info("jsonFile is " + jsonFile);
             request = request.body(JSONTemplate.template(jsonFile));
         }
         if (method .equals("get")) {
             Response response = request.when()
                     .log().all()
-                    .get(host + url)
+                    .get(localHost + url)
                     .then()
                     .log().all()
                     .extract()
@@ -159,7 +159,7 @@ public class APIObjectModel {
         } else if (method .equals("post")) {
             Response response = request.when()
                     .log().all()
-                    .post(host + url)
+                    .post(localHost + url)
                     .then()
                     .log().all()
                     .extract()

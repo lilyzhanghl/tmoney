@@ -1,5 +1,7 @@
 package po;
 
+import lombok.Data;
+
 import java.util.HashMap;
 
 /**
@@ -8,6 +10,7 @@ import java.util.HashMap;
  *
  * @author zhzh.yin
  **/
+@Data
 public class APIObjectParam {
     public HashMap<String,String> param;
     public HashMap<String,String> cookie;
