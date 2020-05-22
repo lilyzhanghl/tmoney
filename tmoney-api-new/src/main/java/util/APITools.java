@@ -1,5 +1,6 @@
 package util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,8 +14,9 @@ import java.util.Map;
  * @Date: 2020-05-13 17:20
  * @Verion: 1.0
  */
+
+@Slf4j
 public class APITools {
-    private static final Logger log = LoggerFactory.getLogger(APITools.class);
     public static Map<String,String> combineMap(Map map1, Map map2){
         Map<String, String> combineMap = new HashMap<>();
         if(map1!=null && map2!=null){

@@ -13,11 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Data
 public class APINotFoundException extends Exception {
-
     public APINotFoundException(String message) {
-
     }
 
-    public static void main(String[] args) {
-    }
 }
