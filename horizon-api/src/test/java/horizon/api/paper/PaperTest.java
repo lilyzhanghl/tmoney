@@ -2,7 +2,7 @@ package horizon.api.paper;
 
 import io.qameta.allure.Description;
 import org.junit.jupiter.api.Test;
-import po.APIObjectModel;
+import apiobject.APIObjectModel;
 
 import static org.hamcrest.Matchers.equalTo;
 

@@ -20,7 +20,7 @@ public class LoadDefaultConfig {
 //    this.getClass().getResource("");
     static String srcPath = "src/main/resources/application.yaml";
     public static String getHost() {
-        LoadDefaultConfig config = ReadYAML
+        LoadDefaultConfig config = HandelYaml
                 .getYamlConfig(srcPath, LoadDefaultConfig.class);
         String env  =config.current.get("host");
         return config.host.get(env);

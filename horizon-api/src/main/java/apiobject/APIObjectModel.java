@@ -1,4 +1,4 @@
-package po;
+package apiobject;
 
 import io.restassured.specification.RequestSpecification;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import poexception.APINotFoundException;
 import util.JSONTemplate;
 import util.LoadDefaultConfig;
-import util.ReadYAML;
+import util.HandelYaml;
 import io.restassured.response.Response;
 import java.util.*;
 
@@ -44,7 +44,8 @@ public class APIObjectModel {
     public static Response parseAPI(Class frontAPIClazz, Map<String, String> map) {
         String path = transClasspathToYamlpath(frontAPIClazz);
         log.info(" parse the path : " + path);
-        APIObjectModel model = ReadYAML.getYamlConfig(path, APIObjectModel.class);
+
+        APIObjectModel model = HandelYaml.getYamlConfig(path, APIObjectModel.class);
         log.info("载入yaml中写的apilist");
         String methodname = Thread.currentThread().getStackTrace()[2].getMethodName();
         log.info("载入method :" + methodname);
@@ -61,7 +62,9 @@ public class APIObjectModel {
     public static HashMap<String, String> parseParam(Class frontAPIClazz) {
         String path = transClasspathToYamlpath(frontAPIClazz);
         log.info(" parse the path : " + path);
-        APIObjectModel model = ReadYAML.getYamlConfig(path, APIObjectModel.class);
+        log.info(" ====================== " );
+
+        APIObjectModel model = HandelYaml.getYamlConfig(path, APIObjectModel.class);
         log.info("载入yaml中写的paramlist");
         String methodname = Thread.currentThread().getStackTrace()[2].getMethodName();
         log.info("载入method :" + methodname);
@@ -71,7 +74,7 @@ public class APIObjectModel {
     public static HashMap<String, String> getParam(Class frontTestClazz) {
         String path = transClasspathToYamlpath(frontTestClazz);
         log.info(" parse the path : " + path);
-        APIObjectModel model = ReadYAML.getYamlConfig(path, APIObjectModel.class);
+        APIObjectModel model = HandelYaml.getYamlConfig(path, APIObjectModel.class);
         log.info("载入yaml中写的paramlist");
         String methodname = Thread.currentThread().getStackTrace()[2].getMethodName();
         log.info("载入method :" + methodname);
@@ -100,16 +103,18 @@ public class APIObjectModel {
         String method = api.getMethod();
         HashMap<String,Object> headers  = api.getHeaders();
         String connection = api.getConnection();
-        List<String> json = api.getJson();
         String jsonFile = api.getJsonFile();
+        String params = api.getParams();
+        String json = api.getJson();
+        String cookies = api.getCookies();
         String localHost = "";
         if (api.getHost() != null) {
             localHost = api.getHost();
         }else {
             localHost = host;
         }
-        List<String > params = api.getParams();
-        List<String > cookies = api.getCookies();
+
+
 
         if(method==""||method.equals(null)){
             throw  new APINotFoundException("没有写入method");
@@ -118,30 +123,36 @@ public class APIObjectModel {
         //todo 参数枚举化
         RequestSpecification request = given();
             if(params!=null){
-                request = request.params(transParams(params, map));
+                List<String > params1 = Arrays.asList(
+                        api.getParams().split(","));
+                request = request.params(transParams(params1, map));
                 log.info("配置params:" + api.getParams());
 
             }
 
             if (cookies!=null) {
-                request = request.cookies(transParams(cookies, map));
-                log.info("配置cookies:" + cookies);
+                List<String > cookies1 = Arrays.asList(
+                        api.getCookies().split(","));
+                request = request.cookies(transParams(cookies1, map));
+                log.info("配置cookies:" + cookies1);
 
             }
             if (headers!=null) {
                 request = request.headers(api.getHeaders());
                 log.info("配置header:" + headers);
             }
+            if(json!=null){
+                List<String >json1 = Arrays.asList(json.split(","));
+                if(jsonFile!=null){
+                    String jsonPath = transClasspathToJsonpath(frontAPIClazz, jsonFile);
+                    HashMap<String, String> jsonMap = transParams(json1, map);
+                    String jsonValue = JSONTemplate.template(jsonPath, jsonMap);
+                    request = request.body(jsonValue);
+                }else{
+                    request = request.body(transParams(json1, map));
+                }
 
-            if ((json!=null) && (jsonFile!=null)) {
-                String jsonPath = transClasspathToJsonpath(frontAPIClazz, jsonFile);
-                HashMap<String, String> jsonMap = transParams(json, map);
-                String jsonValue = JSONTemplate.template(jsonPath, jsonMap);
-                request = request.body(jsonValue);
-            } else if (json!=null) {
-                request = request.body(transParams(json, map));
             }
-
         if (jsonFile!=null) {
             jsonFile = transClasspathToJsonpath(frontAPIClazz, jsonFile);
             log.info("jsonFile is " + jsonFile);
