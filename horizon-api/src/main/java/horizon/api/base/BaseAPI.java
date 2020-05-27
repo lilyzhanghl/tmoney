@@ -1,8 +1,8 @@
 package horizon.api.base;
 
-import org.kohsuke.rngom.parse.host.Base;
-import po.APIObjectModel;
+import apiobject.APIObjectModel;
 import io.restassured.response.Response;
+import util.HandelYaml;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +25,8 @@ public class BaseAPI {
         return login(map).cookies();
     }
     public Response login( Map<String, String> map) {
-        return APIObjectModel.parseAPI(BaseAPI.class, map);
+        Response response =  APIObjectModel.parseAPI(BaseAPI.class, map);
+        HandelYaml.writeToAuth( response.getCookies());
+        return response;
     }
 }

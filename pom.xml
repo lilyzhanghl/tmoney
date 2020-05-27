@@ -9,10 +9,8 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>tmoney-api</module>
-        <module>tmoney-webui</module>
-        <module>tmoney-webui-new</module>
-        <module>tmoney-api-new</module>
+        <module>horizon-api</module>
+        <module>zelda-webui</module>
     </modules>
 
 
