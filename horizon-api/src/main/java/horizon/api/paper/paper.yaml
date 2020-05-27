@@ -2,29 +2,14 @@ apilist:
   getDetail:
       method: get
       url: /caizhi_miniapi/api/applet/staffCard/detail
-      cookie: caizhi_key,caizhi_h5_key
+      cookies: caizhi_key,caizhi_h5_key
   viewPaper:
       method: post
       url: /caizhi_miniapi/api/applet/morning/paper/view.do
-      cookie: caizhi_key,caizhi_h5_key
+      cookies: caizhi_key,caizhi_h5_key
       headers:
-        contentType: application/json
+        Content-Type: application/json
       json: id
-  viewPaper2:
-      method: post
-      url: /caizhi_miniapi/api/applet/morning/paper/view.do
-      cookie: caizhi_key,caizhi_h5_key
-      headers:
-        contentType: application/json
-      jsonFile: viewPaper2
-  viewPaper3:
-      method: post
-      url: /caizhi_miniapi/api/applet/morning/paper/view.do
-      cookie: caizhi_key,caizhi_h5_key
-      headers:
-        contentType: application/json
-      json: id
-      jsonFile: viewPaper3
   filter:
       method: post
       url: "/caizhi_miniapi/api/applet/banner/filter_list.do"

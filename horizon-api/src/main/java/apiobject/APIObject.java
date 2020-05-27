@@ -1,4 +1,4 @@
-package po;
+package apiobject;
 
 import lombok.Data;
 
@@ -15,12 +15,12 @@ import java.util.List;
 public class APIObject {
     String url;
     String method;
-    HashMap<String,Object> headers;
+    HashMap<String, Object> headers;
     String connection;
     String host;
-    List<String> params;
-    List<String> cookies;
-    List<String> json ;
+    String params;
+    String cookies;
+    String json;
     String jsonFile;
 
     @Override
@@ -39,7 +39,6 @@ public class APIObject {
     }
 
 
-
     public String getJsonFile() {
         return jsonFile;
     }
@@ -47,7 +46,6 @@ public class APIObject {
     public void setJsonFile(String jsonFile) {
         this.jsonFile = jsonFile;
     }
-
 
 
     public String getUrl() {

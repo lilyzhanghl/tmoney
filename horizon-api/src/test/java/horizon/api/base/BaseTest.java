@@ -1,11 +1,11 @@
 package horizon.api.base;
 
 import io.qameta.allure.Description;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import po.APIObjectModel;
+import apiobject.APIObjectModel;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
@@ -19,8 +19,10 @@ import static org.hamcrest.Matchers.not;
  */
 public class BaseTest {
     private BaseAPI api = BaseAPI.getInstance();
+
     @Test
     @Description("登录成功")
+    @BeforeAll
     public void testLoginSuccess()   {
         HashMap map = APIObjectModel.parseParam(BaseAPI.class);
         api.login(map)
@@ -36,7 +38,4 @@ public class BaseTest {
                 .then()
                 .body("ret", not(0));
     }
-
-
-
 }
