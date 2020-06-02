@@ -68,7 +68,10 @@ public class APIObjectModel {
         log.info("载入yaml中写的paramlist");
         String methodname = Thread.currentThread().getStackTrace()[2].getMethodName();
         log.info("载入method :" + methodname);
-        return model.paramlist.get(methodname).getParam();
+        if(null!=model.paramlist.get(methodname)){
+            return model.paramlist.get(methodname).getParam();
+        }
+        return null;
     }
 
     public static HashMap<String, String> getParam(Class frontTestClazz) {

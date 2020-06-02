@@ -23,4 +23,11 @@ public class PaperTest {
                 then().
                 body("retdata.personInfo.name", equalTo("尹珍枝"));
     }
+    @Test
+    @Description("早报员工详情staff-detail.do")
+    public void testGetDetail() {
+        paper.getDetail(APIObjectModel.parseParam(Paper.class)).
+                then().
+                body("retdata.name", equalTo("尹珍枝"));
+    }
 }
