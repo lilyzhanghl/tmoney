@@ -17,4 +17,7 @@ public class Paper  {
     public Response viewPaper(Map map) {
         return APIObjectModel.parseAPI(Paper.class, APITools.combineMap(cookie, map));
     }
+    public Response getDetail(Map map) {
+        return APIObjectModel.parseAPI(Paper.class, APITools.combineMap(cookie, map));
+    }
 }
