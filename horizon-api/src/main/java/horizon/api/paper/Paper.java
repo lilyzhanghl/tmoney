@@ -9,7 +9,7 @@ import util.HandelYaml;
 
 import java.util.Map;
 
-public class Paper  {
+public class Paper extends BaseAPI {
     private static final Logger log = LoggerFactory.getLogger(Paper.class);
     Map cookie = HandelYaml.readFromAuth();
 
