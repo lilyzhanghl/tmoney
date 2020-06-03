@@ -1,5 +1,6 @@
 package apiobject;
 
+import io.restassured.builder.RequestSpecBuilder;
 import lombok.Data;
 
 import java.util.HashMap;
@@ -19,7 +20,6 @@ public class APIObject {
     String connection;
     String host;
     String params;
-    String cookies;
     String json;
     String jsonFile;
 
@@ -32,7 +32,6 @@ public class APIObject {
                 ", connection='" + connection + '\'' +
                 ", host='" + host + '\'' +
                 ", params=" + params +
-                ", cookies=" + cookies +
                 ", json='" + json + '\'' +
                 ", jsonFile='" + jsonFile + '\'' +
                 '}';
