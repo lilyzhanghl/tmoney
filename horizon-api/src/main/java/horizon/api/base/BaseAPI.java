@@ -20,11 +20,11 @@ public class BaseAPI {
     public static BaseAPI getInstance(){
         return api;
     }
-    public Map<String, String> getAuthCookie() {
+    public  Map<String, String> getAuthCookie() {
         Map <String,String> map= APIObjectModel.parseParam(BaseAPI.class);
         return login(map).cookies();
     }
-    public Response login( Map<String, String> map) {
+    public  Response login( Map<String, String> map) {
         Response response =  APIObjectModel.parseAPI(BaseAPI.class, map);
         HandelYaml.writeToAuth( response.getCookies());
         return response;

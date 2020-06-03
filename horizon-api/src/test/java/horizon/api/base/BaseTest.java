@@ -18,24 +18,14 @@ import static org.hamcrest.Matchers.not;
  * @Verion: 1.0
  */
 public class BaseTest {
-    private BaseAPI api = BaseAPI.getInstance();
-
+    private static  BaseAPI api = BaseAPI.getInstance();
     @Test
-    @Description("登录成功")
     @BeforeAll
-    public void testLoginSuccess()   {
+    public  static void testLoginSuccess()   {
         HashMap map = APIObjectModel.parseParam(BaseAPI.class);
         api.login(map)
                 .then()
                 .body("ret", equalTo(0));
     }
 
-    @Test
-    @Description("登录失败")
-    public void testLoginFailure()   {
-        HashMap map = APIObjectModel.parseParam(BaseAPI.class);
-        api.login(map)
-                .then()
-                .body("ret", not(0));
-    }
 }
