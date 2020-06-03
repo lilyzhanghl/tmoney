@@ -13,6 +13,10 @@
         <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
         <!--api test-->
         <dependency>
             <groupId>io.rest-assured</groupId>

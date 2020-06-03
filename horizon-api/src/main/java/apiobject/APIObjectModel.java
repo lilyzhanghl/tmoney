@@ -1,5 +1,7 @@
 package apiobject;
 
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +10,7 @@ import util.JSONTemplate;
 import util.LoadDefaultConfig;
 import util.HandelYaml;
 import io.restassured.response.Response;
+
 import java.util.*;
 
 import static io.restassured.RestAssured.given;
@@ -25,7 +28,7 @@ public class APIObjectModel {
     public HashMap<String, APIObject> apilist;
     public HashMap<String, APIObjectParam> paramlist;
     private static String host = LoadDefaultConfig.getHost();
-
+    private static RequestSpecBuilder builder;
 
     public static String transClasspathToYamlpath(Class clazz) {
         return "src/main/java/" + clazz.getCanonicalName()
@@ -62,13 +65,13 @@ public class APIObjectModel {
     public static HashMap<String, String> parseParam(Class frontAPIClazz) {
         String path = transClasspathToYamlpath(frontAPIClazz);
         log.info(" parse the path : " + path);
-        log.info(" ====================== " );
+        log.info(" ====================== ");
 
         APIObjectModel model = HandelYaml.getYamlConfig(path, APIObjectModel.class);
         log.info("载入yaml中写的paramlist");
         String methodname = Thread.currentThread().getStackTrace()[2].getMethodName();
         log.info("载入method :" + methodname);
-        if(null!=model.paramlist.get(methodname)){
+        if (null != model.paramlist.get(methodname)) {
             return model.paramlist.get(methodname).getParam();
         }
         return null;
@@ -104,64 +107,66 @@ public class APIObjectModel {
     private static Response parseApiFromYaml(APIObject api, Map<String, String> map, Class frontAPIClazz) throws APINotFoundException {
         String url = api.getUrl();
         String method = api.getMethod();
-        HashMap<String,Object> headers  = api.getHeaders();
+        HashMap<String, Object> headers = api.getHeaders();
         String connection = api.getConnection();
         String jsonFile = api.getJsonFile();
         String params = api.getParams();
         String json = api.getJson();
-        String cookies = api.getCookies();
         String localHost = "";
         if (api.getHost() != null) {
             localHost = api.getHost();
-        }else {
+        } else {
             localHost = host;
         }
 
 
-
-        if(method==""||method.equals(null)){
-            throw  new APINotFoundException("没有写入method");
+        if (method == "" || method.equals(null)) {
+            throw new APINotFoundException("没有写入method");
         }
 
         //todo 参数枚举化
         RequestSpecification request = given();
-            if(params!=null){
-                List<String > params1 = Arrays.asList(
-                        api.getParams().split(","));
-                request = request.params(transParams(params1, map));
-                log.info("配置params:" + api.getParams());
+        log.info("查看builder有没有值");
+        if (builder != null) {
+            log.info("the builder is " + builder.toString());
+            RequestSpecification requestSpec = builder.build();
+            request = request.spec(requestSpec);
+        }
+        if (params != null) {
+            List<String> params1 = Arrays.asList(
+                    api.getParams().split(","));
+            request = request.params(transParams(params1, map));
+            log.info("配置params:" + api.getParams());
 
+        }
+        if (headers != null) {
+            request = request.headers(api.getHeaders());
+            log.info("配置header:" + headers);
+        }
+        if (json != null){
+            List<String >json1 = Arrays.asList(json.split(","));
+            if(jsonFile!=null){
+                String jsonPath = transClasspathToJsonpath(frontAPIClazz, jsonFile);
+                HashMap<String, String> jsonMap = transParams(json1, map);
+                String jsonValue = JSONTemplate.template(jsonPath, jsonMap);
+                request = request
+                        .contentType(ContentType.JSON)
+                        .body(jsonValue);
+            }else{
+                request = request
+                        .contentType(ContentType.JSON)
+                        .body(transParams(json1, map));
             }
-
-            if (cookies!=null) {
-                List<String > cookies1 = Arrays.asList(
-                        api.getCookies().split(","));
-                request = request.cookies(transParams(cookies1, map));
-                log.info("配置cookies:" + cookies1);
-
-            }
-            if (headers!=null) {
-                request = request.headers(api.getHeaders());
-                log.info("配置header:" + headers);
-            }
-            if(json!=null){
-                List<String >json1 = Arrays.asList(json.split(","));
-                if(jsonFile!=null){
-                    String jsonPath = transClasspathToJsonpath(frontAPIClazz, jsonFile);
-                    HashMap<String, String> jsonMap = transParams(json1, map);
-                    String jsonValue = JSONTemplate.template(jsonPath, jsonMap);
-                    request = request.body(jsonValue);
-                }else{
-                    request = request.body(transParams(json1, map));
-                }
-
-            }
-        if (jsonFile!=null) {
+        }
+        if (jsonFile != null) {
             jsonFile = transClasspathToJsonpath(frontAPIClazz, jsonFile);
             log.info("jsonFile is " + jsonFile);
-            request = request.body(JSONTemplate.template(jsonFile));
+            request = request
+                    .contentType(ContentType.JSON)
+                    .body(JSONTemplate.template(jsonFile));
         }
-        if (method .equals("get")) {
+
+        if (method.equals("get")) {
             Response response = request.when()
                     .log().all()
                     .get(localHost + url)
@@ -169,8 +174,13 @@ public class APIObjectModel {
                     .log().all()
                     .extract()
                     .response();
+            if (null==builder) {
+                builder = new RequestSpecBuilder();
+                log.info(response.getCookies().keySet().toString());
+                builder.addCookies(response.getCookies());
+            }
             return response;
-        } else if (method .equals("post")) {
+        } else if (method.equals("post")) {
             Response response = request.when()
                     .log().all()
                     .post(localHost + url)
@@ -178,6 +188,7 @@ public class APIObjectModel {
                     .log().all()
                     .extract()
                     .response();
+
             return response;
         } else {
             throw new APINotFoundException("解析失败");

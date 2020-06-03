@@ -15,16 +15,13 @@ import java.util.Map;
  * @Verion: 1.0
  */
 public class BaseAPI {
-    public BaseAPI(){
-        login();
-    }
-    public  Map<String, String> getAuthCookie() {
+    public Map<String, String> getAuthCookie() {
         Map <String,String> map= APIObjectModel.parseParam(BaseAPI.class);
-        return login().cookies();
+        return login(map).cookies();
     }
-    public  Response login( ) {
-        Response response =  APIObjectModel.parseAPI(BaseAPI.class, APIObjectModel.parseParam(BaseAPI.class));
-        HandelYaml.writeToAuth( response.getCookies());
+    public Response login( Map<String, String> map) {
+        Response response =  APIObjectModel.parseAPI(BaseAPI.class, map);
+
         return response;
     }
 }

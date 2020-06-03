@@ -9,14 +9,13 @@ import util.HandelYaml;
 
 import java.util.Map;
 
-public class Paper extends BaseAPI {
+public class Paper  {
     private static final Logger log = LoggerFactory.getLogger(Paper.class);
-    Map cookie = HandelYaml.readFromAuth();
 
     public Response viewPaper(Map map) {
-        return APIObjectModel.parseAPI(Paper.class, APITools.combineMap(cookie, map));
+        return APIObjectModel.parseAPI(Paper.class,map);
     }
     public Response getDetail(Map map) {
-        return APIObjectModel.parseAPI(Paper.class, cookie);
+        return APIObjectModel.parseAPI(Paper.class, map);
     }
 }
