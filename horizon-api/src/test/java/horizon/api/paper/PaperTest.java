@@ -1,9 +1,9 @@
 package horizon.api.paper;
-
+import horizon.api.base.BaseTest;
 import io.qameta.allure.Description;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import apiobject.APIObjectModel;
-
 import static org.hamcrest.Matchers.equalTo;
 
 /**
@@ -15,6 +15,10 @@ import static org.hamcrest.Matchers.equalTo;
  */
 public class PaperTest {
     private Paper paper = new Paper();
+/*    @BeforeAll
+    public static void setUp(){
+        BaseTest.testLoginSuccess();
+    }*/
 
     @Test
     @Description("查看早报view.do")
