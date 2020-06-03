@@ -20,8 +20,6 @@ import static org.hamcrest.Matchers.not;
 public class BaseTest {
     private static BaseAPI api =new BaseAPI();
 
-    @Test
-    @Description("登录成功")
     @BeforeAll
     public static  void testLoginSuccess()   {
         HashMap map = APIObjectModel.parseParam(BaseAPI.class);
