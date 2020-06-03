@@ -2,8 +2,10 @@ package horizon.api.base;
 
 import io.qameta.allure.Description;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import apiobject.APIObjectModel;
+import org.junit.jupiter.api.TestInstance;
 
 import java.util.HashMap;
 
@@ -17,19 +19,26 @@ import static org.hamcrest.Matchers.not;
  * @Date: 2020-04-22 20:51
  * @Verion: 1.0
  */
+
 public class BaseTest {
     private static BaseAPI api =new BaseAPI();
 
-    @Test
-    @Description("登录成功")
     @BeforeAll
-    public static  void testLoginSuccess()   {
+    public static  void setUp()   {
         HashMap map = APIObjectModel.parseParam(BaseAPI.class);
         api.login(map)
                 .then()
                 .body("ret", equalTo(0));
     }
-
+    @Test
+    @Order(1)
+    @Description("登录成功")
+    public  void testLoginSuccess()   {
+        HashMap map = APIObjectModel.parseParam(BaseAPI.class);
+        api.login(map)
+                .then()
+                .body("ret", equalTo(0));
+    }
     @Test
     @Description("登录失败")
     public void testLoginFailure()   {
