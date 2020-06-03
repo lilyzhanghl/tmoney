@@ -4,6 +4,7 @@ import io.qameta.allure.Description;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import apiobject.APIObjectModel;
+import org.junit.jupiter.api.TestInstance;
 
 import java.util.HashMap;
 
@@ -17,6 +18,7 @@ import static org.hamcrest.Matchers.not;
  * @Date: 2020-04-22 20:51
  * @Verion: 1.0
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BaseTest {
     private static BaseAPI api =new BaseAPI();
 
