@@ -2,6 +2,7 @@ package horizon.api.base;
 
 import io.qameta.allure.Description;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import apiobject.APIObjectModel;
 import org.junit.jupiter.api.TestInstance;
@@ -30,6 +31,7 @@ public class BaseTest {
                 .body("ret", equalTo(0));
     }
     @Test
+    @Order(1)
     @Description("登录成功")
     public  void testLoginSuccess()   {
         HashMap map = APIObjectModel.parseParam(BaseAPI.class);

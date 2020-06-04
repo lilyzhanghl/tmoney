@@ -13,7 +13,6 @@
         <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
     </properties>
     <dependencies>
-
         <!--api test-->
         <dependency>
             <groupId>io.rest-assured</groupId>
