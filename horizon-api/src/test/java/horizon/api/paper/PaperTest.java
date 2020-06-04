@@ -1,7 +1,9 @@
 package horizon.api.paper;
+import horizon.api.base.BaseTest;
 import io.qameta.allure.Description;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import apiobject.APIObjectModel;
+
 import static org.hamcrest.Matchers.equalTo;
 
 /**
@@ -11,14 +13,16 @@ import static org.hamcrest.Matchers.equalTo;
  * @Date: 2020-05-13 13:59
  * @Verion: 1.0
  */
+
 public class PaperTest {
     private Paper paper = new Paper();
-/*    @BeforeAll
+    @BeforeAll
     public static void setUp(){
-        BaseTest.testLoginSuccess();
-    }*/
-
+        BaseTest.setUp();
+    }
+//todo 改写ExtendWith方法来简化代码，而不是通过每个类编写BeforeAll
     @Test
+    @Order(1)
     @Description("查看早报view.do")
     public void testViewPaper() {
         paper.viewPaper(APIObjectModel.parseParam(Paper.class)).

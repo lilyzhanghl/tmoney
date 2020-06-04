@@ -16,19 +16,18 @@ import static org.hamcrest.Matchers.not;
  * @Date: 2020-04-22 20:51
  * @Verion: 1.0
  */
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+
 public class BaseTest {
     private static BaseAPI api =new BaseAPI();
-
-    @BeforeAll
-    public static  void setUp()   {
-        HashMap map = APIObjectModel.parseParam(BaseAPI.class);
+@BeforeAll
+    public  static void setUp()   {
+    HashMap map = APIObjectModel.parseParam(BaseAPI.class);
         api.login(map)
                 .then()
                 .body("ret", equalTo(0));
     }
     @Test
-    @Order(1)
+    @Order(2)
     @Description("登录成功")
     public  void testLoginSuccess()   {
         HashMap map = APIObjectModel.parseParam(BaseAPI.class);
