@@ -11,6 +11,7 @@ import static org.hamcrest.Matchers.equalTo;
  * @Date: 2020-05-13 13:59
  * @Verion: 1.0
  */
+
 public class PaperTest {
     private Paper paper = new Paper();
 /*    @BeforeAll

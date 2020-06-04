@@ -18,26 +18,18 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
-        <junit.jupiter.version>5.0.2</junit.jupiter.version>
+        <junit.jupiter.version>5.4.0</junit.jupiter.version>
         <allure-junit5.version>2.13.0</allure-junit5.version>
         <aspectj.version>1.9.1</aspectj.version>
     </properties>
     <dependencies>
         <!--junit5-->
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-launcher</artifactId>
-            <version>1.5.2</version>
-        </dependency>
+        <!--engine中包含junit-jupiter-api,如果需要兼容junit3.4.就要加入junit-vintage-engine -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.5.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-params</artifactId>
-            <version>5.5.2</version>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
         </dependency>
         <!--assert-->
         <dependency>
