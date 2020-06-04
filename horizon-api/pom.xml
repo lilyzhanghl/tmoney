@@ -8,7 +8,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>tmoney-api-new</artifactId>
+    <artifactId>horizon-api</artifactId>
     <properties>
         <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
     </properties>
@@ -30,11 +30,7 @@
             <artifactId>compiler</artifactId>
             <version>0.9.6</version>
         </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.4</version>
-        </dependency>
+
     </dependencies>
     <build>
         <plugins>
