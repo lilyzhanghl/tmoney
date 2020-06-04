@@ -18,12 +18,12 @@ import static org.hamcrest.Matchers.not;
  * @Date: 2020-04-22 20:51
  * @Verion: 1.0
  */
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+
 public class BaseTest {
     private static BaseAPI api =new BaseAPI();
 
     @BeforeAll
-    public static  void login()   {
+    public static  void setUp()   {
         HashMap map = APIObjectModel.parseParam(BaseAPI.class);
         api.login(map)
                 .then()

@@ -1,7 +1,5 @@
 package horizon.api.paper;
-import horizon.api.base.BaseTest;
 import io.qameta.allure.Description;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import apiobject.APIObjectModel;
 import static org.hamcrest.Matchers.equalTo;

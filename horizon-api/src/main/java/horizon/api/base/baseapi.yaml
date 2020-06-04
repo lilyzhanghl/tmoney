@@ -8,7 +8,7 @@ paramlist:
     param:
       userId: YinZhenZhi
       corpId: ww8c83d949a80b562d
-  login:
+  setUp:
     param:
       userId: YinZhenZhi
       corpId: ww8c83d949a80b562d
