@@ -23,13 +23,20 @@ public class BaseTest {
     private static BaseAPI api =new BaseAPI();
 
     @BeforeAll
-    public static  void testLoginSuccess()   {
+    public static  void login()   {
         HashMap map = APIObjectModel.parseParam(BaseAPI.class);
         api.login(map)
                 .then()
                 .body("ret", equalTo(0));
     }
-
+    @Test
+    @Description("登录成功")
+    public  void testLoginSuccess()   {
+        HashMap map = APIObjectModel.parseParam(BaseAPI.class);
+        api.login(map)
+                .then()
+                .body("ret", equalTo(0));
+    }
     @Test
     @Description("登录失败")
     public void testLoginFailure()   {

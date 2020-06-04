@@ -4,11 +4,11 @@ apilist:
       method: get
       params: userId,corpId
 paramlist:
-  getAuthCookie:
+  testLoginSuccess:
     param:
       userId: YinZhenZhi
       corpId: ww8c83d949a80b562d
-  testLoginSuccess:
+  login:
     param:
       userId: YinZhenZhi
       corpId: ww8c83d949a80b562d
