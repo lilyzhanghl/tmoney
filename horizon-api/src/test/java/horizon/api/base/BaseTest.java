@@ -1,11 +1,8 @@
 package horizon.api.base;
 
 import io.qameta.allure.Description;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import apiobject.APIObjectModel;
-import org.junit.jupiter.api.TestInstance;
 
 import java.util.HashMap;
 
@@ -19,7 +16,7 @@ import static org.hamcrest.Matchers.not;
  * @Date: 2020-04-22 20:51
  * @Verion: 1.0
  */
-
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class BaseTest {
     private static BaseAPI api =new BaseAPI();
 
