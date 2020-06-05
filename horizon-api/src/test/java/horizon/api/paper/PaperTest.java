@@ -20,7 +20,7 @@ public class PaperTest {
     public static void setUp(){
         BaseTest.setUp();
     }
-
+//todo 改写ExtendWith方法来简化代码，而不是通过每个类编写BeforeAll
     @Test
     @Order(1)
     @Description("查看早报view.do")
