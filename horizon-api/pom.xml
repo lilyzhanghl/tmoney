@@ -44,11 +44,13 @@
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
+                    <reportsDirectory>${project.build.directory}/allure-reports</reportsDirectory>
                     <systemProperties>
                         <property>
                             <name>junit.jupiter.extensions.autodetection.enabled</name>
                             <value>true</value>
                         </property>
+                        <!--在target中生成result,就用下面这个命令-->
                         <property>
                             <name>allure.results.directory</name>
                             <value>${project.build.directory}/allure-results</value>

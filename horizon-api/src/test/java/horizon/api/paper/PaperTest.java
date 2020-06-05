@@ -1,4 +1,5 @@
 package horizon.api.paper;
+
 import horizon.api.base.BaseTest;
 import io.qameta.allure.Description;
 import org.junit.jupiter.api.*;
@@ -16,11 +17,15 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class PaperTest {
     private Paper paper = new Paper();
+
     @BeforeAll
-    public static void setUp(){
-        BaseTest.setUp();
+    public static void setUp() {
+        if (BaseTest.notLogin) {
+            BaseTest.setUp();
+        }
     }
-//todo 改写ExtendWith方法来简化代码，而不是通过每个类编写BeforeAll
+
+    //todo 改写ExtendWith方法来简化代码，而不是通过每个类编写BeforeAll
     @Test
     @Order(1)
     @Description("查看早报view.do")
@@ -29,6 +34,7 @@ public class PaperTest {
                 then().
                 body("retdata.personInfo.name", equalTo("尹珍枝"));
     }
+
     @Test
     @Description("早报员工详情staff-detail.do")
     public void testGetDetail() {

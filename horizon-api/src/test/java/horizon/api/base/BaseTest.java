@@ -19,12 +19,14 @@ import static org.hamcrest.Matchers.not;
 
 public class BaseTest {
     private static BaseAPI api =new BaseAPI();
+    public static Boolean notLogin = true;
 @BeforeAll
     public  static void setUp()   {
     HashMap map = APIObjectModel.parseParam(BaseAPI.class);
         api.login(map)
                 .then()
                 .body("ret", equalTo(0));
+        notLogin=false;
     }
     @Test
     @Order(2)
