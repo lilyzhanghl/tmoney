@@ -18,11 +18,10 @@ import static org.hamcrest.Matchers.not;
  */
 
 public class BaseTest {
-    private  BaseAPI api =new BaseAPI();
-
-
-    public   void setUp()   {
-        HashMap map = APIObjectModel.parseParam(BaseAPI.class);
+    private static BaseAPI api =new BaseAPI();
+@BeforeAll
+    public  static void setUp()   {
+    HashMap map = APIObjectModel.parseParam(BaseAPI.class);
         api.login(map)
                 .then()
                 .body("ret", equalTo(0));
