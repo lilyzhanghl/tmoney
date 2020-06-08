@@ -30,6 +30,7 @@ public class BaseTest {
     }
     @Test
     @Order(1)
+
     @Story("登录成功")
     @Severity(SeverityLevel.CRITICAL)
     public  void testLoginSuccess()   {

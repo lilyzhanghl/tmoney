@@ -11,6 +11,7 @@
     <modules>
         <module>horizon-api</module>
         <module>zelda-webui</module>
+        <module>gtav-appui</module>
     </modules>
 
 
