@@ -1,6 +1,5 @@
 package zelda.util;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,7 +17,7 @@ public class LoadDefaultConfig {
     public HashMap<String, HashMap<String, String>> browserDriver = new HashMap<>();
     public HashMap<String, String> host = new HashMap<>();
     public HashMap<String, String> current = new HashMap<String, String>();
-    private static String srcPath = "src/test/resources/application.yaml";
+    private static String srcPath = "src/main/resources/application.yaml";
 
     public static List<String> getBrowserVersion() {
         LoadDefaultConfig config = ReadYAML.getYamlConfig(srcPath, LoadDefaultConfig.class);
@@ -34,8 +33,5 @@ public class LoadDefaultConfig {
         String env  =config.current.get("host");
         return config.host.get(env);
     }
-    @Test
-    public void test(){
-        System.out.println(getBrowserVersion());
-    }
+
 }

@@ -12,6 +12,7 @@ import util.HandelYaml;
 import io.restassured.response.Response;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 import static io.restassured.RestAssured.given;
 
@@ -22,9 +23,11 @@ import static io.restassured.RestAssured.given;
  *
  * @author zhzh.yin
  **/
-@Slf4j
 @Data
+@Slf4j
 public class APIObjectModel {
+//    static final Logger log = Logger.getLogger(APIObjectModel.class.getName());
+
     public HashMap<String, APIObject> apilist;
     public HashMap<String, APIObjectParam> paramlist;
     private static String host = LoadDefaultConfig.getHost();

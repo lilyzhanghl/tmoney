@@ -103,8 +103,9 @@ public class PageObjectModel {
      * @param steps
      */
     private static void parseStepsFromYaml(WebDriver driver, PageObjectMethod steps) {
-        if (steps.getStep().size() <= 0)
+        if (steps.getStep().size() <= 0) {
             throw new NullPointerException("step中没有执行方法");
+        }
         steps.getStep().forEach(
                 step -> {
                     Iterator<Map.Entry<String, String>> map1it = step.entrySet().iterator();
@@ -162,7 +163,7 @@ public class PageObjectModel {
     }
 
     public void setParams(HashMap<String, Object> params) {
-        this.params = params;
+        PageObjectModel.params = params;
     }
 
     public static HashMap<String, Object> getParams() {
