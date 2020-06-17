@@ -1,5 +1,6 @@
 package zelda.page;
 
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +16,8 @@ import java.util.HashMap;
  * @Date: 2020-04-29 15:34
  * @Verion: 1.0
  */
+@Slf4j
 public class AppLogin {
-    static final Logger log = LoggerFactory.getLogger(AppLogin.class);
-
     public AppLogin loginWithCookie(String userId, String corpId) {
         log.info("执行loginWithCookie方法");
         HashMap<String, Object> map = new HashMap<String, Object>() {{
