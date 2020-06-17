@@ -1,4 +1,4 @@
-package util;
+package zelda.util;
 
 import com.github.mustachejava.DeferringMustacheFactory;
 import com.github.mustachejava.Mustache;

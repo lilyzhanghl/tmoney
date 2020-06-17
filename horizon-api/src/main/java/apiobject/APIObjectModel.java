@@ -6,10 +6,10 @@ import io.restassured.specification.RequestSpecification;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import poexception.APINotFoundException;
-import util.JSONTemplate;
-import util.LoadDefaultConfig;
-import util.HandelYaml;
 import io.restassured.response.Response;
+import zelda.util.HandelYaml;
+import zelda.util.JSONTemplate;
+import zelda.util.LoadDefaultConfig;
 
 import java.util.*;
 

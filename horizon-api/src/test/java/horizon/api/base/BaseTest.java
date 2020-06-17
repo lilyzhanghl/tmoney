@@ -1,6 +1,6 @@
 package horizon.api.base;
 
-import io.qameta.allure.*;
+import io.qameta.allure.Description;
 import org.junit.jupiter.api.*;
 import apiobject.APIObjectModel;
 
@@ -16,23 +16,19 @@ import static org.hamcrest.Matchers.not;
  * @Date: 2020-04-22 20:51
  * @Verion: 1.0
  */
-@Epic("登录接口")
+
 public class BaseTest {
     private static BaseAPI api =new BaseAPI();
-    public static Boolean notLogin = true;
 @BeforeAll
     public  static void setUp()   {
     HashMap map = APIObjectModel.parseParam(BaseAPI.class);
         api.login(map)
                 .then()
                 .body("ret", equalTo(0));
-        notLogin=false;
     }
     @Test
-    @Order(1)
-
-    @Story("登录成功")
-    @Severity(SeverityLevel.CRITICAL)
+    @Order(2)
+    @Description("登录成功")
     public  void testLoginSuccess()   {
         HashMap map = APIObjectModel.parseParam(BaseAPI.class);
         api.login(map)
@@ -40,8 +36,7 @@ public class BaseTest {
                 .body("ret", equalTo(0));
     }
     @Test
-    @Severity(SeverityLevel.CRITICAL)
-    @Story("登录失败")
+    @Description("登录失败")
     public void testLoginFailure()   {
         HashMap map = APIObjectModel.parseParam(BaseAPI.class);
         api.login(map)

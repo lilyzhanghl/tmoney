@@ -1,12 +1,11 @@
 package horizon.api.paper;
 
-import horizon.api.base.BaseAPI;
 import io.restassured.response.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import apiobject.APIObjectModel;
-import util.APITools;
-import util.HandelYaml;
+import zelda.util.APITools;
+import zelda.util.HandelYaml;
 
 import java.util.Map;
 

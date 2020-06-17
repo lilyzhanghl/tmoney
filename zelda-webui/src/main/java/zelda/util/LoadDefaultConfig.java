@@ -1,4 +1,4 @@
-package util;
+package zelda.util;
 
 
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,6 @@ import java.util.HashMap;
  * @Date: 2020-04-24 18:30
  * @Verion: 1.0
  */
-//todo 优化获取host的方法，让host只用获取一次即可。
 @Slf4j
 public class LoadDefaultConfig {
     public HashMap<String, String> host = new HashMap<>();
@@ -24,7 +23,6 @@ public class LoadDefaultConfig {
         LoadDefaultConfig config = HandelYaml
                 .getYamlConfig(srcPath, LoadDefaultConfig.class);
         String env  =config.current.get("host");
-        String host = config.host.get(env);
-        return host;
+        return config.host.get(env);
     }
 }

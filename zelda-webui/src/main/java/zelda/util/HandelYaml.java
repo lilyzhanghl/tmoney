@@ -1,14 +1,11 @@
-package util;
+package zelda.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import lombok.extern.slf4j.Slf4j;
-import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * @ClassName: ReadYAML
