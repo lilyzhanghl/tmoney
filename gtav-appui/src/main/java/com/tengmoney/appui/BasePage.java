@@ -47,7 +47,8 @@ public class BasePage {
             driver.findElement(by).click();
         }
     }
-
+    public void load(String path){
+    }
     public static List<WebElement> findElements(By by) {
         System.out.println(by);
         return driver.findElements(by);

@@ -33,8 +33,7 @@ class Solution {
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        for(int i = 0;i<s.twoSum(new int[]{1, 2, 4, 52, 1, 5}, 6).length;i++){
-        System.out.println(s.twoSum(new int[]{1, 2, 4, 52, 1, 5}, 6)[i]);}
+        System.out.println(Arrays.asList(s.twoSum(new int[]{1, 2, 4, 52, 1, 5}, 6)).toString());
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

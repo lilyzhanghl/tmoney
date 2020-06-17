@@ -1,8 +1,5 @@
 package zelda.util;
 
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -34,8 +31,5 @@ public class LoadDefaultConfig {
         String env  =config.current.get("host");
         return config.host.get(env);
     }
-    @Test
-    public void test(){
-        System.out.println(getBrowserVersion());
-    }
+
 }
