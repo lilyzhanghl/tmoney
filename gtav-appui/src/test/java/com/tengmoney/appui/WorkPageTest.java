@@ -1,27 +1,28 @@
 package com.tengmoney.appui;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.net.MalformedURLException;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class WorkPageTest {
-    App basePage = App.getInstance();
+    private static HomePage basePage = HomePage.getInstance();
+    private static WorkPage workPage;
     @BeforeAll
-    public WorkPage toWorkPage() {
-        try {
+    public static void toWorkPage() throws MalformedURLException {
             basePage.start();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        return basePage.toWork();
+        workPage= basePage.toWork();
     }
     @Test
-    public void testStart(){
-        toWorkPage().startWork();
+    public void testLazy(){
+        workPage.click();
+        assertTrue(workPage.getResult().equals("今日打卡已完成，好好休息"));
     }
-    @Test
-    public void testStop(){
-        toWorkPage().startWork();
+    @AfterAll
+    public static void shutDown(){
+        workPage.quit();
     }
 }

@@ -3,22 +3,20 @@ package com.tengmoney.appui;
 
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class App extends BasePage{
-    private static App app;
-    public static App getInstance(){
-        if(app==null){
-            app=new App();
+public class HomePage extends BasePage{
+    private static HomePage homePage;
+    public static HomePage getInstance(){
+        if(homePage ==null){
+            homePage =new HomePage();
         }
-        return app;
+        return homePage;
     }
 
     public void start() throws MalformedURLException {
@@ -28,14 +26,8 @@ public class App extends BasePage{
         desiredCapabilities.setCapability("appActivity", ".launch.LaunchSplashActivity");
         desiredCapabilities.setCapability("noReset", true);
         desiredCapabilities.setCapability("autoGrantPermissions", true);
-//        desiredCapabilities.setCapability("udid", System.getenv("UDID"));
         desiredCapabilities.setCapability("udid", "APH0219430006864");
-
-
         URL remoteUrl = new URL("http://127.0.0.1:4723/wd/hub");
-//        URL remoteUrl = new URL("http://192.168.31.199:4444/wd/hub");
-
-
         driver = new AndroidDriver(remoteUrl, desiredCapabilities);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
@@ -72,7 +64,6 @@ public class App extends BasePage{
         click(By.id("com.tencent.wework:id/h9e"));
         click(By.xpath("//*[@text='工作台']"));
         click(By.xpath("//*[@text='打卡']"));
-
         return new WorkPage();
     }
 

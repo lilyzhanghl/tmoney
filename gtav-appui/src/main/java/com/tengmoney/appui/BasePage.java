@@ -1,27 +1,26 @@
 package com.tengmoney.appui;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import io.appium.java_client.MobileBy;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class BasePage {
-    public static AndroidDriver<WebElement> driver;
-
+    private  AppiumDriver<MobileElement> driver;
+    private WebDriverWait wait ;
+    public BasePage(AppiumDriver<MobileElement>driver){
+        this.driver = driver;
+        wait = new WebDriverWait(driver,10);
+    }
     //通用元素定位与异常处理机制
-    public static WebElement findElement(By by) {
+    public  WebElement findElement(By by) {
         //todo: 递归是更好的
         //todo: 如果定位的元素是动态变化位置
 
@@ -34,8 +33,15 @@ public class BasePage {
             return driver.findElement(by);
         }
     }
-
-    public static void click(By by) {
+    public  Boolean elementIsExist(By by){
+        List<MobileElement> wrongLoc=driver.findElements(by);
+        if(wrongLoc.size()>=1){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    public  void click(By by) {
         //todo: 递归是更好的
 
         System.out.println(by);
@@ -49,23 +55,23 @@ public class BasePage {
     }
     public void load(String path){
     }
-    public static List<WebElement> findElements(By by) {
+    public List<MobileElement> findElements(By by) {
         System.out.println(by);
         return driver.findElements(by);
     }
 
-    static void handleAlert() {
+    public  void handleAlert() {
         By tips = By.id("com.xueqiu.android:id/snb_tip_text");
         List<By> alertBoxs = new ArrayList<>();
         //todo: 不需要所有的都判断是否存在
         alertBoxs.add(By.id("com.xueqiu.android:id/image_cancel"));
         alertBoxs.add(tips);
-        alertBoxs.add(By.id("com.xueqiu.android:id/md_buttonDefaultNegative"));
+//        alertBoxs.add(By.id("com.xueqiu.android:id/md_buttonDefaultNegative"));
 //        alertBoxs.add(By.xpath("dddd"));
 
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         alertBoxs.forEach(alert -> {
-            List<WebElement> ads = driver.findElements(alert);
+            List<MobileElement> ads = driver.findElements(alert);
 
             if (alert.equals(tips)) {
                 System.out.println("snb_tip found");
@@ -74,7 +80,6 @@ public class BasePage {
                     if (driver.findElements(tips).size() >= 1) {
                         new TouchAction(driver).tap(PointOption.point(size.width / 2, size.height / 2)).perform();
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
@@ -87,7 +92,7 @@ public class BasePage {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
-    private static void handleAlertByPageSource() {
+    private void handleAlertByPageSource() {
         //todo: xpath匹配， 标记 定位
         String xml = driver.getPageSource();
         List<String> alertBoxs = new ArrayList<>();
@@ -99,7 +104,8 @@ public class BasePage {
                 driver.findElement(By.id(alert)).click();
             }
         });
-
     }
-
+    public void quit() {
+        driver.quit();
+    }
 }
