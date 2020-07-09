@@ -9,20 +9,19 @@ import java.net.MalformedURLException;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class WorkPageTest {
-    private static HomePage basePage = HomePage.getInstance();
-    private static WorkPage workPage;
+    private static HomePage homePage ;
+
     @BeforeAll
-    public static void toWorkPage() throws MalformedURLException {
-            basePage.start();
-        workPage= basePage.toWork();
+    static void beforAll() throws MalformedURLException {
+        homePage = new HomePage();
+
     }
     @Test
     public void testLazy(){
-        workPage.click();
-        assertTrue(workPage.getResult().equals("今日打卡已完成，好好休息"));
+        assertTrue(homePage.toWork().click().getResult().equals("今日打卡已完成，好好休息"));
     }
     @AfterAll
     public static void shutDown(){
-        workPage.quit();
+        homePage.quit();
     }
 }

@@ -1,26 +1,84 @@
 package com.tengmoney.appui;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class BasePage {
-    private  AppiumDriver<MobileElement> driver;
-    private WebDriverWait wait ;
-    public BasePage(AppiumDriver<MobileElement>driver){
-        this.driver = driver;
-        wait = new WebDriverWait(driver,10);
+    private final int timeOutInSecondsDefault = 60;
+    AppiumDriver<MobileElement> driver;
+    WebDriverWait wait;
+    String packageName ;
+    String activityName ;
+
+    public BasePage(String packageName, String activityName) {
+        this.packageName = packageName;
+        this.activityName = activityName;
+        startApp(this.packageName, this.activityName);
+
     }
+
+    private void startApp(String packageName, String activityName) {
+        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+        desiredCapabilities.setCapability("platformName", "Android");
+        desiredCapabilities.setCapability("appPackage", packageName);
+        desiredCapabilities.setCapability("appActivity", activityName);
+        desiredCapabilities.setCapability("noReset", true);
+        desiredCapabilities.setCapability("autoGrantPermissions", true);
+        desiredCapabilities.setCapability("udid", "APH0219430006864");
+        desiredCapabilities.setCapability("dontStopAppOnReset", "true");
+        desiredCapabilities.setCapability("skipLogcatCapture", "true");
+        URL remoteUrl = null;
+        try {
+            remoteUrl = new URL("http://127.0.0.1:4723/wd/hub");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        driver = new AndroidDriver(remoteUrl, desiredCapabilities);
+        driver.manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
+        wait = new WebDriverWait(driver,timeOutInSecondsDefault);
+
+        long start = System.currentTimeMillis();
+        new WebDriverWait(driver, 40)
+                .until(x -> {
+                    String xml = driver.getPageSource();
+                    Boolean exist = xml.contains("工作台") || xml.contains("image_cancel");
+                    System.out.println((System.currentTimeMillis() - start) / 1000);
+                    System.out.println(exist);
+                    return exist;
+                });
+
+        /*        for(int i =0;i<=3;i++){
+            By allowButton = By.xpath("//*[@text='始终允许']");
+            List<WebElement> ads = driver.findElements(allowButton);
+            if(ads.size()>=1){
+                for(WebElement element :ads){
+                    element.click();
+                }
+            }
+        }*/
+    }
+
+    public BasePage(AppiumDriver<MobileElement> driver) {
+        this.driver = driver;
+        wait = new WebDriverWait(driver, timeOutInSecondsDefault);
+    }
+
     //通用元素定位与异常处理机制
-    public  WebElement findElement(By by) {
+    public WebElement findElement(By by) {
         //todo: 递归是更好的
         //todo: 如果定位的元素是动态变化位置
 
@@ -33,15 +91,17 @@ public class BasePage {
             return driver.findElement(by);
         }
     }
-    public  Boolean elementIsExist(By by){
-        List<MobileElement> wrongLoc=driver.findElements(by);
-        if(wrongLoc.size()>=1){
+
+    public Boolean elementIsExist(By by) {
+        List<MobileElement> wrongLoc = driver.findElements(by);
+        if (wrongLoc.size() >= 1) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
-    public  void click(By by) {
+
+    public void click(By by) {
         //todo: 递归是更好的
 
         System.out.println(by);
@@ -53,14 +113,16 @@ public class BasePage {
             driver.findElement(by).click();
         }
     }
-    public void load(String path){
+
+    public void load(String path) {
     }
+
     public List<MobileElement> findElements(By by) {
         System.out.println(by);
         return driver.findElements(by);
     }
 
-    public  void handleAlert() {
+    public void handleAlert() {
         By tips = By.id("com.xueqiu.android:id/snb_tip_text");
         List<By> alertBoxs = new ArrayList<>();
         //todo: 不需要所有的都判断是否存在
@@ -105,6 +167,7 @@ public class BasePage {
             }
         });
     }
+
     public void quit() {
         driver.quit();
     }
