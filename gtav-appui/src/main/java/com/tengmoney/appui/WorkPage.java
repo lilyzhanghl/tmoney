@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 
 import java.time.LocalTime;
 
-public class WorkPage extends BasePage {
+public class WorkPage extends AppBasePage {
     public static String COMPNAME = "深圳腾银";
     LocalTime localTime = LocalTime.now();
     private final By update = By.id("com.tencent.wework:id/him");

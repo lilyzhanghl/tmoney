@@ -14,7 +14,6 @@ public class WorkPageTest {
     @BeforeAll
     static void beforAll() throws MalformedURLException {
         homePage = new HomePage();
-
     }
     @Test
     public void testLazy(){

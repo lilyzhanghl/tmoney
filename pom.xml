@@ -19,17 +19,41 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
-        <junit.jupiter.version>5.4.0</junit.jupiter.version>
+        <junit.jupiter.version>5.6.2</junit.jupiter.version>
         <allure-junit5.version>2.13.0</allure-junit5.version>
         <aspectj.version>1.9.1</aspectj.version>
     </properties>
     <dependencies>
         <!--junit5-->
+        <!--platform 用于在jvm启动测试框架，jupiter编写测试和扩展的新编程模型和扩展模型
+        vintage用于旧版本junit兼容-->
         <!--engine中包含junit-jupiter-api,如果需要兼容junit3.4.就要加入junit-vintage-engine -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!--argumentsProvider-->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!--导入ArgumentsProvider-->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.6.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- 解决TestInstancePreDestroyCallback 报错-->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.6.2</version>
             <scope>test</scope>
         </dependency>
         <!--assert-->

@@ -1,5 +1,6 @@
 package com.tengmoney.appui;
 
+import com.tengmoney.autoframework.BasePage;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -10,21 +11,20 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class BasePage {
+public class AppBasePage extends BasePage {
     private final int timeOutInSecondsDefault = 60;
     AppiumDriver<MobileElement> driver;
     WebDriverWait wait;
     String packageName ;
     String activityName ;
-
-    public BasePage(String packageName, String activityName) {
+    public AppBasePage(String packageName, String activityName) {
         this.packageName = packageName;
         this.activityName = activityName;
         startApp(this.packageName, this.activityName);
@@ -60,19 +60,9 @@ public class BasePage {
                     System.out.println(exist);
                     return exist;
                 });
-
-        /*        for(int i =0;i<=3;i++){
-            By allowButton = By.xpath("//*[@text='始终允许']");
-            List<WebElement> ads = driver.findElements(allowButton);
-            if(ads.size()>=1){
-                for(WebElement element :ads){
-                    element.click();
-                }
-            }
-        }*/
     }
 
-    public BasePage(AppiumDriver<MobileElement> driver) {
+    public AppBasePage(AppiumDriver<MobileElement> driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver, timeOutInSecondsDefault);
     }
@@ -103,19 +93,15 @@ public class BasePage {
 
     public void click(By by) {
         //todo: 递归是更好的
-
         System.out.println(by);
         try {
             driver.findElement(by).click();
         } catch (Exception e) {
             handleAlert();
-
             driver.findElement(by).click();
         }
     }
 
-    public void load(String path) {
-    }
 
     public List<MobileElement> findElements(By by) {
         System.out.println(by);
@@ -170,5 +156,45 @@ public class BasePage {
 
     public void quit() {
         driver.quit();
+    }
+
+    @Override
+    public void click(HashMap<String, Object> map) {
+        super.click(map);
+        String key= (String) map.keySet().toArray()[0];
+        String value= (String) map.values().toArray()[0];
+
+        By by = null;
+        if(key.toLowerCase().equals("id")){
+            by=By.id(value);
+        }
+        if(key.toLowerCase().equals("xpath")){
+            by = By.xpath(value);
+        }
+        if(key.toLowerCase().equals("linkText".toLowerCase())){
+            by=By.linkText(value);
+        }
+
+        if(key.toLowerCase().equals("partialLinkText".toLowerCase())){
+            by=By.partialLinkText(value);
+        }
+
+        click(by);
+    }
+
+    @Override
+    public void sendKeys(HashMap<String, Object> map) {
+        super.sendKeys(map);
+
+    }
+
+    @Override
+    public void action(HashMap<String, Object> map) {
+        super.action(map);
+        if(map.get("action").toString().toLowerCase().equals("get")){
+            driver.get(map.get("url").toString());
+        }else {
+            System.out.println("error get");
+        }
     }
 }
