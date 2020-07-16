@@ -1,6 +1,5 @@
-package com.tengmoney.appui;
+package com.tengmoney.autoframework;
 
-import com.tengmoney.autoframework.BasePage;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -11,6 +10,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
