@@ -2,7 +2,7 @@ package horizon.api.base;
 
 import io.qameta.allure.*;
 import org.junit.jupiter.api.*;
-import apiobject.APIObjectModel;
+import api.framework.ApiPO;
 
 import java.util.HashMap;
 
@@ -22,7 +22,7 @@ public class BaseTest {
     public static Boolean notLogin = true;
 @BeforeAll
     public  static void setUp()   {
-    HashMap map = APIObjectModel.parseParam(BaseAPI.class);
+    HashMap map = ApiPO.parseParam(BaseAPI.class);
         api.login(map)
                 .then()
                 .body("ret", equalTo(0));
@@ -34,7 +34,7 @@ public class BaseTest {
     @Story("登录成功")
     @Severity(SeverityLevel.CRITICAL)
     public  void testLoginSuccess()   {
-        HashMap map = APIObjectModel.parseParam(BaseAPI.class);
+        HashMap map = ApiPO.parseParam(BaseAPI.class);
         api.login(map)
                 .then()
                 .body("ret", equalTo(0));
@@ -43,7 +43,7 @@ public class BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Story("登录失败")
     public void testLoginFailure()   {
-        HashMap map = APIObjectModel.parseParam(BaseAPI.class);
+        HashMap map = ApiPO.parseParam(BaseAPI.class);
         api.login(map)
                 .then()
                 .body("ret", not(0));

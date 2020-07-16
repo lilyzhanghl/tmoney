@@ -30,7 +30,19 @@
             <artifactId>compiler</artifactId>
             <version>0.9.6</version>
         </dependency>
+        <dependency>
+            <groupId>io.appium</groupId>
+            <artifactId>java-client</artifactId>
+            <version>7.2.0</version>
 
+        </dependency>
+
+        <!-- json 模板化工具-->
+        <dependency>
+            <groupId>com.github.spullara.mustache.java</groupId>
+            <artifactId>compiler</artifactId>
+            <version>0.9.6</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

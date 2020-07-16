@@ -1,12 +1,10 @@
 package horizon.api.paper;
 
 import horizon.api.base.BaseTest;
-import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
-import apiobject.APIObjectModel;
+import api.framework.ApiPO;
 
 import static org.hamcrest.Matchers.equalTo;
 
@@ -34,7 +32,7 @@ public class PaperTest {
     @Order(1)
     @Story("查看早报view.do")
     public void testViewPaper() {
-        paper.viewPaper(APIObjectModel.parseParam(Paper.class)).
+        paper.viewPaper(ApiPO.parseParam(Paper.class)).
                 then().
                 body("retdata.personInfo.name", equalTo("尹珍枝"));
     }
@@ -42,7 +40,7 @@ public class PaperTest {
     @Test
     @Story("早报员工详情staff-detail.do")
     public void testGetDetail() {
-        paper.getDetail(APIObjectModel.parseParam(Paper.class)).
+        paper.getDetail(ApiPO.parseParam(Paper.class)).
                 then().
                 body("retdata.name", equalTo("尹珍枝"));
     }

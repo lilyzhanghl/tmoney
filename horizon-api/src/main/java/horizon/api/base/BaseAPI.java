@@ -1,6 +1,6 @@
 package horizon.api.base;
 
-import apiobject.APIObjectModel;
+import api.framework.ApiPO;
 import io.restassured.response.Response;
 
 import java.util.Map;
@@ -14,11 +14,11 @@ import java.util.Map;
  */
 public class BaseAPI {
     public Map<String, String> getAuthCookie() {
-        Map <String,String> map= APIObjectModel.parseParam(BaseAPI.class);
+        Map <String,String> map= ApiPO.parseParam(BaseAPI.class);
         return login(map).cookies();
     }
     public Response login( Map<String, String> map) {
-        Response response =  APIObjectModel.parseAPI(BaseAPI.class, map);
+        Response response =  ApiPO.parseAPI(BaseAPI.class, map);
 
         return response;
     }

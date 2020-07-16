@@ -1,10 +1,9 @@
-package apiobject;
+package api.framework;
 
-import io.restassured.builder.RequestSpecBuilder;
+import auto.framework.Content;
 import lombok.Data;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * tmoney
@@ -13,7 +12,8 @@ import java.util.List;
  * @author zhzh.yin
  **/
 @Data
-public class APIObject {
+public class ApiContent extends Content {
+    String name;
     String url;
     String method;
     HashMap<String, Object> headers;
@@ -22,34 +22,18 @@ public class APIObject {
     String params;
     String json;
     String jsonFile;
+    public HashMap<String, String> param;
 
-    @Override
-    public String toString() {
-        return "APIObject{" +
-                "url='" + url + '\'' +
-                ", method='" + method + '\'' +
-                ", headers=" + headers +
-                ", connection='" + connection + '\'' +
-                ", host='" + host + '\'' +
-                ", params=" + params +
-                ", json='" + json + '\'' +
-                ", jsonFile='" + jsonFile + '\'' +
-                '}';
+    public String getName() {
+        return name;
     }
 
-
-    public String getJsonFile() {
-        return jsonFile;
+    public void setName(String name) {
+        this.name = name;
     }
-
-    public void setJsonFile(String jsonFile) {
-        this.jsonFile = jsonFile;
-    }
-
 
     public String getUrl() {
         return url;
-
     }
 
     public void setUrl(String url) {
@@ -88,5 +72,35 @@ public class APIObject {
         this.host = host;
     }
 
+    public String getParams() {
+        return params;
+    }
 
+    public void setParams(String params) {
+        this.params = params;
+    }
+
+    public String getJson() {
+        return json;
+    }
+
+    public void setJson(String json) {
+        this.json = json;
+    }
+
+    public String getJsonFile() {
+        return jsonFile;
+    }
+
+    public void setJsonFile(String jsonFile) {
+        this.jsonFile = jsonFile;
+    }
+
+    public HashMap<String, String> getParam() {
+        return param;
+    }
+
+    public void setParam(HashMap<String, String> param) {
+        this.param = param;
+    }
 }

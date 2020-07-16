@@ -1,18 +1,20 @@
-package apiobject;
+package api.framework;
 
+import auto.framework.BasePO;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import poexception.APINotFoundException;
-import io.restassured.response.Response;
-import util.HandelYaml;
 import util.JSONTemplate;
 import util.LoadDefaultConfig;
 
-
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
@@ -25,70 +27,36 @@ import static io.restassured.RestAssured.given;
  **/
 @Slf4j
 @Data
-public class APIObjectModel {
-    public HashMap<String, APIObject> apilist;
-    public HashMap<String, APIObjectParam> paramlist;
+public class ApiPO extends BasePO {
+
     private static String host = LoadDefaultConfig.getHost();
     private static RequestSpecBuilder builder;
 
-    public static String transClasspathToYamlpath(Class clazz) {
-        return "src/main/java/" + clazz.getCanonicalName()
-                .replace(".", "/")
-                .toLowerCase()
-                + ".yaml";
-    }
-
-    public static String transClasspathToJsonpath(Class clazz, String jsonFileName) {
-        return "src/main/java/" + clazz.getPackage().getName().replace(".", "/") + "/" + jsonFileName
-                .toLowerCase()
-                + ".json";
+    /**
+     * json 文件名称需要和apiContent的name一致
+     * json文件的存储位置要和yaml一致
+     * @param path yaml存储路径
+     * @return json存储路径
+     */
+    public static String getJsonPath(String path) {
+        return path.replace(".yaml",".json");
 
     }
 
-    public static Response parseAPI(Class frontAPIClazz, Map<String, String> map) {
-        String path = transClasspathToYamlpath(frontAPIClazz);
-        log.info(" parse the path : " + path);
-
-        APIObjectModel model = HandelYaml.getYamlConfig(path, APIObjectModel.class);
-        log.info("载入yaml中写的apilist");
-        String methodname = Thread.currentThread().getStackTrace()[2].getMethodName();
-        log.info("载入method :" + methodname);
-        log.info(model.apilist.get(methodname).toString() + "");
-        try {
-            return parseApiFromYaml(model.apilist.get(methodname), map, frontAPIClazz);
-        } catch (APINotFoundException e) {
-            log.info(e.getMessage());
-            return null;
-        }
-
+    /**
+     * 读取apiContent中的param参数
+     */
+    public static HashMap<String, String> getParam(ApiContent apiContent) {
+        return apiContent.getParam();
     }
 
-    public static HashMap<String, String> parseParam(Class frontAPIClazz) {
-        String path = transClasspathToYamlpath(frontAPIClazz);
-        log.info(" parse the path : " + path);
-        log.info(" ====================== ");
-
-        APIObjectModel model = HandelYaml.getYamlConfig(path, APIObjectModel.class);
-        log.info("载入yaml中写的paramlist");
-        String methodname = Thread.currentThread().getStackTrace()[2].getMethodName();
-        log.info("载入method :" + methodname);
-        if (null != model.paramlist.get(methodname)) {
-            return model.paramlist.get(methodname).getParam();
-        }
-        return null;
-    }
-
-    public static HashMap<String, String> getParam(Class frontTestClazz) {
-        String path = transClasspathToYamlpath(frontTestClazz);
-        log.info(" parse the path : " + path);
-        APIObjectModel model = HandelYaml.getYamlConfig(path, APIObjectModel.class);
-        log.info("载入yaml中写的paramlist");
-        String methodname = Thread.currentThread().getStackTrace()[2].getMethodName();
-        log.info("载入method :" + methodname);
-        return model.paramlist.get(methodname).getParam();
-    }
-
-
+    /**
+     * 将List中的参数，转换为Map
+     * @param list
+     * @param map
+     * @return
+     * @throws APINotFoundException
+     */
     private static HashMap<String, String> transParams(List<String> list, Map<String, String> map) throws APINotFoundException {
         if (map.size() <= 0) {
             log.info("没有需要进行字符串转换的参数");
@@ -105,7 +73,17 @@ public class APIObjectModel {
         return resultMap;
     }
 
-    private static Response parseApiFromYaml(APIObject api, Map<String, String> map, Class frontAPIClazz) throws APINotFoundException {
+    /**
+     * 解析单个api
+     * @param api
+     * @param map
+     * @param frontAPIClazz
+     * @return
+     * @throws APINotFoundException
+     */
+
+
+    private static Response parseApiFromYaml(ApiContent api, Map<String, String> map,String path) throws APINotFoundException {
         String url = api.getUrl();
         String method = api.getMethod();
         HashMap<String, Object> headers = api.getHeaders();
@@ -147,7 +125,7 @@ public class APIObjectModel {
         if (json != null){
             List<String >json1 = Arrays.asList(json.split(","));
             if(jsonFile!=null){
-                String jsonPath = transClasspathToJsonpath(frontAPIClazz, jsonFile);
+                String jsonPath = getJsonPath(path);
                 HashMap<String, String> jsonMap = transParams(json1, map);
                 String jsonValue = JSONTemplate.template(jsonPath, jsonMap);
                 request = request
@@ -160,7 +138,7 @@ public class APIObjectModel {
             }
         }
         if (jsonFile != null) {
-            jsonFile = transClasspathToJsonpath(frontAPIClazz, jsonFile);
+            jsonFile = getJsonPath(path);
             log.info("jsonFile is " + jsonFile);
             request = request
                     .contentType(ContentType.JSON)
