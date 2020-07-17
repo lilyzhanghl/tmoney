@@ -19,7 +19,6 @@ import java.util.HashMap;
  */
 @Slf4j
 public class JSONTemplate {
-//    private static final Logger log = LoggerFactory.getLogger(JSONTemplate.class);
     public static String template(String jsonPath, HashMap map) {
         Writer writer = new StringWriter();
         DeferringMustacheFactory mf = new DeferringMustacheFactory();

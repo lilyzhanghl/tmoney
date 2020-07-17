@@ -1,14 +1,13 @@
 package api.framework;
 
 import auto.framework.BasePO;
+import auto.framework.Model;
 import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import poexception.APINotFoundException;
-import util.JSONTemplate;
 import util.LoadDefaultConfig;
 
 import java.util.Arrays;
@@ -29,20 +28,18 @@ import static io.restassured.RestAssured.given;
 @Data
 public class ApiPO extends BasePO {
 
-    private static String host = LoadDefaultConfig.getHost();
     private static RequestSpecBuilder builder;
-
     /**
-     * json 文件名称需要和apiContent的name一致
-     * json文件的存储位置要和yaml一致
-     * @param path yaml存储路径
-     * @return json存储路径
+     * 处理host
      */
-    public static String getJsonPath(String path) {
-        return path.replace(".yaml",".json");
-
+    private static ApiContent handleHost(ApiContent apiContent){
+        String host = LoadDefaultConfig.getHost();
+        String apiHost = apiContent.getHost();
+        if(apiHost!=null){
+            apiContent.setHost(host+apiHost);
+        }
+        return apiContent;
     }
-
     /**
      * 读取apiContent中的param参数
      */
@@ -50,6 +47,22 @@ public class ApiPO extends BasePO {
         return apiContent.getParam();
     }
 
+    /**
+     * 处理jsonParams
+     */
+    private static HashMap<String,String> handleJsonMap(String jsonParams,HashMap<String,String>map){
+        return null;
+    }
+    /**
+     * 处理jsonPath
+     */
+    private static ApiContent handleJsonPath(ApiContent api,String yamlpath){
+        String jsonPath = api.getJsonPath();
+        jsonPath = yamlpath.replace("///.*?/.yaml",jsonPath)
+        .replace(".yaml",".json");
+        api.setJsonPath(jsonPath);
+        return api;
+    }
     /**
      * 将List中的参数，转换为Map
      * @param list
@@ -72,31 +85,45 @@ public class ApiPO extends BasePO {
         }
         return resultMap;
     }
+    /**
+     * 对ApiContent中的param，综合外部传参，进行数据加工
+     */
+    private static ApiContent handleParam(ApiContent api) {
+        List<String> params1 = Arrays.asList(
+                api.getRequestParams().split(","));
+        HashMap map = api.getParam();
+        try {
+            map = transParams(params1, map);
+        } catch (APINotFoundException e) {
+            log.info("API NOT FOUND");
+        }
+        api.setParam(map);
+        return api;
+    }
+    /**
+     * 加工api参数
+     */
+    public static ApiContent handleApi(ApiContent api,String path){
+        api= handleHost(api);
+        api= handleJsonPath(api,path);
+        api= handleParam(api);
 
+    }
     /**
      * 解析单个api
      * @param api
-     * @param map
-     * @param frontAPIClazz
      * @return
      * @throws APINotFoundException
      */
+    public static Response parseApi(ApiContent api) throws APINotFoundException {
 
-
-    private static Response parseApiFromYaml(ApiContent api, Map<String, String> map,String path) throws APINotFoundException {
+        String name = api.getName();
         String url = api.getUrl();
         String method = api.getMethod();
         HashMap<String, Object> headers = api.getHeaders();
-        String connection = api.getConnection();
-        String jsonFile = api.getJsonFile();
-        String params = api.getParams();
-        String json = api.getJson();
+        String jsonPath = api.getJsonPath();
+        HashMap param = api.getParam();
         String localHost = "";
-        if (api.getHost() != null) {
-            localHost = api.getHost();
-        } else {
-            localHost = host;
-        }
 
 
         if (method == "" || method.equals(null)) {
@@ -111,40 +138,20 @@ public class ApiPO extends BasePO {
             RequestSpecification requestSpec = builder.build();
             request = request.spec(requestSpec);
         }
-        if (params != null) {
-            List<String> params1 = Arrays.asList(
-                    api.getParams().split(","));
-            request = request.params(transParams(params1, map));
-            log.info("配置params:" + api.getParams());
-
-        }
+/*        if (param != null) {
+            request = request.params(param);
+            log.info("配置param:" + api.getParam());
+        }*/
         if (headers != null) {
             request = request.headers(api.getHeaders());
             log.info("配置header:" + headers);
         }
-        if (json != null){
-            List<String >json1 = Arrays.asList(json.split(","));
-            if(jsonFile!=null){
-                String jsonPath = getJsonPath(path);
-                HashMap<String, String> jsonMap = transParams(json1, map);
-                String jsonValue = JSONTemplate.template(jsonPath, jsonMap);
-                request = request
-                        .contentType(ContentType.JSON)
-                        .body(jsonValue);
-            }else{
-                request = request
-                        .contentType(ContentType.JSON)
-                        .body(transParams(json1, map));
-            }
-        }
-        if (jsonFile != null) {
-            jsonFile = getJsonPath(path);
-            log.info("jsonFile is " + jsonFile);
+/*        if (jsonPath != null) {
+            log.info("jsonPath is " + jsonPath);
             request = request
                     .contentType(ContentType.JSON)
-                    .body(JSONTemplate.template(jsonFile));
-        }
-
+                    .body(JSONTemplate.template(jsonPath));
+        }*/
         if (method.equals("get")) {
             Response response = request.when()
                     .log().all()
@@ -167,11 +174,14 @@ public class ApiPO extends BasePO {
                     .log().all()
                     .extract()
                     .response();
-
             return response;
         } else {
             throw new APINotFoundException("解析失败");
         }
+    }
+
+    public List<ApiContent> getContent(Model model){
+        return model.contents;
     }
 
 }

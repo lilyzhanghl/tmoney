@@ -1,6 +1,5 @@
 package api.framework;
 
-import auto.framework.Content;
 import lombok.Data;
 
 import java.util.HashMap;
@@ -12,16 +11,16 @@ import java.util.HashMap;
  * @author zhzh.yin
  **/
 @Data
-public class ApiContent extends Content {
-    String name;
-    String url;
-    String method;
-    HashMap<String, Object> headers;
-    String connection;
-    String host;
-    String params;
-    String json;
-    String jsonFile;
+public class ApiContent {
+    public String name;
+    public String url;
+    public String method;
+    public HashMap<String, Object> headers;
+    public String connection;
+    public String host;
+    public String requestParams;
+//    public String jsonParams;
+    public String jsonPath;
     public HashMap<String, String> param;
 
     public String getName() {
@@ -72,28 +71,22 @@ public class ApiContent extends Content {
         this.host = host;
     }
 
-    public String getParams() {
-        return params;
+    public String getRequestParams() {
+        return requestParams;
     }
 
-    public void setParams(String params) {
-        this.params = params;
+    public void setRequestParams(String requestParams) {
+        this.requestParams = requestParams;
     }
 
-    public String getJson() {
-        return json;
+
+
+    public String getJsonPath() {
+        return jsonPath;
     }
 
-    public void setJson(String json) {
-        this.json = json;
-    }
-
-    public String getJsonFile() {
-        return jsonFile;
-    }
-
-    public void setJsonFile(String jsonFile) {
-        this.jsonFile = jsonFile;
+    public void setJsonPath(String jsonPath) {
+        this.jsonPath = jsonPath;
     }
 
     public HashMap<String, String> getParam() {
@@ -102,5 +95,20 @@ public class ApiContent extends Content {
 
     public void setParam(HashMap<String, String> param) {
         this.param = param;
+    }
+
+    @Override
+    public String toString() {
+        return "ApiContent{" +
+                "name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                ", method='" + method + '\'' +
+                ", headers=" + headers +
+                ", connection='" + connection + '\'' +
+                ", host='" + host + '\'' +
+                ", requestParams='" + requestParams + '\'' +
+                ", jsonPath='" + jsonPath + '\'' +
+                ", param=" + param +
+                '}';
     }
 }

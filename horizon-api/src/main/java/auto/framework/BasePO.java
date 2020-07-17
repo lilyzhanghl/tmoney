@@ -1,5 +1,6 @@
 package auto.framework;
 
+import api.framework.ApiContent;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
@@ -28,11 +29,12 @@ public class BasePO {
         System.out.println(map);
     }
 
-
     public void getText() {
 
     }
-
+    public List<ApiContent> getContents(Model model){
+        return model.getContents();
+    }
     public void run(Model model) {
         model.steps.stream().forEach(m -> {
             if (m.keySet().contains("click")) {
@@ -49,9 +51,7 @@ public class BasePO {
         });
 
     }
-    public List<Content> getContent(Model model){
-        return model.contents;
-    }
+
     public Model load(String path) {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         Model model = null;
