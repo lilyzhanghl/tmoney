@@ -51,7 +51,9 @@ public class BasePO {
         });
 
     }
-
+    public Model parse(String path ){
+        return null;
+    }
     public Model load(String path) {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         Model model = null;

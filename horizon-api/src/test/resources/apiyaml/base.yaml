@@ -4,18 +4,18 @@ contents:
   - name: login
     url: /caizhi_miniapi/index/auth.do
     method: get
-    param:
+    requestParam:
       userId: YinZhenZhi
       corpId: ww8c83d949a80b562d
   - name: setUp
     url: /caizhi_miniapi/index/auth.do
     method: get
-    param:
+    requestParam:
       userId: YinZhenZhi
       corpId: ww8c83d949a80b562d
   - name: testLoginFailure
     url: /caizhi_miniapi/index/auth.do
     method: get
-    param:
+    requestParam:
       userId: zhangsan
       corpId: ww8c83d949a80b562d

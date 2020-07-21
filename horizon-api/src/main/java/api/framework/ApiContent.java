@@ -17,11 +17,18 @@ public class ApiContent {
     public String method;
     public HashMap<String, Object> headers;
     public String connection;
-    public String host;
-    public String requestParams;
+    //    public String host;
 //    public String jsonParams;
     public String jsonPath;
-    public HashMap<String, String> param;
+    public HashMap<String, String> requestParam;
+
+    public HashMap<String, String> getRequestParam() {
+        return requestParam;
+    }
+
+    public void setRequestParam(HashMap<String, String> requestParam) {
+        this.requestParam = requestParam;
+    }
 
     public String getName() {
         return name;
@@ -63,38 +70,12 @@ public class ApiContent {
         this.connection = connection;
     }
 
-    public String getHost() {
-        return host;
-    }
-
-    public void setHost(String host) {
-        this.host = host;
-    }
-
-    public String getRequestParams() {
-        return requestParams;
-    }
-
-    public void setRequestParams(String requestParams) {
-        this.requestParams = requestParams;
-    }
-
-
-
     public String getJsonPath() {
         return jsonPath;
     }
 
     public void setJsonPath(String jsonPath) {
         this.jsonPath = jsonPath;
-    }
-
-    public HashMap<String, String> getParam() {
-        return param;
-    }
-
-    public void setParam(HashMap<String, String> param) {
-        this.param = param;
     }
 
     @Override
@@ -105,10 +86,8 @@ public class ApiContent {
                 ", method='" + method + '\'' +
                 ", headers=" + headers +
                 ", connection='" + connection + '\'' +
-                ", host='" + host + '\'' +
-                ", requestParams='" + requestParams + '\'' +
                 ", jsonPath='" + jsonPath + '\'' +
-                ", param=" + param +
+                ", requestParam=" + requestParam +
                 '}';
     }
 }
