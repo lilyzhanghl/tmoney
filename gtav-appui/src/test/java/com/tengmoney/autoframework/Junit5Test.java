@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 public class Junit5Test {
+
     @ParameterizedTest
     @MethodSource("stringProvider")
     void testWithExplicitLocalMethodSource(String argument) {
