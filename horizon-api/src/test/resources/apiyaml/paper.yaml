@@ -1,4 +1,4 @@
-name: paperTest
+name: 早报
 describle: 早报相关接口测试用例
 contents:
     - name: getDetail
@@ -11,6 +11,7 @@ contents:
       url: /caizhi_miniapi/api/applet/morning/paper/view.do
       headers:
         Content-Type: application/json
+      jsonPath: viewPaper
     - name: filter
       method: post
       url: "/caizhi_miniapi/api/applet/banner/filter_list.do"

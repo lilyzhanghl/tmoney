@@ -1,21 +1,9 @@
-name: paperTest
-describle: 早报相关接口测试用例
+name: 基本接口
+describle: 登录
 contents:
   - name: login
     url: /caizhi_miniapi/index/auth.do
     method: get
     requestParam:
       userId: YinZhenZhi
-      corpId: ww8c83d949a80b562d
-  - name: setUp
-    url: /caizhi_miniapi/index/auth.do
-    method: get
-    requestParam:
-      userId: YinZhenZhi
-      corpId: ww8c83d949a80b562d
-  - name: testLoginFailure
-    url: /caizhi_miniapi/index/auth.do
-    method: get
-    requestParam:
-      userId: zhangsan
       corpId: ww8c83d949a80b562d

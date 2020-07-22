@@ -9,6 +9,7 @@ import io.restassured.specification.RequestSpecification;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import poexception.APINotFoundException;
+import util.JSONTemplate;
 import util.LoadDefaultConfig;
 
 import java.util.HashMap;
@@ -109,7 +110,7 @@ public class ApiPO extends BasePO {
             log.info("jsonPath is " + jsonPath);
             request = request
                     .contentType(ContentType.JSON)
-                    .body(jsonPath);
+                    .body(JSONTemplate.template(jsonPath));
         }
         if (method.equals("get")) {
             Response response = request.when()
@@ -138,7 +139,6 @@ public class ApiPO extends BasePO {
             throw new APINotFoundException("解析失败");
         }
     }
-
     public List<ApiContent> getContent(Model model) {
         return model.contents;
     }

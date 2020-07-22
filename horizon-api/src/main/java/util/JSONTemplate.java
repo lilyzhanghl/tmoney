@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.HashMap;
 
 /**
  * @ClassName: ReadJson
@@ -19,21 +18,6 @@ import java.util.HashMap;
  */
 @Slf4j
 public class JSONTemplate {
-    public static String template(String jsonPath, HashMap map) {
-        Writer writer = new StringWriter();
-        DeferringMustacheFactory mf = new DeferringMustacheFactory();
-        log.info("开始加工json文件，jsonPath is :" + jsonPath);
-        Mustache mustache = mf.compile(jsonPath);
-        try {
-            log.info("填充map的数据：" + map.keySet());
-            mustache.execute(writer, map)
-                    .flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return writer.toString();
-    }
-
     public static String template(String jsonPath) {
         Writer writer = new StringWriter();
         DeferringMustacheFactory mf = new DeferringMustacheFactory();
