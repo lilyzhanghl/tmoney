@@ -1,6 +1,5 @@
 package api.framework;
 
-import auto.framework.BasePO;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -13,7 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 public class LoginTest {
-    private static BasePO basePO;
+    private static ApiPO basePO=new ApiPO();
+
     @ParameterizedTest
     @MethodSource("baseYamlProvider")
     void testBaseYaml(int target,List<ApiContent> list,int code) {
@@ -24,10 +24,8 @@ public class LoginTest {
 
     static Stream<Arguments> baseYamlProvider() {
         return Stream.of(
-                arguments(0,basePO.load("src/test/resources/apiyaml/base.yaml").getContents(),0),
-                arguments(1,basePO.load("src/test/resources/apiyaml/base.yaml").getContents(),0),
-                arguments(2,basePO.load("src/test/resources/apiyaml/base.yaml").getContents(),1000002)
-
+                arguments(0,basePO.load("src/test/resources/apiyaml/login.yaml").getContents(),0),
+                arguments(1,basePO.load("src/test/resources/apiyaml/login.yaml").getContents(),1000002)
         );
     }
 

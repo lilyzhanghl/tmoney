@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 public class MorPaperTest {
-    private static ApiPO basePO;
+    private static ApiPO basePO=new ApiPO();
     @BeforeAll
     static void beforeAll(){
         LoginHelper.login();
