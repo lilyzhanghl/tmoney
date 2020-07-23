@@ -27,7 +27,7 @@ public class AppLogin {
         }};
         PageObjectModel model = new PageObjectModel();
         model.setParams(map);
-        model.parseSteps(AppLogin.class);
+        PageObjectModel.parseSteps(AppLogin.class);
         return this;
     }
     public WebDriver getDriver() {

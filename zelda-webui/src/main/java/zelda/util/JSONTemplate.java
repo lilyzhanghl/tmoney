@@ -4,8 +4,10 @@ import com.github.mustachejava.DeferringMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheNotFoundException;
 import lombok.extern.slf4j.Slf4j;
-import java.io.*;
-import java.util.HashMap;
+
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 
 /**
  * @ClassName: ReadJson
@@ -16,22 +18,6 @@ import java.util.HashMap;
  */
 @Slf4j
 public class JSONTemplate {
-//    private static final Logger log = LoggerFactory.getLogger(JSONTemplate.class);
-    public static String template(String jsonPath, HashMap map) {
-        Writer writer = new StringWriter();
-        DeferringMustacheFactory mf = new DeferringMustacheFactory();
-        log.info("开始加工json文件，jsonPath is :" + jsonPath);
-        Mustache mustache = mf.compile(jsonPath);
-        try {
-            log.info("填充map的数据：" + map.keySet());
-            mustache.execute(writer, map)
-                    .flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return writer.toString();
-    }
-
     public static String template(String jsonPath) {
         Writer writer = new StringWriter();
         DeferringMustacheFactory mf = new DeferringMustacheFactory();
