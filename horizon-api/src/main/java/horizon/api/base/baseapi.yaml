@@ -1,0 +1,18 @@
+apilist:
+  login:
+      url: /caizhi_miniapi/index/auth.do
+      method: get
+      params: userId,corpId
+paramlist:
+  testLoginSuccess:
+    param:
+      userId: YinZhenZhi
+      corpId: ww8c83d949a80b562d
+  setUp:
+    param:
+      userId: YinZhenZhi
+      corpId: ww8c83d949a80b562d
+  testLoginFailure:
+    param:
+      userId: zhangsan
+      corpId: ww8c83d949a80b562d
