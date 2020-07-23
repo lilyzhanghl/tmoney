@@ -8,11 +8,20 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+<<<<<<< HEAD:horizon-api/pom.xml
     <artifactId>horizon-api</artifactId>
     <properties>
+=======
+    <artifactId>tmoney-api-new</artifactId>
+<!--    <properties>
+>>>>>>> 优化 APINotFoundException:tmoney-api-new/pom.xml
         <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
-    </properties>
+    </properties>-->
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
         <!--api test-->
         <dependency>
             <groupId>io.rest-assured</groupId>
@@ -30,7 +39,15 @@
             <artifactId>compiler</artifactId>
             <version>0.9.6</version>
         </dependency>
+<<<<<<< HEAD:horizon-api/pom.xml
 
+=======
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.4</version>
+        </dependency>
+>>>>>>> 优化 APINotFoundException:tmoney-api-new/pom.xml
     </dependencies>
     <build>
         <plugins>
