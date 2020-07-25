@@ -10,4 +10,8 @@ public class ApiModel extends Model {
     public String describle;
     public List<ApiContent> contents;
     public List<HashMap<String, Object>> steps;
+/*    public void load(String path){}
+    public void run(ApiContent api){
+        api.run();
+    }*/
 }

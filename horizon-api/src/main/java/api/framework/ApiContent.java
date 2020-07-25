@@ -22,6 +22,11 @@ public class ApiContent {
     public String jsonPath;
     public HashMap<String, String> requestParam;
 
+    public void run(){}
+
+
+
+
     public HashMap<String, String> getRequestParam() {
         return requestParam;
     }
