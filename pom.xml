@@ -35,30 +35,38 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>RELEASE</version>
+            <version>5.7.0-M1</version>
             <scope>compile</scope>
         </dependency>
         <!--main执行testcase-->
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-launcher</artifactId>
-            <version>1.5.1</version>
+            <version>1.7.0-M1</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-runner</artifactId>
-            <version>1.5.1</version>
+            <version>1.7.0-M1</version>
             <scope>compile</scope>
         </dependency>
-        <!--assert-->
+        <!--assert断言工具-->
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-core</artifactId>
             <version>2.1</version>
             <scope>compile</scope>
         </dependency>
+        <!--断言工具-->
+<!--        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            &lt;!&ndash; use 2.4.1 for Java 7 projects &ndash;&gt;
+             <version>3.4.1</version>
+            <scope>test</scope>
+        </dependency>-->
         <!--        log-->
         <dependency>
             <groupId>org.slf4j</groupId>

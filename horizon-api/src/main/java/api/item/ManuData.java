@@ -8,6 +8,16 @@ package api.item;
  * @author zhzh.yin
  **/
 public enum ManuData {
-    REQUESTPARAM,
-    JSONPARAM
+    REQUEST_PARAM("requestParam"),
+    JSON_PARAM("jsonParam"),
+    JSON_FILE_NAME("jsonFileName");
+    private final String type;
+    private ManuData(String type)
+    {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
 }

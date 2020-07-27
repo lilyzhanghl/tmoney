@@ -19,7 +19,7 @@ import java.util.HashMap;
  */
 @Slf4j
 public class JSONTemplate {
-    public static String template(String jsonPath) {
+    public static synchronized String template(String jsonPath) {
         Writer writer = new StringWriter();
         DeferringMustacheFactory mf = new DeferringMustacheFactory();
         Mustache mustache = mf.compile(jsonPath);
