@@ -1,4 +1,4 @@
-package zelda.util;
+package util;
 
 import com.github.mustachejava.DeferringMustacheFactory;
 import com.github.mustachejava.Mustache;
@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.HashMap;
 
 /**
  * @ClassName: ReadJson
@@ -32,7 +33,11 @@ public class JSONTemplate {
         }
         return writer.toString();
     }
+    //todo
+    public static String template(HashMap<String,String> map) {
 
+        return null;
+    }
 
 
 }
