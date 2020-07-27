@@ -18,7 +18,7 @@ public class LoadDefaultConfig {
     //todo 优化硬编码
 //    this.getClass().getResource("");
     static String srcPath = "src/main/resources/application.yaml";
-    public static String getHost() {
+    public static synchronized String getHost() {
         LoadDefaultConfig config = HandelYaml
                 .getYamlConfig(srcPath, LoadDefaultConfig.class);
         String env  =config.current.get("host");

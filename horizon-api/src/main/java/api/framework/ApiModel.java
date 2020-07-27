@@ -1,42 +1,39 @@
 package api.framework;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import io.restassured.response.Response;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+
 @Data
-public class ApiModel  {
-    public String name ;
+@Slf4j
+public class ApiModel {
+    public String name;
     public String describle;
-    public HashMap<String,ApiContent> contents;
-    public HashMap<String,Object> params;
+    public HashMap<String, ApiContent> contents;
 
-    public String getName() {
-        return name;
+
+    public Response run(String apiName) {
+        return contents.get(apiName).run();
     }
-
-    public void setName(String name) {
-        this.name = name;
+    public Response run(String apiName,HashMap map) {
+        return contents.get(apiName).run(map);
     }
-
-    public String getDescrible() {
-        return describle;
+    public static ApiModel load(String yamlPath) {
+        ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
+        try {
+            return objectMapper.readValue(new File(yamlPath), ApiModel.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            log.error("yaml转换失败");
+        }
+        log.error("yaml转换失败");
+        return null;
     }
-
-    public void setDescrible(String describle) {
-        this.describle = describle;
-    }
-
-    public HashMap<String, ApiContent> getContents() {
-        return contents;
-    }
-
-    public void setContents(HashMap<String, ApiContent> contents) {
-        this.contents = contents;
-    }
-
-/*    public void load(String path){}
-    public void run(ApiContent api){
-        api.run();
-    }*/
 }
