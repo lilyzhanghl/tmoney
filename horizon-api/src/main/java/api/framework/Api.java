@@ -180,7 +180,7 @@ public class Api {
                     .log().all()
                     .extract()
                     .response();
-            if (builder!=null) {}else{
+            if (null==builder){
                 builder = new RequestSpecBuilder();
                 log.info(response.getCookies().keySet().toString());
                 builder.addCookies(response.getCookies());
