@@ -43,7 +43,7 @@ public class ConcurrentTest {
         String dateString2 = simpleDateFormat.format(time);
         assertEquals(dateString, dateString2);
     }
-    @RepeatedTest(500)
+//    @RepeatedTest(500)
     @Story("解决方案：局部变量")
     @Execution(ExecutionMode.CONCURRENT)
     //解决方案：局部变量
@@ -55,7 +55,7 @@ public class ConcurrentTest {
         String dateString2 = simpleDateFormat1.format(time);
         assertEquals(dateString, dateString2);
     }
-    @RepeatedTest(500)
+//    @RepeatedTest(500)
     @Story("解决方案：ThreadLocal")
     @Execution(ExecutionMode.CONCURRENT)
     //解决方案：使用ThreadLocal，每个线程都拥有自己的SimpleDateFormat对象副本。
@@ -69,7 +69,7 @@ public class ConcurrentTest {
         String dateString2 = simpleDateFormat2.format(time);
         assertEquals(dateString, dateString2);
     }
-    @RepeatedTest(500)
+//    @RepeatedTest(500)
     @Story("解决方案：使用DateTimeFormatter")
     @Execution(ExecutionMode.CONCURRENT)
     public void testSuc1() throws ParseException, InterruptedException {
