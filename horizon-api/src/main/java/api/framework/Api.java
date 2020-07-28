@@ -3,13 +3,14 @@ package api.framework;
 import api.item.ManuData;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
+import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import poexception.APINotFoundException;
+import poexception.ApiNotFoundException;
 import poexception.InsertValueNotInitException;
-import util.JSONTemplate;
+import util.JsonTemplate;
 import util.LoadDefaultConfig;
 
 import java.util.HashMap;
@@ -34,38 +35,13 @@ public class Api {
     public HashMap<String, String> jsonParam;
     private int flag = 0;
 
-    //加工基础信息-
-    /*private static String host = LoadDefaultConfig.getHost();
-
-    public Api handleApi1() {
-        return null;
-    }*/
-
-    //加工请求map
-    /*public RequestSpecification handleParam() {
-        RequestSpecification request = given();
-        return request;
-    }*/
-
-    //发送请求
-    /*public Response run(RequestSpecification request, HashMap map) {
-        Response response = request.queryParams(map)
-                .headers(map)
-                .when()
-                .get()
-                .then()
-                .extract()
-                .response();
-        return response;
-    }*/
-
     /**
      * 向api中传入数据
      *
      * @param map
      * @return
      */
-    private synchronized Api handleParam(HashMap<ManuData, HashMap<String, String>> map) throws InsertValueNotInitException {
+    private synchronized Api handleParam(HashMap<ManuData, HashMap<String, String>> map){
         log.info("handleMap:" + map);
         if (map != null) {
             if (map.containsKey(ManuData.REQUEST_PARAM)) {
@@ -102,12 +78,12 @@ public class Api {
                 String jsonPath = "src/test/resources/apiyaml/" + jsonFileName + ".json";
                 this.setJsonFileName(jsonPath);
             } else {
-                throw new InsertValueNotInitException("测试map的数据不对");
+                log.error("传入的map数据不正确，不加工");
             }
         } else {
             log.warn("没有传入map值");
             String jsonPath = this.getJsonFileName();
-            if (jsonPath != null && jsonPath != "" && (!jsonPath.startsWith("src"))) {
+            if (jsonPath != null && jsonPath != "" && (!jsonPath.contains("/"))) {
                 jsonPath = "src/test/resources/apiyaml/" + jsonPath + ".json";
                 log.info("after handle ,the jsonPath is :" + jsonPath);
                 this.setJsonFileName(jsonPath);
@@ -118,14 +94,10 @@ public class Api {
 
     public synchronized Response run(HashMap map) {
         handleUrl();
-        try {
             handleParam(map);
-        } catch (InsertValueNotInitException e) {
-            e.printStackTrace();
-        }
         try {
             return handleApi();
-        } catch (APINotFoundException e) {
+        } catch (ApiNotFoundException e) {
             e.printStackTrace();
         }
         return null;
@@ -136,7 +108,7 @@ public class Api {
         try {
             handleParam(null);
             return handleApi();
-        } catch (APINotFoundException | InsertValueNotInitException e) {
+        } catch (ApiNotFoundException e) {
             e.printStackTrace();
         }
         return null;
@@ -165,9 +137,9 @@ public class Api {
      * 解析单个api
      *
      * @return
-     * @throws APINotFoundException
+     * @throws ApiNotFoundException
      */
-    private synchronized Response handleApi() throws APINotFoundException {
+    private synchronized Response handleApi() throws ApiNotFoundException {
         String url = this.getUrl();
         String method = this.getMethod();
         HashMap<String, Object> headers = this.getHeaders();
@@ -175,7 +147,7 @@ public class Api {
         HashMap requestParam = this.getRequestParam();
         HashMap jsonParam = this.getJsonParam();
         if (method == "" || method.equals(null)) {
-            throw new APINotFoundException("没有写入method");
+            throw new ApiNotFoundException("没有写入method");
         }
         //todo 参数枚举化
         RequestSpecification request = given();
@@ -194,27 +166,25 @@ public class Api {
             log.info("配置header:" + headers);
         }
         if (jsonPath != null) {
-            if (!jsonPath.equals("")) {
                 log.info("jsonPath is " + jsonPath);
                 request = request
                         .contentType(ContentType.JSON)
-                        .body(JSONTemplate.template(jsonPath));
-            }
+                        .body(JsonTemplate.template(jsonPath));
         }
         request = request.when()
                 .log().all();
         Response response;
-        if (method.equals("get")) {
+        if (method.toUpperCase().equals(Method.GET.toString())) {
             response = request.get(url);
             if (null == builder) {
                 builder = new RequestSpecBuilder();
                 log.info(response.getCookies().keySet().toString());
                 builder.addCookies(response.getCookies());
             }
-        } else if (method.equals("post")) {
+        } else if (method.toUpperCase().equals(Method.POST.toString())) {
             response = request.post(url);
         } else {
-            throw new APINotFoundException("解析失败");
+            throw new ApiNotFoundException("解析失败");
         }
         return response.then()
                 .log().all()

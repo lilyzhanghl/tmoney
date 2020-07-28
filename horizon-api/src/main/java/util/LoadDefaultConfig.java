@@ -15,8 +15,11 @@ import java.util.HashMap;
 public class LoadDefaultConfig {
     public HashMap<String, String> host = new HashMap<>();
     public HashMap<String, String> current = new HashMap<String, String>();
-    //todo 优化硬编码
-//    this.getClass().getResource("");
+    /**
+     * srcPath 系统文件配置路径
+     * todo 优化硬编码
+     * this.getClass().getResource("");
+     */
     static String srcPath = "src/main/resources/application.yaml";
     public static synchronized String getHost() {
         LoadDefaultConfig config = HandelYaml

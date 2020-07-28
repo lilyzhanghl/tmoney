@@ -9,15 +9,18 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-
+/**
+ * tmoney
+ * 2020/5/8 17:00
+ *
+ * @author zhzh.yin
+ **/
 @Data
 @Slf4j
 public class ApiModel {
     public String name;
     public String describle;
     public HashMap<String, Api> contents;
-
-
     public Response run(String apiName) {
         return contents.get(apiName).run();
     }
