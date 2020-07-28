@@ -27,20 +27,12 @@ contents:
     filter:
       method: post
       url: "/caizhi_miniapi/api/applet/banner/filter_list.do"
-      headers:
-        Content-Type: text/plain
     paperConfigAPI:
       method: post
       url: "/caizhi_miniapi/api/applet/finance/config.do"
-      headers:
-        Content-Type: text/plain
     paperSaveAPI:
       method: post
       url: "/caizhi_miniapi/api/applet/snapshot/save.do"
-      headers:
-        Content-Type: text/plain
     paperListAPI:
       method: post
       url: "/caizhi_miniapi/relate/product/v2/list"
-      headers:
-        Content-Type: text/plain

@@ -1,6 +1,9 @@
 package api.framework;
 
 import api.item.ManuData;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Owner;
+import io.qameta.allure.Story;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
 import org.hamcrest.BaseMatcher;
@@ -26,8 +29,9 @@ import static org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 @Execution(CONCURRENT)  //CONCURRENT表示支持多线程
-//@Execution(SAME_THREAD)
 @Slf4j
+@Feature("早报")
+@Owner("zhzh.yin")
 public class MorPaperTest {
     ApiModel model = ApiModel.load("src/test/resources/apiyaml/paper.yaml");
 
@@ -42,6 +46,7 @@ public class MorPaperTest {
 
     @Test
     @DisplayName("一个简单的断言")
+    @Story("detail.do接口")
     void test1() {
         model.run("getDetail")
                 .then()
@@ -51,24 +56,25 @@ public class MorPaperTest {
 //                .body("xx.xx", hasItems(1, 2));
     };
 
-    @ParameterizedTest
+    @ParameterizedTest(name ="早报接口：{0}-{index}")
     @CsvSource({
             "getDetail,ret,0",
             "getDetail,ret,0"
     })
-    @DisplayName("使用csv格式来传参")
+    @Story("csv测试detail.do接口")
     void testPaper(String apiName, String responsePath, Integer expectValue) throws InvocationTargetException, IllegalAccessException {
 //        BeanUtils.copyProperties(apiContent, apis.get(apiName));
         assertTrue(model.run(apiName)
                 .path(responsePath).equals(expectValue));
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name ="早报接口：{0}-{index}")
     @MethodSource("paperYamlProvider")
-    @DisplayName("测试多个接口，取相同的assertPath,不同的期望结果，多个接口设置时，可以传入map")
+    @Story("一大堆早报接口")
     void testPaperYaml(String apiName, HashMap<ManuData, HashMap<String, String>> map, String responsePath, Integer expectValue) {
         assertTrue(model.run(apiName, map)
-                .path(responsePath).equals(expectValue));
+                .path(responsePath)
+                .equals(expectValue));
         /*assertAll(
                 ()->assertTrue(ApiPO.parseApi(api).path("ret").equals(0))
         );*/
@@ -88,19 +94,19 @@ public class MorPaperTest {
                 arguments("getDetail", null, "ret", 0),
                 arguments("getDetail2" , map1, "ret", 0),
                 arguments("getDetail" , null, "ret", 0),
-                arguments("getDetail" , map2, "ret", 0)
-/*                ,arguments(apis.get("viewPaper"),null, "ret", 0),
-                arguments(apis.get("filter"),null, "ret", 0),
-                arguments(apis.get("paperConfigAPI"),null, "ret", 0),
-                arguments(apis.get("paperSaveAPI"),null, "ret", 0),
-                arguments(apis.get("paperListAPI"),null, "ret", 0)*/
+                arguments("getDetail" , map2, "ret", 0),
+                arguments("viewPaper",null, "ret", 0),
+                arguments("filter",null, "ret", 0),
+                arguments("paperConfigAPI",null, "ret", 0),
+                arguments("paperSaveAPI",null, "ret", 0),
+                arguments("paperListAPI",null, "ret", 0)
         );
     }
 
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "接口-{0}-{index}")
     @MethodSource("oneApi")
-    @DisplayName("测试多个接口，多个参数，不同期望")
+    @Story("接口的另一种写法")
     void testPaper2(String apiName,HashMap map, String str, BaseMatcher matcher) {
         Object result = model.run(apiName, map).getBody().jsonPath().get(str);
         assertThat(result, matcher);
@@ -123,35 +129,4 @@ public class MorPaperTest {
         );
 
     }
-
-
-/*    @ParameterizedTest
-    @MethodSource("oneApi1")
-    @DisplayName("测试多个接口，多个参数，不同期望")
-    void testFailure(ApiContent apiContent,HashMap map, String str, BaseMatcher matcher) {
-        Object result = apiHelper.run(apiContent, map).getBody().jsonPath().get(str);
-        assertThat(result, matcher);
-    }
-
-
-    static Stream<Arguments> oneApi1() {
-        HashMap<ManuData, HashMap<String, String>> map1 = new HashMap<>();
-        HashMap<String, String> requestParam = new HashMap<>();
-        requestParam.put("id", "f09a04b775974f98bee9aaed8c492d24");
-        map1.put(ManuData.REQUEST_PARAM, requestParam);
-
-        HashMap<ManuData, HashMap<String, String>> map2 = new HashMap<>();
-        HashMap<String,String> jsonFileName = new HashMap<>();
-        jsonFileName.put("jsonFileName","viewPaper");
-        map2.put(ManuData.JSON_FILE_NAME,jsonFileName);
-        return Stream.of(
-                arguments(apis.get("getDetail"),map1, "ret",is(0)),
-                arguments(apis.get("getDetail"),map2, "ret",is(0))
-        );
-
-    }*/
-
-
-
-
 }

@@ -9,14 +9,13 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 
 @Data
 @Slf4j
 public class ApiModel {
     public String name;
     public String describle;
-    public HashMap<String, ApiContent> contents;
+    public HashMap<String, Api> contents;
 
 
     public Response run(String apiName) {
