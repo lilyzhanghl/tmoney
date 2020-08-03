@@ -173,23 +173,29 @@ public class Api {
         }
         request = request.when()
                 .log().all();
-        Response response;
+
         if (method.toUpperCase().equals(Method.GET.toString())) {
-            response = request.get(url);
-            if (null == builder) {
+            Response response = request.get(url)
+                    .then()
+                    .log().all()
+                    .extract()
+                    .response();
+            if (null==builder){
                 builder = new RequestSpecBuilder();
                 log.info(response.getCookies().keySet().toString());
                 builder.addCookies(response.getCookies());
             }
+            return response;
         } else if (method.toUpperCase().equals(Method.POST.toString())) {
-            response = request.post(url);
+            Response response = request.post(url)
+                    .then()
+                    .log().all()
+                    .extract()
+                    .response();
+            return response;
         } else {
             throw new ApiNotFoundException("解析失败");
         }
-        return response.then()
-                .log().all()
-                .extract()
-                .response();
     }
 
     @Override
