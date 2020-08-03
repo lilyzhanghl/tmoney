@@ -8,17 +8,8 @@ package api.item;
  * @author zhzh.yin
  **/
 public enum ManuData {
-    /**
-     * REQUEST_PARAM 传入的请求值为requestParam
-     */
     REQUEST_PARAM("requestParam"),
-    /**
-     * JSON_PARAM 传入的请求值为jsonParam
-     */
     JSON_PARAM("jsonParam"),
-    /**
-     * JSON_FILE_NAME传入的请求值为jsonFile的名称
-     */
     JSON_FILE_NAME("jsonFileName");
     private final String type;
     private ManuData(String type)
