@@ -12,6 +12,13 @@ import java.util.HashMap;
 
 @Data
 @Slf4j
+/**
+ * tmoney
+ * 2020/7/25 18:57
+ * 手动传入的数据类型
+ *
+ * @author zhzh.yin
+ **/
 public class ApiModel {
     public String name;
     public String describle;
@@ -21,13 +28,22 @@ public class ApiModel {
     public Response run(String apiName) {
         return contents.get(apiName).run();
     }
-    public Response run(String apiName,HashMap map) {
+
+    public Response run(String apiName, HashMap map) {
         return contents.get(apiName).run(map);
     }
+
     public static ApiModel load(String yamlPath) {
+
         ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
         try {
-            return objectMapper.readValue(new File(yamlPath), ApiModel.class);
+            ApiModel model = objectMapper.readValue(new File(yamlPath), ApiModel.class);
+            for(String s :model.getContents().keySet()){
+                String string = yamlPath.replace(yamlPath.split("/")[yamlPath.split("/").length-1],"");
+                log.error("jsonFilePath is :"+string);
+                model.getContents().get(s).setJsonFilePath(yamlPath.replace(yamlPath.split("/")[yamlPath.split("/").length-1],""));
+            }
+            return model;
         } catch (IOException e) {
             e.printStackTrace();
             log.error("yaml转换失败");

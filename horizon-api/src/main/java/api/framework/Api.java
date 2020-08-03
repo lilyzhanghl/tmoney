@@ -31,6 +31,16 @@ public class Api {
     public HashMap<String, Object> headers;
     public String connection;
     public String jsonFileName;
+
+    public String getJsonFilePath() {
+        return jsonFilePath;
+    }
+
+    public void setJsonFilePath(String jsonFilePath) {
+        this.jsonFilePath = jsonFilePath;
+    }
+
+    private String jsonFilePath;
     public HashMap<String, String> requestParam;
     public HashMap<String, String> jsonParam;
     private int flag = 0;
@@ -75,7 +85,9 @@ public class Api {
                 //map中设置key=jsonFileName
                 String jsonFileName = jsonFileNameMap.get(ManuData.JSON_FILE_NAME.getType());
                 //直接替换旧的
-                String jsonPath = "src/test/resources/apiyaml/" + jsonFileName + ".json";
+                //d = a.replace(a.split("/")[a.split("/").length-1], d)+".json"
+                //
+                String jsonPath = this.getJsonFilePath() + jsonFileName + ".json";
                 this.setJsonFileName(jsonPath);
             } else {
                 log.error("传入的map数据不正确，不加工");
@@ -84,7 +96,7 @@ public class Api {
             log.warn("没有传入map值");
             String jsonPath = this.getJsonFileName();
             if (jsonPath != null && jsonPath != "" && (!jsonPath.contains("/"))) {
-                jsonPath = "src/test/resources/apiyaml/" + jsonPath + ".json";
+                jsonPath = this.getJsonFilePath() + jsonPath + ".json";
                 log.info("after handle ,the jsonPath is :" + jsonPath);
                 this.setJsonFileName(jsonPath);
             }

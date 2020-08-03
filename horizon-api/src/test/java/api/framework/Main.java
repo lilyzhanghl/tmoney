@@ -1,5 +1,6 @@
 package api.framework;
 
+import api.framework.miniapi.login.LoginTest;
 import org.junit.platform.launcher.Launcher;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
 import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;

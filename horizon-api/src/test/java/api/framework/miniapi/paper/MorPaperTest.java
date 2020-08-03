@@ -1,11 +1,12 @@
-package api.framework;
+package api.framework.miniapi.paper;
 
+import api.framework.ApiModel;
+import api.framework.miniapi.login.LoginHelper;
 import api.item.ManuData;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.beanutils.BeanUtils;
 import org.hamcrest.BaseMatcher;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +26,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.parallel.ExecutionMode.CONCURRENT;
-import static org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 @Execution(CONCURRENT)  //CONCURRENT表示支持多线程
@@ -33,7 +33,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 @Feature("早报")
 @Owner("zhzh.yin")
 public class MorPaperTest {
-    ApiModel model = ApiModel.load("src/test/resources/apiyaml/paper.yaml");
+    ApiModel model = ApiModel.load("src/test/resources/miniapi/paper/paper.yaml");
 
     @BeforeAll
     static void beforeAll() {
@@ -95,7 +95,7 @@ public class MorPaperTest {
                 arguments("getDetail2" , map1, "ret", 0),
                 arguments("getDetail" , null, "ret", 0),
                 arguments("getDetail" , map2, "ret", 0),
-//                arguments("viewPaper",null, "ret", 0),
+                arguments("viewPaper",null, "ret", 0),
 //                arguments("filter",null, "ret", 0),
                 arguments("paperConfigAPI",null, "ret", 0)
 //                arguments("paperSaveAPI",null, "ret", 0)

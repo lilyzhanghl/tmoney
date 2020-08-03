@@ -1,5 +1,6 @@
-package api.framework;
+package api.framework.miniapi.login;
 
+import api.framework.ApiModel;
 import io.qameta.allure.*;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +15,7 @@ import static org.junit.jupiter.api.parallel.ExecutionMode.CONCURRENT;
 @Feature("登录")
 @Owner("zhzh.yin")
 public class LoginTest {
-    private static ApiModel model= ApiModel.load("src/test/resources/apiyaml/login.yaml");
+    private static ApiModel model= ApiModel.load("src/test/resources/miniapi/login/login.yaml");
 
     @ParameterizedTest(name = "登录接口-{0}-{index}")
     @CsvSource({

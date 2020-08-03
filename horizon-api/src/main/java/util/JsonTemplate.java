@@ -33,7 +33,11 @@ public class JsonTemplate {
         }
         return writer.toString();
     }
-    //todo
+
+    /**
+     *  todo 还没想好怎么写
+     */
+
     public static String template(HashMap<String,String> map) {
 
         return null;
