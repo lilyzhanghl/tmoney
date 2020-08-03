@@ -32,7 +32,7 @@ public class ConcurrentTest {
             return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         }
     };
-    @RepeatedTest(500)
+//    @RepeatedTest(500)
     @Story("并发报错：simpleDateFormat线程不安全")
     @Execution(ExecutionMode.CONCURRENT)
     //解决方案：用DateTimeFormatter

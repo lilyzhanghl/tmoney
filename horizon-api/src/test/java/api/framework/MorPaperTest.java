@@ -95,10 +95,10 @@ public class MorPaperTest {
                 arguments("getDetail2" , map1, "ret", 0),
                 arguments("getDetail" , null, "ret", 0),
                 arguments("getDetail" , map2, "ret", 0),
-                arguments("viewPaper",null, "ret", 0),
-                arguments("filter",null, "ret", 0),
-                arguments("paperConfigAPI",null, "ret", 0),
-                arguments("paperSaveAPI",null, "ret", 0)
+//                arguments("viewPaper",null, "ret", 0),
+//                arguments("filter",null, "ret", 0),
+                arguments("paperConfigAPI",null, "ret", 0)
+//                arguments("paperSaveAPI",null, "ret", 0)
 //                arguments("paperListAPI",null, "ret", 0)
         );
     }
