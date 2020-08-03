@@ -1,0 +1,6 @@
+name: 早报
+describle: 早报相关接口测试用例
+contents:
+  managerStation:
+    method: get
+    url: /caizhi_webapp/managerStation

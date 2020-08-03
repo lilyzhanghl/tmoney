@@ -56,10 +56,10 @@ public class Junit5Test {
                 arguments("lemon", 2, Arrays.asList("x", "y"))
         );
     }
-    @ParameterizedTest(name="使用其他类中的static流")
+/*    @ParameterizedTest(name="使用其他类中的static流")
     @MethodSource("com.tengmoney.autoframework.StringsProviders#tinyStrings")
     @Story("stream -在其他类中定义的stream")
     void testWithExternalMethodSource(String tinyString) {
         // test with tiny string
-    }
+    }*/
 }

@@ -2,7 +2,8 @@ package api.framework.miniapi.paper;
 
 import api.framework.ApiModel;
 import api.framework.miniapi.login.LoginHelper;
-import api.item.ManuData;
+import api.item.AppType;
+import api.item.Manu;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
@@ -37,7 +38,7 @@ public class MorPaperTest {
 
     @BeforeAll
     static void beforeAll() {
-        LoginHelper.login();
+        LoginHelper.login(AppType.MINIPRO);
     }
 
     @BeforeEach
@@ -71,7 +72,7 @@ public class MorPaperTest {
     @ParameterizedTest(name ="早报接口：{0}-{index}")
     @MethodSource("paperYamlProvider")
     @Story("一大堆早报接口")
-    void testPaperYaml(String apiName, HashMap<ManuData, HashMap<String, String>> map, String responsePath, Integer expectValue) {
+    void testPaperYaml(String apiName, HashMap<Manu, HashMap<String, String>> map, String responsePath, Integer expectValue) {
         assertTrue(model.run(apiName, map)
                 .path(responsePath)
                 .equals(expectValue));
@@ -81,15 +82,15 @@ public class MorPaperTest {
     }
 
     static Stream<Arguments> paperYamlProvider() {
-        HashMap<ManuData, HashMap<String, String>> map1 = new HashMap<>();
+        HashMap<Manu, HashMap<String, String>> map1 = new HashMap<>();
         HashMap<String, String> requestParam = new HashMap<>();
         requestParam.put("id", "f09a04b775974f98bee9aaed8c492d24");
-        map1.put(ManuData.REQUEST_PARAM, requestParam);
+        map1.put(Manu.REQUEST_PARAM, requestParam);
 
-        HashMap<ManuData, HashMap<String, String>> map2 = new HashMap<>();
+        HashMap<Manu, HashMap<String, String>> map2 = new HashMap<>();
         HashMap<String,String> jsonFileName = new HashMap<>();
         jsonFileName.put("jsonFileName","viewPaper");
-        map2.put(ManuData.JSON_FILE_NAME,jsonFileName);
+        map2.put(Manu.JSON_FILE_NAME,jsonFileName);
         return Stream.of(
                 arguments("getDetail", null, "ret", 0),
                 arguments("getDetail2" , map1, "ret", 0),
@@ -114,15 +115,15 @@ public class MorPaperTest {
 
 
     static Stream<Arguments> oneApi() {
-        HashMap<ManuData, HashMap<String, String>> map1 = new HashMap<>();
+        HashMap<Manu, HashMap<String, String>> map1 = new HashMap<>();
         HashMap<String, String> requestParam = new HashMap<>();
         requestParam.put("id", "f09a04b775974f98bee9aaed8c492d24");
-        map1.put(ManuData.REQUEST_PARAM, requestParam);
+        map1.put(Manu.REQUEST_PARAM, requestParam);
 
-        HashMap<ManuData, HashMap<String, String>> map2 = new HashMap<>();
+        HashMap<Manu, HashMap<String, String>> map2 = new HashMap<>();
         HashMap<String,String> jsonFileName = new HashMap<>();
         jsonFileName.put("jsonFileName","viewPaper");
-        map2.put(ManuData.JSON_FILE_NAME,jsonFileName);
+        map2.put(Manu.JSON_FILE_NAME,jsonFileName);
         return Stream.of(
                 arguments("getDetail",map1, "ret",is(0)),
                 arguments("getDetail",map2, "ret",is(0))

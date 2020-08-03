@@ -19,6 +19,7 @@ public class HandelYaml<T> {
     public static <T> T getYamlConfig(String filePath, Class<T> clazz) {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         mapper.findAndRegisterModules();
+//        mapper.disable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS);
         try {
             T t =mapper.readValue(
                     new File(filePath),

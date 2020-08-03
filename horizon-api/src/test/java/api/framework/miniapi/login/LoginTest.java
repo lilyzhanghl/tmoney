@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.parallel.ExecutionMode.CONCURRENT;
 @Owner("zhzh.yin")
 public class LoginTest {
     private static ApiModel model= ApiModel.load("src/test/resources/miniapi/login/login.yaml");
-
     @ParameterizedTest(name = "登录接口-{0}-{index}")
     @CsvSource({
                     "login, ret, 0",

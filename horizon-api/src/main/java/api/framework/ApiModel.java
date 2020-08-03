@@ -25,8 +25,11 @@ public class ApiModel {
     public HashMap<String, Api> contents;
 
 
-    public Response run(String apiName) {
-        return contents.get(apiName).run();
+    public Response run(String apiName){
+        if (contents.get(apiName) != null) {
+            return contents.get(apiName).run();
+        }
+        return null;
     }
 
     public Response run(String apiName, HashMap map) {
@@ -38,10 +41,16 @@ public class ApiModel {
         ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
         try {
             ApiModel model = objectMapper.readValue(new File(yamlPath), ApiModel.class);
-            for(String s :model.getContents().keySet()){
-                String string = yamlPath.replace(yamlPath.split("/")[yamlPath.split("/").length-1],"");
-                log.error("jsonFilePath is :"+string);
-                model.getContents().get(s).setJsonFilePath(yamlPath.replace(yamlPath.split("/")[yamlPath.split("/").length-1],""));
+            if (model.getContents().keySet().size() > 0) {
+                for (String s : model.getContents().keySet()) {
+                    String string = yamlPath.replace(yamlPath.split("/")[yamlPath.split("/").length - 1], "");
+                    log.error("jsonFilePath is :" + string);
+                    Api api = model.getContents().get(s);
+                    log.info("当前api是：" + api);
+                    if (api != null) {
+                        api.setJsonFilePath(string);
+                    }
+                }
             }
             return model;
         } catch (IOException e) {

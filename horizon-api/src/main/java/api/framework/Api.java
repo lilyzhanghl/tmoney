@@ -1,6 +1,8 @@
 package api.framework;
 
-import api.item.ManuData;
+import api.dto.CorpDTO;
+import api.dto.StaffDTO;
+import api.item.Manu;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.http.Method;
@@ -9,7 +11,6 @@ import io.restassured.specification.RequestSpecification;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import poexception.ApiNotFoundException;
-import poexception.InsertValueNotInitException;
 import util.JsonTemplate;
 import util.LoadDefaultConfig;
 
@@ -31,19 +32,42 @@ public class Api {
     public HashMap<String, Object> headers;
     public String connection;
     public String jsonFileName;
-
-    public String getJsonFilePath() {
-        return jsonFilePath;
-    }
-
-    public void setJsonFilePath(String jsonFilePath) {
-        this.jsonFilePath = jsonFilePath;
-    }
-
-    private String jsonFilePath;
     public HashMap<String, String> requestParam;
     public HashMap<String, String> jsonParam;
     private int flag = 0;
+    public String jsonFilePath;
+
+    public void login() {
+        log.info("登录对应类型");
+    }
+
+    /**
+     * 导入默认配置
+     */
+
+
+    protected synchronized void importDefaultConfig() {
+        log.info("做一些yaml配置的参数导入操作");
+        HashMap<String, String> configMap = this.getRequestParam();
+        HashMap<String, String> defaultMap = new HashMap();
+        if (null == configMap) {
+            configMap = new HashMap();
+        }
+
+        CorpDTO corp = LoadDefaultConfig.getCorp();
+        log.info("corp is " + corp);
+        StaffDTO staff = LoadDefaultConfig.getStaff();
+        log.info("staff is " + staff);
+
+        defaultMap.put("authCorpId", corp.corpId);
+        defaultMap.put("currentCorpId", corp.corpId);
+        defaultMap.put("userId", staff.userId);
+        defaultMap.put("corpId", corp.corpId);
+
+        defaultMap.keySet().removeAll(configMap.keySet());
+        configMap.putAll(defaultMap);
+        this.setRequestParam(configMap);
+    }
 
     /**
      * 向api中传入数据
@@ -51,39 +75,42 @@ public class Api {
      * @param map
      * @return
      */
-    private synchronized Api handleParam(HashMap<ManuData, HashMap<String, String>> map){
+    private synchronized Api handleParam(HashMap<Manu, HashMap<String, String>> map) {
         log.info("handleMap:" + map);
         if (map != null) {
-            if (map.containsKey(ManuData.REQUEST_PARAM)) {
+            if (map.containsKey(Manu.REQUEST_PARAM)) {
                 log.info("传参中有request_param");
-                HashMap<String, String> newMap = map.get(ManuData.REQUEST_PARAM);
+                HashMap<String, String> newMap = map.get(Manu.REQUEST_PARAM);
                 if (this.getRequestParam() != null) {
                     HashMap<String, String> oldMap = this.getRequestParam();
                     oldMap.putAll(newMap);
                     //新的数据会覆盖旧的
                     this.setRequestParam(oldMap);
+                    log.info("当前 map参数为：" + oldMap);
                 } else {
+                    log.info("当前 map参数为：" + newMap);
                     this.setRequestParam(newMap);
                 }
             }
-            if (map.containsKey(ManuData.JSON_PARAM)) {
+            if (map.containsKey(Manu.JSON_PARAM)) {
                 log.info("传参中有request_param");
-                HashMap<String, String> newMap = map.get(ManuData.JSON_PARAM);
+                HashMap<String, String> newMap = map.get(Manu.JSON_PARAM);
                 if (this.getJsonParam() != null) {
                     HashMap<String, String> oldMap = this.getJsonParam();
                     oldMap.putAll(newMap);
                     //新的数据会覆盖旧的
+
                     this.setJsonParam(oldMap);
                 } else {
                     this.setJsonParam(newMap);
                 }
             }
-            if (map.containsKey(ManuData.JSON_FILE_NAME)) {
+            if (map.containsKey(Manu.JSON_FILE_NAME)) {
                 log.info("传参中有jsonFileName");
-                HashMap<String, String> jsonFileNameMap = map.get(ManuData.JSON_FILE_NAME);
+                HashMap<String, String> jsonFileNameMap = map.get(Manu.JSON_FILE_NAME);
                 log.info("jsonFileMap is " + jsonFileNameMap);
                 //map中设置key=jsonFileName
-                String jsonFileName = jsonFileNameMap.get(ManuData.JSON_FILE_NAME.getType());
+                String jsonFileName = jsonFileNameMap.get(Manu.JSON_FILE_NAME.getType());
                 //直接替换旧的
                 //d = a.replace(a.split("/")[a.split("/").length-1], d)+".json"
                 //
@@ -106,7 +133,8 @@ public class Api {
 
     public synchronized Response run(HashMap map) {
         handleUrl();
-            handleParam(map);
+        importDefaultConfig();
+        handleParam(map);
         try {
             return handleApi();
         } catch (ApiNotFoundException e) {
@@ -117,6 +145,7 @@ public class Api {
 
     public synchronized Response run() {
         handleUrl();
+        importDefaultConfig();
         try {
             handleParam(null);
             return handleApi();
@@ -152,6 +181,7 @@ public class Api {
      * @throws ApiNotFoundException
      */
     private synchronized Response handleApi() throws ApiNotFoundException {
+        log.info(this.toString());
         String url = this.getUrl();
         String method = this.getMethod();
         HashMap<String, Object> headers = this.getHeaders();
@@ -169,30 +199,32 @@ public class Api {
             RequestSpecification requestSpec = builder.build();
             request = request.spec(requestSpec);
         }
-        if (requestParam != null) {
-            request = request.params(requestParam);
-            log.info("配置param:" + requestParam);
-        }
+
         if (headers != null) {
             request = request.headers(this.getHeaders());
             log.info("配置header:" + headers);
         }
         if (jsonPath != null) {
-                log.info("jsonPath is " + jsonPath);
-                request = request
-                        .contentType(ContentType.JSON)
-                        .body(JsonTemplate.template(jsonPath));
+            log.info("jsonPath is " + jsonPath);
+            request = request
+                    .contentType(ContentType.JSON)
+                    .body(JsonTemplate.template(jsonPath));
         }
         request = request.when()
                 .log().all();
 
         if (method.toUpperCase().equals(Method.GET.toString())) {
+            if (requestParam != null) {
+                log.info("当前请求的参数map为：" + requestParam);
+                request = request.params(requestParam);
+                log.info("配置param:" + requestParam);
+            }
             Response response = request.get(url)
                     .then()
                     .log().all()
                     .extract()
                     .response();
-            if (null==builder){
+            if (null == builder) {
                 builder = new RequestSpecBuilder();
                 log.info(response.getCookies().keySet().toString());
                 builder.addCookies(response.getCookies());

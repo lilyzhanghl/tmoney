@@ -7,7 +7,7 @@ package api.item;
  *
  * @author zhzh.yin
  **/
-public enum ManuData {
+public enum Manu {
     /**
      * REQUEST_PARAM 请求参数类型
      * JSON_PARAM json参数类型
@@ -17,7 +17,7 @@ public enum ManuData {
     JSON_PARAM("jsonParam"),
     JSON_FILE_NAME("jsonFileName");
     private final String type;
-    private ManuData(String type)
+    private Manu(String type)
     {
         this.type = type;
     }
