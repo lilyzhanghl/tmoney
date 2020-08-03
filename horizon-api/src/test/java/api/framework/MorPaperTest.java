@@ -35,8 +35,8 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 public class MorPaperTest {
     ApiModel model = ApiModel.load("src/test/resources/apiyaml/paper.yaml");
 
-    @BeforeEach
-    void beforeAll() {
+    @BeforeAll
+    static void beforeAll() {
         LoginHelper.login();
     }
 
