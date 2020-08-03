@@ -3,6 +3,7 @@ package api.framework;
 import api.item.ManuData;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
+import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import lombok.Data;
@@ -203,23 +204,28 @@ public class Api {
         }
         request = request.when()
                 .log().all();
-        Response response;
-        if (method.equals("get")) {
-            response = request.get(url);
-            if (null == builder) {
+        if (method.toUpperCase().equals(Method.GET.toString())) {
+            Response response = request.get(url)
+                    .then()
+                    .log().all()
+                    .extract()
+                    .response();
+            if (null==builder){
                 builder = new RequestSpecBuilder();
                 log.info(response.getCookies().keySet().toString());
                 builder.addCookies(response.getCookies());
             }
-        } else if (method.equals("post")) {
-            response = request.post(url);
+            return response;
+        } else if (method.toUpperCase().equals(Method.POST.toString())) {
+            Response response = request.post(url)
+                    .then()
+                    .log().all()
+                    .extract()
+                    .response();
+            return response;
         } else {
             throw new APINotFoundException("解析失败");
         }
-        return response.then()
-                .log().all()
-                .extract()
-                .response();
     }
 
     @Override
