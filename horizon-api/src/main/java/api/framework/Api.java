@@ -203,23 +203,41 @@ public class Api {
         }
         request = request.when()
                 .log().all();
+<<<<<<< HEAD
         Response response;
         if (method.equals("get")) {
             response = request.get(url);
             if (null == builder) {
+=======
+
+        if (method.toUpperCase().equals(Method.GET.toString())) {
+            Response response = request.get(url)
+                    .then()
+                    .log().all()
+                    .extract()
+                    .response();
+            if (null==builder){
+>>>>>>> dev
                 builder = new RequestSpecBuilder();
                 log.info(response.getCookies().keySet().toString());
                 builder.addCookies(response.getCookies());
             }
+<<<<<<< HEAD
         } else if (method.equals("post")) {
             response = request.post(url);
+=======
+            return response;
+        } else if (method.toUpperCase().equals(Method.POST.toString())) {
+            Response response = request.post(url)
+                    .then()
+                    .log().all()
+                    .extract()
+                    .response();
+            return response;
+>>>>>>> dev
         } else {
             throw new APINotFoundException("解析失败");
         }
-        return response.then()
-                .log().all()
-                .extract()
-                .response();
     }
 
     @Override

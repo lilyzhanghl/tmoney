@@ -98,8 +98,8 @@ public class MorPaperTest {
                 arguments("viewPaper",null, "ret", 0),
                 arguments("filter",null, "ret", 0),
                 arguments("paperConfigAPI",null, "ret", 0),
-                arguments("paperSaveAPI",null, "ret", 0),
-                arguments("paperListAPI",null, "ret", 0)
+                arguments("paperSaveAPI",null, "ret", 0)
+//                arguments("paperListAPI",null, "ret", 0)
         );
     }
 
