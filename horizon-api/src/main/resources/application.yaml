@@ -1,5 +1,6 @@
 host:
   test : "https://test.tengmoney.com"
-  dev : ""
+  dev : "https://dev.tengmoney.com"
+  uat : "https://uat.tengmoney.com"
 current:
   host : "test"

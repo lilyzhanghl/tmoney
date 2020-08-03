@@ -1,5 +1,6 @@
-package api.framework;
+package api.framework.miniapi.login;
 
+import api.framework.ApiModel;
 import io.qameta.allure.*;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;

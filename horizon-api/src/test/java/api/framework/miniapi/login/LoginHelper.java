@@ -1,6 +1,6 @@
-package api.framework;
+package api.framework.miniapi.login;
 
-import org.junit.Test;
+import api.framework.ApiModel;
 
 public class LoginHelper {
     public static void login(){
