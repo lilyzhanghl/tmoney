@@ -4,3 +4,8 @@ contents:
   managerStation:
     method: get
     url: /caizhi_webapp/managerStation
+  getAuthInfo:
+    method: post
+    url: /caizhi_miniapi/index/h5/get_auth_info
+    headers:
+      Content-Type: application/json

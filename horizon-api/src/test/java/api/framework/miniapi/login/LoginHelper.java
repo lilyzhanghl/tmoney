@@ -10,6 +10,9 @@ public class LoginHelper {
     public void test(){
         login(AppType.MINIPRO);
     }
+    public static void login(){
+        model.get("minipro").importDefaultConfig().run();
+    }
     public static void login(AppType type){
         switch (type){
             case MANAGE:
@@ -19,10 +22,10 @@ public class LoginHelper {
                 model.get("market").importDefaultConfig().run();
                 break;
             case MINIPRO:
-                model.get("minipro").importDefaultConfig().run();;
+                model.get("minipro").importDefaultConfig().run();
                 break;
             default:
-                model.get("h5").importDefaultConfig().run();;
+                model.get("h5").importDefaultConfig().run();
         }
     }
 }

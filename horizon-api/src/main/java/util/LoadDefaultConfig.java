@@ -58,4 +58,43 @@ public class LoadDefaultConfig {
         StaffDTO staff = config.staff.get(env);
         return staff;
     }
+    public static HashMap<String,String> getDefaultConfig(){
+        HashMap<String, String> map=new HashMap<>(16);
+        map.putAll(importStaffConfig());
+        map.putAll(importCorpConfig());
+        return map;
+    }
+    public static HashMap<String,String> getDefaultConfig(AppType type){
+        HashMap<String, String> map=new HashMap<>(16);
+        map.putAll(importStaffConfig());
+        map.putAll(importCorpConfig());
+        map.putAll(importAppConfig(type));
+        return map;
+    }
+    private static HashMap<String,String> importAppConfig(AppType type) {
+        HashMap<String, String> map=new HashMap<>(16);
+        AppDTO app =  getApp(type);
+        map.put("appId", app.getAppId());
+        map.put("agentId", app.getAgentId());
+        map.put("componentAppid", app.getAgentId());
+        return map;
+    }
+
+    private static HashMap<String,String> importStaffConfig() {
+        HashMap map = new HashMap(16);
+        StaffDTO staff = getStaff();
+        log.info("staff is " + staff);
+        map.put("userId", staff.userId);
+        return map;
+    }
+
+    private static HashMap<String,String> importCorpConfig() {
+        HashMap map = new HashMap(16);
+        CorpDTO corp =  getCorp();
+        log.info("corp is " + corp);
+        map.put("authCorpId", corp.corpId);
+        map.put("currentCorpId", corp.corpId);
+        map.put("corpId", corp.corpId);
+        return map;
+    }
 }
