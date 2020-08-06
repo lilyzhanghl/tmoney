@@ -24,17 +24,17 @@ public class ApiModel {
     public String describle;
     public HashMap<String, Api> contents;
 
-
-    public Response run(String apiName){
+    public Api get(String apiName){
+        return contents.get(apiName);
+    }
+    
+    public Response runWithoutConfig(String apiName){
         if (contents.get(apiName) != null) {
             return contents.get(apiName).run();
         }
         return null;
     }
 
-    public Response run(String apiName, HashMap map) {
-        return contents.get(apiName).run(map);
-    }
 
     public static ApiModel load(String yamlPath) {
 

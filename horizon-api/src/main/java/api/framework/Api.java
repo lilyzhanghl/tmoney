@@ -1,7 +1,9 @@
 package api.framework;
 
+import api.dto.AppDTO;
 import api.dto.CorpDTO;
 import api.dto.StaffDTO;
+import api.item.AppType;
 import api.item.Manu;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
@@ -46,27 +48,56 @@ public class Api {
      */
 
 
-    protected synchronized void importDefaultConfig() {
+    public synchronized Api importDefaultConfig() {
         log.info("做一些yaml配置的参数导入操作");
         HashMap<String, String> configMap = this.getRequestParam();
-        HashMap<String, String> defaultMap = new HashMap();
+        HashMap<String, String> defaultMap = new HashMap<String,String>(16);
         if (null == configMap) {
-            configMap = new HashMap();
+            configMap = new HashMap(16);
         }
-
-        CorpDTO corp = LoadDefaultConfig.getCorp();
-        log.info("corp is " + corp);
-        StaffDTO staff = LoadDefaultConfig.getStaff();
-        log.info("staff is " + staff);
-
-        defaultMap.put("authCorpId", corp.corpId);
-        defaultMap.put("currentCorpId", corp.corpId);
-        defaultMap.put("userId", staff.userId);
-        defaultMap.put("corpId", corp.corpId);
+        importCorpConfig(defaultMap);
+        importStaffConfig(defaultMap);
+        defaultMap.keySet().removeAll(configMap.keySet());
+        configMap.putAll(defaultMap);
+        this.setRequestParam(configMap);
+        return this;
+    }
+    public synchronized Api importDefaultConfig(AppType type) {
+        log.info("做一些yaml配置的参数导入操作");
+        HashMap<String, String> configMap = this.getRequestParam();
+        HashMap<String, String> defaultMap = new HashMap(16);
+        if (null == configMap) {
+            configMap = new HashMap(16);
+        }
+        importCorpConfig(defaultMap);
+        importStaffConfig(defaultMap);
+        importAppConfig(type, defaultMap);
 
         defaultMap.keySet().removeAll(configMap.keySet());
         configMap.putAll(defaultMap);
         this.setRequestParam(configMap);
+        return this;
+    }
+
+    private void importAppConfig(AppType type, HashMap<String, String> defaultMap) {
+        AppDTO app = LoadDefaultConfig.getApp(type);
+        defaultMap.put("appId",app.getAppId());
+        defaultMap.put("agentId",app.getAgentId());
+        defaultMap.put("componentAppid",app.getAgentId());
+    }
+
+    private void importStaffConfig(HashMap<String, String> defaultMap) {
+        StaffDTO staff = LoadDefaultConfig.getStaff();
+        log.info("staff is " + staff);
+        defaultMap.put("userId", staff.userId);
+    }
+
+    private void importCorpConfig(HashMap<String, String> defaultMap) {
+        CorpDTO corp = LoadDefaultConfig.getCorp();
+        log.info("corp is " + corp);
+        defaultMap.put("authCorpId", corp.corpId);
+        defaultMap.put("currentCorpId", corp.corpId);
+        defaultMap.put("corpId", corp.corpId);
     }
 
     /**
@@ -75,7 +106,7 @@ public class Api {
      * @param map
      * @return
      */
-    private synchronized Api handleParam(HashMap<Manu, HashMap<String, String>> map) {
+    public synchronized Api importParam(HashMap<Manu, HashMap<String, String>> map) {
         log.info("handleMap:" + map);
         if (map != null) {
             if (map.containsKey(Manu.REQUEST_PARAM)) {
@@ -131,28 +162,12 @@ public class Api {
         return this;
     }
 
-    public synchronized Response run(HashMap map) {
-        handleUrl();
-        importDefaultConfig();
-        handleParam(map);
-        try {
-            return handleApi();
-        } catch (ApiNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+
 
     public synchronized Response run() {
-        handleUrl();
-        importDefaultConfig();
-        try {
-            handleParam(null);
-            return handleApi();
-        } catch (ApiNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
+        setApiBody();
+
+        return sendRequest();
     }
 
     private static RequestSpecBuilder builder;
@@ -173,23 +188,16 @@ public class Api {
         }
         return this;
     }
-
-    /**
-     * 解析单个api
-     *
-     * @return
-     * @throws ApiNotFoundException
-     */
-    private synchronized Response handleApi() throws ApiNotFoundException {
+    private RequestSpecification setApiBody(){
+        handleUrl();
         log.info(this.toString());
-        String url = this.getUrl();
         String method = this.getMethod();
         HashMap<String, Object> headers = this.getHeaders();
         String jsonPath = this.getJsonFileName();
         HashMap requestParam = this.getRequestParam();
         HashMap jsonParam = this.getJsonParam();
         if (method == "" || method.equals(null)) {
-            throw new ApiNotFoundException("没有写入method");
+            log.error("没有写入method");
         }
         //todo 参数枚举化
         RequestSpecification request = given();
@@ -212,6 +220,18 @@ public class Api {
         }
         request = request.when()
                 .log().all();
+
+        return request;
+
+    }
+    /**
+     * 发送api请求
+     *
+     * @return
+     * @throws ApiNotFoundException
+     */
+    private synchronized Response sendRequest()   {
+        RequestSpecification request = setApiBody();
 
         if (method.toUpperCase().equals(Method.GET.toString())) {
             if (requestParam != null) {
@@ -238,7 +258,8 @@ public class Api {
                     .response();
             return response;
         } else {
-            throw new ApiNotFoundException("解析失败");
+            log.error("解析失败");
+            return null;
         }
     }
 

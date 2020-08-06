@@ -6,7 +6,6 @@ import api.dto.StaffDTO;
 import api.item.AppType;
 import api.item.Env;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 
@@ -58,14 +57,5 @@ public class LoadDefaultConfig {
     public static StaffDTO getStaff(){
         StaffDTO staff = config.staff.get(env);
         return staff;
-    }
-    @Test
-    public void test(){
-        System.out.println(HandelYaml.getYamlConfig("src/main/resources/application.yaml", LoadDefaultConfig.class));
-        System.out.println(env);
-        System.out.println(getHost());
-        System.out.println(getApp(AppType.H5STATION));
-        System.out.println(getCorp());
-        System.out.println(getStaff());
     }
 }

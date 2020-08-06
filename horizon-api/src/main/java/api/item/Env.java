@@ -14,7 +14,14 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 
 public enum Env {
-
+    /**
+     * 不同的环境
+     * 根据环境设置文件application.yaml中的current的值读取不同的参数
+     * TEST 测试环境
+     * DEV 开发环境
+     * UAT testserver2
+     * PROD 生产环境
+     */
     TEST("test"),
     DEV("dev"),
     PROD("prod"),

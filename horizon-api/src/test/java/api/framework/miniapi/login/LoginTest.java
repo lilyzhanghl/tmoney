@@ -23,7 +23,7 @@ public class LoginTest {
             })
     @Story("登录用例")
     void testBaseYaml(String apiName, String assertPath, int code) {
-        Response response = model.run(apiName);
+        Response response = model.runWithoutConfig(apiName);
         assertThat("验证返回code码",response.path(assertPath).equals(code));
     }
 
@@ -40,7 +40,7 @@ public class LoginTest {
     })
     @Story("并发登录")
     void testBaseYaml2(String apiName, String assertPath, int code) {
-        Response response = model.run(apiName);
+        Response response = model.runWithoutConfig(apiName);
         assertThat("验证返回code码",response.path(assertPath).equals(code));
     }
 }

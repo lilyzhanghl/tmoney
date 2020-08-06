@@ -13,6 +13,16 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * @create 2020/8/5
  */
 public enum AppType {
+    /**
+     * 接口根据不同的传参类型，读取不同的yaml中的数据
+     * 包括但不限于在 请求参数中的小程序/自建应用的appId,agentId等
+     * 登录时auth.do使用哪个登录链接
+     * MINIPRO 小程序
+     * H5STATION 小站
+     * H5PRODUCT 推产品
+     * MANAGE 管理平台
+     * MARKET 运营平台
+     */
     MINIPRO("minipro"),
     H5STATION("h5station"),
     H5PRODUCT("h5product"),

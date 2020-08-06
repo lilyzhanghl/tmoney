@@ -10,7 +10,6 @@ import io.qameta.allure.Story;
 import lombok.extern.slf4j.Slf4j;
 import org.hamcrest.BaseMatcher;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
@@ -24,7 +23,8 @@ import java.util.HashMap;
 import java.util.stream.Stream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.parallel.ExecutionMode.CONCURRENT;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
@@ -41,15 +41,11 @@ public class MorPaperTest {
         LoginHelper.login(AppType.MINIPRO);
     }
 
-    @BeforeEach
-    void setUp(){
-    }
-
     @Test
     @DisplayName("一个简单的断言")
     @Story("detail.do接口")
     void test1() {
-        model.run("getDetail")
+        model.runWithoutConfig("getDetail")
                 .then()
                 .statusCode(200)
                 .body("ret", equalTo(0));
@@ -64,8 +60,7 @@ public class MorPaperTest {
     })
     @Story("csv测试detail.do接口")
     void testPaper(String apiName, String responsePath, Integer expectValue) throws InvocationTargetException, IllegalAccessException {
-//        BeanUtils.copyProperties(apiContent, apis.get(apiName));
-        assertTrue(model.run(apiName)
+        assertTrue(model.runWithoutConfig(apiName)
                 .path(responsePath).equals(expectValue));
     }
 
@@ -73,7 +68,7 @@ public class MorPaperTest {
     @MethodSource("paperYamlProvider")
     @Story("一大堆早报接口")
     void testPaperYaml(String apiName, HashMap<Manu, HashMap<String, String>> map, String responsePath, Integer expectValue) {
-        assertTrue(model.run(apiName, map)
+        assertTrue(model.get(apiName).importParam(map).run()
                 .path(responsePath)
                 .equals(expectValue));
         /*assertAll(
@@ -109,7 +104,8 @@ public class MorPaperTest {
     @MethodSource("oneApi")
     @Story("接口的另一种写法")
     void testPaper2(String apiName,HashMap map, String str, BaseMatcher matcher) {
-        Object result = model.run(apiName, map).getBody().jsonPath().get(str);
+        Object result = model.get(apiName).importParam(map).run()
+                .getBody().jsonPath().get(str);
         assertThat(result, matcher);
     }
 
