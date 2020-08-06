@@ -28,22 +28,16 @@ import static org.junit.jupiter.api.parallel.ExecutionMode.CONCURRENT;
 @Feature("早报")
 @Owner("zhzh.yin")
 public class StationPageTest {
-
     ApiModel model = ApiModel.load("src/test/resources/miniapi/station/stationPage.yaml");
-
     @BeforeAll
     static void beforeAll() {
         LoginHelper.login(AppType.H5STATION);
-
     }
 //    @Test
     void test(){
         Api api = model.get("managerStation");
         api.run();
     }
-
-
-
 //    @Test
     @DisplayName("managerStation.do")
     @Story("小站首页-managerStation")

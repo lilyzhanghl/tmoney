@@ -71,11 +71,7 @@ public class MorPaperTest {
         assertTrue(model.get(apiName).importParam(map).run()
                 .path(responsePath)
                 .equals(expectValue));
-        /*assertAll(
-                ()->assertTrue(ApiPO.parseApi(api).path("ret").equals(0))
-        );*/
     }
-
     static Stream<Arguments> paperYamlProvider() {
         HashMap<Manu, HashMap<String, String>> map1 = new HashMap<>();
         HashMap<String, String> requestParam = new HashMap<>();
@@ -92,14 +88,9 @@ public class MorPaperTest {
                 arguments("getDetail" , null, "ret", 0),
                 arguments("getDetail" , map2, "ret", 0),
                 arguments("viewPaper",null, "ret", 0),
-//                arguments("filter",null, "ret", 0),
                 arguments("paperConfigAPI",null, "ret", 0)
-//                arguments("paperSaveAPI",null, "ret", 0)
-//                arguments("paperListAPI",null, "ret", 0)
         );
     }
-
-
     @ParameterizedTest(name = "接口-{0}-{index}")
     @MethodSource("oneApi")
     @Story("接口的另一种写法")
@@ -108,8 +99,6 @@ public class MorPaperTest {
                 .getBody().jsonPath().get(str);
         assertThat(result, matcher);
     }
-
-
     static Stream<Arguments> oneApi() {
         HashMap<Manu, HashMap<String, String>> map1 = new HashMap<>();
         HashMap<String, String> requestParam = new HashMap<>();
@@ -124,6 +113,5 @@ public class MorPaperTest {
                 arguments("getDetail",map1, "ret",is(0)),
                 arguments("getDetail",map2, "ret",is(0))
         );
-
     }
 }
