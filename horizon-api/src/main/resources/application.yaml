@@ -18,7 +18,7 @@ app:
   test:
     minipro:
       corpId: ww8c83d949a80b562d
-      appId: wx496be6b7f150698f
+      appId: wx2b2b5ed3e46167bd
       appName: 新翰信息
       agentId: 1000039
       componentAppid: wx45f030acae6a845a

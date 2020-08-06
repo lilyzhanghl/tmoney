@@ -10,11 +10,9 @@ package api.item;
 public enum Manu {
     /**
      * REQUEST_PARAM 请求参数类型
-     * JSON_PARAM json参数类型
      * JSON_FILE_NAME json文件名称
      */
     REQUEST_PARAM("requestParam"),
-    JSON_PARAM("jsonParam"),
     JSON_FILE_NAME("jsonFileName");
     private final String type;
     private Manu(String type)
