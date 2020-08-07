@@ -28,6 +28,7 @@ public class BaseTest {
 
     @Test
     public void testLogin() throws InterruptedException {
+
     }
 
     @AfterAll

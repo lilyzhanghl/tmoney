@@ -32,10 +32,10 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 @Feature("早报")
 @Owner("zhzh.yin")
 public class MorningTest {
-    ApiModel model = ApiModel.load("src/test/resources/miniapi/morningtest.yaml");
+    ApiModel model = ApiModel.load(this.getClass());
 
-    @BeforeAll
-    static void beforeAll() {
+        @BeforeAll
+    void beforeAll() {
         LoginHelper.login();
     }
 
@@ -49,9 +49,11 @@ public class MorningTest {
                 .body("ret", equalTo(0));
 //                .body("ret", hasItem(0))
 //                .body("xx.xx", hasItems(1, 2));
-    };
+    }
 
-    @ParameterizedTest(name ="早报接口：{0}-{index}")
+    ;
+
+    @ParameterizedTest(name = "早报接口：{0}-{index}")
     @CsvSource({
             "getDetail,ret,0",
             "getDetail,ret,0"
@@ -62,7 +64,7 @@ public class MorningTest {
                 .path(responsePath).equals(expectValue));
     }
 
-    @ParameterizedTest(name ="早报接口：{0}-{index}")
+    @ParameterizedTest(name = "早报接口：{0}-{index}")
     @MethodSource("paperYamlProvider")
     @Story("一大堆早报接口")
     void testPaperYaml(String apiName, HashMap<String, String> map, String responsePath, Integer expectValue) {
@@ -70,36 +72,39 @@ public class MorningTest {
                 .path(responsePath)
                 .equals(expectValue));
     }
+
     static Stream<Arguments> paperYamlProvider() {
         HashMap<String, String> requestParam = new HashMap<>();
         requestParam.put("id", "f09a04b775974f98bee9aaed8c492d24");
-        HashMap<String,String> jsonFileName = new HashMap<>();
-        jsonFileName.put("jsonFileName","viewPaper");
+        HashMap<String, String> jsonFileName = new HashMap<>();
+        jsonFileName.put("jsonFileName", "viewPaper");
         return Stream.of(
                 arguments("getDetail", null, "ret", 0),
-                arguments("getDetail2" , requestParam, "ret", 0),
-                arguments("getDetail" , null, "ret", 0),
-                arguments("getDetail" , jsonFileName, "ret", 0),
-                arguments("viewPaper",null, "ret", 0),
-                arguments("paperConfigAPI",null, "ret", 0)
+                arguments("getDetail2", requestParam, "ret", 0),
+                arguments("getDetail", null, "ret", 0),
+                arguments("getDetail", jsonFileName, "ret", 0),
+                arguments("viewPaper", null, "ret", 0),
+                arguments("paperConfigAPI", null, "ret", 0)
         );
     }
+
     @ParameterizedTest(name = "接口-{0}-{index}")
     @MethodSource("oneApi")
     @Story("接口的另一种写法")
-    void testPaper2(String apiName,HashMap map, String str, BaseMatcher matcher) {
+    void testPaper2(String apiName, HashMap map, String str, BaseMatcher matcher) {
         Object result = model.get(apiName).importParam(map).run()
                 .getBody().jsonPath().get(str);
         assertThat(result, matcher);
     }
+
     static Stream<Arguments> oneApi() {
         HashMap<String, String> requestParam = new HashMap<>();
         requestParam.put("id", "f09a04b775974f98bee9aaed8c492d24");
-        HashMap<String,String> jsonFileName = new HashMap<>();
-        jsonFileName.put("jsonFileName","viewPaper");
+        HashMap<String, String> jsonFileName = new HashMap<>();
+        jsonFileName.put("jsonFileName", "viewPaper");
         return Stream.of(
-                arguments("getDetail",requestParam, "ret",is(0)),
-                arguments("getDetail",jsonFileName, "ret",is(0))
+                arguments("getDetail", requestParam, "ret", is(0)),
+                arguments("getDetail", jsonFileName, "ret", is(0))
         );
     }
 }

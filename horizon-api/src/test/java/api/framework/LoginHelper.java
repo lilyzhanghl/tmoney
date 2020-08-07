@@ -4,7 +4,7 @@ import api.item.AppType;
 import org.junit.Test;
 
 public class LoginHelper {
-    private static ApiModel model = ApiModel.load("src/test/resources/miniapi/loginhelper.yaml");
+    private static ApiModel model = ApiModel.load(LoginHelper.class);
     @Test
     public void test(){
         login(AppType.MINIPRO);
