@@ -1,7 +1,7 @@
-package api.framework.miniapi.paper;
+package api.framework.caizhi.miniapi.api.applet;
 
 import api.framework.ApiModel;
-import api.framework.miniapi.login.LoginHelper;
+import api.framework.LoginHelper;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
@@ -31,8 +31,8 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 @Slf4j
 @Feature("早报")
 @Owner("zhzh.yin")
-public class MorPaperTest {
-    ApiModel model = ApiModel.load("src/test/resources/miniapi/paper/paper.yaml");
+public class MorningTest {
+    ApiModel model = ApiModel.load("src/test/resources/miniapi/morningtest.yaml");
 
     @BeforeAll
     static void beforeAll() {

@@ -87,6 +87,28 @@ mvn clean test
 allure serve target/allure-results
 allure report
 ```
+仅运行1个测试类
+``` shell
+mvn -Dtest=org.example.MyTest test
+``` 
+设置包含和排除
+``` shell
+<build>
+    <plugins>
+        ...
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.0.0-M5</version>
+            <configuration>
+                <excludes>
+                    <exclude>some test to exclude here</exclude>
+                </excludes>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+``` 
 report地址： target/site/allure-maven-plugin/index.html
 ### 待完善
 - 断言结合mybatis

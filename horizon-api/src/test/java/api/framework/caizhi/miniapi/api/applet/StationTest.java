@@ -1,10 +1,10 @@
-package api.framework.miniapi.station;/**
+package api.framework.caizhi.miniapi.api.applet;/**
  * @author zhzh.yin
  * @create 2020-08-05 11:51
  */
 
 import api.framework.ApiModel;
-import api.framework.miniapi.login.LoginHelper;
+import api.framework.LoginHelper;
 import api.item.AppType;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
@@ -33,8 +33,8 @@ import static org.junit.jupiter.api.parallel.ExecutionMode.CONCURRENT;
 @Slf4j
 @Feature("早报")
 @Owner("zhzh.yin")
-public class StationPageTest {
-    ApiModel model = ApiModel.load("src/test/resources/miniapi/station/stationPage.yaml");
+public class StationTest {
+    ApiModel model = ApiModel.load("src/test/resources/miniapi/stationtest.yaml");
 
     @BeforeAll
     static void beforeAll() {
