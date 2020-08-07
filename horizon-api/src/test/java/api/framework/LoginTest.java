@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.parallel.ExecutionMode.CONCURRENT;
 @Feature("登录")
 @Owner("zhzh.yin")
 public class LoginTest {
-    private static ApiModel model= ApiModel.load("src/test/resources/miniapi/logintest.yaml");
+    private  ApiModel model= ApiModel.load(this.getClass());
     @ParameterizedTest(name = "登录接口-{0}-{index}")
     @CsvSource({
                     "login, ret, 0",
@@ -29,14 +29,4 @@ public class LoginTest {
         assertThat("验证返回code码",response.path(assertPath).equals(code));
     }
 
-    @ParameterizedTest(name = "登录接口-{0}-{index}")
-    @CsvSource({
-            "login, ret, 0",
-            "testLoginFailure,ret,1000002"
-    })
-    @Story("并发登录")
-    void testBaseYaml2(String apiName, String assertPath, int code) {
-        Response response = model.runWithoutConfig(apiName);
-        assertThat("验证返回code码",response.path(assertPath).equals(code));
-    }
 }

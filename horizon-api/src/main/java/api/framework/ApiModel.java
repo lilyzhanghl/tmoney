@@ -34,8 +34,33 @@ public class ApiModel {
         }
         return null;
     }
-
-
+    public static ApiModel load(Class clazz) {
+        String yamlPath ="src/test/java/" + clazz.getCanonicalName()
+                .replace(".", "/")
+                .toLowerCase()
+                + ".yaml";
+        ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
+        try {
+            ApiModel model = objectMapper.readValue(new File(yamlPath), ApiModel.class);
+            if (model.getContents().keySet().size() > 0) {
+                for (String s : model.getContents().keySet()) {
+                    String string = yamlPath.replace(yamlPath.split("/")[yamlPath.split("/").length - 1], "");
+                    log.error("jsonFilePath is :" + string);
+                    Api api = model.getContents().get(s);
+                    log.info("当前api是：" + api);
+                    if (api != null) {
+                        api.setJsonFilePath(string);
+                    }
+                }
+            }
+            return model;
+        } catch (IOException e) {
+            e.printStackTrace();
+            log.error("yaml转换失败");
+        }
+        log.error("yaml转换失败");
+        return null;
+    }
     public static ApiModel load(String yamlPath) {
 
         ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
