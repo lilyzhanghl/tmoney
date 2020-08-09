@@ -3,7 +3,7 @@ package api.framework.caizhi.miniapi.api.applet;/**
  * @create 2020-08-05 11:51
  */
 
-import api.framework.ApiModel;
+import api.framework.ApiList;
 import api.framework.LoginHelper;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.parallel.ExecutionMode.CONCURRENT;
 @Feature("小站")
 @Owner("zhzh.yin")
 public class StationTest {
-    ApiModel model = ApiModel.load(this.getClass());
+    ApiList model = ApiList.load(this.getClass());
 
     @BeforeAll
     void beforeAll() {

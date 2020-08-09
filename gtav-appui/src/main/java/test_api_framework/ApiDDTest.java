@@ -28,14 +28,15 @@ public class ApiDDTest {
     }
 
     static List<Arguments> apiTest() {
-
+//        System.setProperty("api", "src/main/resources/test_framework_service/api");
         //加载所有的api object
         baseApi = new BaseApi();
 
         if(System.getProperty("api")!=null){
+            System.out.println(System.getProperty("api"));
             baseApi.load(System.getProperty("api"));
         }else{
-//            baseApi.load("src/main/resources/test_framework_service/api");
+            baseApi.load("src/main/resources/test_framework_service/api");
         }
 
 

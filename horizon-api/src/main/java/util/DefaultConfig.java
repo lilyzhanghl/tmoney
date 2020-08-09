@@ -17,7 +17,7 @@ import java.util.HashMap;
  * @Verion: 1.0
  */
 @Slf4j
-public class LoadDefaultConfig {
+public class DefaultConfig {
     public HashMap<String, Env> current = new HashMap<String, Env>();
     public HashMap<Env, String> host = new HashMap<>();
     public HashMap<Env, CorpDTO> corp = new HashMap<Env, CorpDTO>();
@@ -27,8 +27,8 @@ public class LoadDefaultConfig {
      * todo 优化硬编码
      */
     static String srcPath = "src/main/resources/application.yaml";
-    private static LoadDefaultConfig config =HandelYaml
-            .getYamlConfig(srcPath, LoadDefaultConfig.class);
+    private static DefaultConfig config =HandelYaml
+            .getYamlConfig(srcPath, DefaultConfig.class);
     public static Env env = config.current.get("env");
 
     @Override
@@ -41,7 +41,54 @@ public class LoadDefaultConfig {
                 ", staff=" + staff +
                 '}';
     }
-
+    public static String getStrFromDefaultConfig(String values) {
+        HashMap<String, String> newParam = new HashMap<>(16);
+        String[] value = values.split("\\.");
+        if (value.length > 1) {
+            if (value[0].equals("app")) {
+                try {
+                    AppType type = AppType.valueOf(value[1]);
+                    AppDTO app = DefaultConfig.getApp(type);
+                    //todo 反射
+                    if (value[2].equals("appId")) {
+                        return app.getAppId();
+                    } else if (value[2].equals("agentId")) {
+                        return app.getAgentId();
+                    } else if (value[2].equals("componentAppid")) {
+                        return app.getComponentAppid();
+                    } else {
+                        log.error("没有你写的元素：" + value[2]);
+                    }
+                } catch (Exception e) {
+                    log.error("appType 必须是H5STATION,MINIPRO,H5PRODUCT等等");
+                    e.printStackTrace();
+                }
+            } else if (value[0].equals("corp")) {
+                CorpDTO corp = DefaultConfig.getCorp();
+                if (value[1].equals("corpId")) {
+                    return corp.getCorpId();
+                } else {
+                    log.error("没有你写的元素：" + value[1]);
+                }
+            } else if (value[0].equals("staff")) {
+                StaffDTO staff = DefaultConfig.getStaff();
+                if (value[1].equals("name")) {
+                    return staff.getName();
+                } else if (value[1].equals("userId")) {
+                    return staff.getUserId();
+                } else if (value[1].equals("staffId")) {
+                    return staff.getStaffId();
+                } else {
+                    log.error("没有你写的元素：" + value[1]);
+                }
+            } else {
+                log.error("param参数没有在默认设置中找到");
+            }
+        } else {
+            return values;
+        }
+        return values;
+    }
 
     public static  String getHost() {
         return config.host.get(env);
@@ -50,6 +97,7 @@ public class LoadDefaultConfig {
         CorpDTO corp = config.corp.get(env);
         return corp;
     }
+
     public static AppDTO getApp(AppType appType){
         AppDTO app = config.app.get(env).get(appType);
         return app;

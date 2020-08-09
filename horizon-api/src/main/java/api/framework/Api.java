@@ -10,7 +10,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import poexception.ApiNotFoundException;
 import util.JsonTemplate;
-import util.LoadDefaultConfig;
+import util.DefaultConfig;
 
 import java.util.HashMap;
 
@@ -47,7 +47,7 @@ public class Api {
     public synchronized Api importDefaultConfig() {
         log.info("做一些yaml配置的参数导入操作");
         HashMap<String, String> configMap = this.getRequestParam();
-        HashMap<String, String> defaultMap = LoadDefaultConfig.getDefaultConfig();
+        HashMap<String, String> defaultMap = DefaultConfig.getDefaultConfig();
         if (null == configMap) {
             configMap = new HashMap(16);
         }
@@ -61,7 +61,7 @@ public class Api {
     public synchronized Api importDefaultConfig(AppType type) {
         log.info("做一些yaml配置的参数导入操作");
         HashMap<String, String> configMap = this.getRequestParam();
-        HashMap<String, String> defaultMap = LoadDefaultConfig.getDefaultConfig(type);
+        HashMap<String, String> defaultMap = DefaultConfig.getDefaultConfig(type);
         if (null == configMap) {
             configMap = new HashMap(16);
         }
@@ -116,7 +116,7 @@ public class Api {
      * 处理host
      */
     private synchronized Api handleUrl() {
-        String host = LoadDefaultConfig.getHost();
+        String host = DefaultConfig.getHost();
         log.info("当前环境配置的host是：" + host);
         if (getUrl() != null && flag == 0) {
             String apiHost = getUrl();
@@ -129,7 +129,7 @@ public class Api {
         return this;
     }
 
-    private RequestSpecification setApiBody() {
+    public RequestSpecification setApiBody() {
         handleUrl();
         log.info(this.toString());
         String method = this.getMethod();

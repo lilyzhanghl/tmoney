@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.parallel.ExecutionMode.CONCURRENT;
 @Feature("登录")
 @Owner("zhzh.yin")
 public class LoginTest {
-    private  ApiModel model= ApiModel.load(this.getClass());
+    private ApiList model= ApiList.load(this.getClass());
     @ParameterizedTest(name = "登录接口-{0}-{index}")
     @CsvSource({
                     "login, ret, 0",

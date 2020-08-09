@@ -1,0 +1,12 @@
+name: xxx
+describle: xxx
+testcase:
+  api: morningtest
+  action: getDetail
+  param:
+    id: xxx
+  result:
+    assertParam:
+      body: retdata
+    expect: defaultConfig.app.appId
+    matcher: equalTo

@@ -1,6 +1,6 @@
 package api.framework.caizhi.miniapi.api.applet;
 
-import api.framework.ApiModel;
+import api.framework.ApiList;
 import api.framework.LoginHelper;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
@@ -32,7 +32,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 @Feature("早报")
 @Owner("zhzh.yin")
 public class MorningTest {
-    ApiModel model = ApiModel.load(this.getClass());
+    ApiList model = ApiList.load(this.getClass());
 
         @BeforeAll
     void beforeAll() {

@@ -19,34 +19,61 @@ import java.util.HashMap;
  *
  * @author zhzh.yin
  **/
-public class ApiModel {
+public class ApiList {
     public String name;
     public String describle;
-    public HashMap<String, Api> contents;
+    public HashMap<String, Api> api;
+
 
     public Api get(String apiName){
-        return contents.get(apiName);
+        return api.get(apiName);
     }
     
     public Response runWithoutConfig(String apiName){
-        if (contents.get(apiName) != null) {
-            return contents.get(apiName).run();
+        if (api.get(apiName) != null) {
+            return api.get(apiName).run();
         }
         return null;
     }
-    public static ApiModel load(Class clazz) {
+    public static ApiList load(String yamlName){
+        String yamlPath ="src/test/resources/api/"
+                +yamlName
+                + ".yaml";
+        ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
+        try {
+            ApiList model = objectMapper.readValue(new File(yamlPath), ApiList.class);
+            if (model.getApi().keySet().size() > 0) {
+                for (String s : model.getApi().keySet()) {
+                    String string = yamlPath.replace(yamlPath.split("/")[yamlPath.split("/").length - 1], "");
+                    log.error("jsonFilePath is :" + string);
+                    Api api = model.getApi().get(s);
+                    log.info("当前api是：" + api);
+                    if (api != null) {
+                        api.setJsonFilePath(string);
+                    }
+                }
+            }
+            return model;
+        } catch (IOException e) {
+            e.printStackTrace();
+            log.error("读取apiList.yaml失败,yamlName不在对应的yamlPath,yamlName:"+yamlName
+            +", yamlPath is "+yamlPath);
+        }
+        return null;
+    }
+    public static ApiList load(Class clazz) {
         String yamlPath ="src/test/java/" + clazz.getCanonicalName()
                 .replace(".", "/")
                 .toLowerCase()
                 + ".yaml";
         ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
         try {
-            ApiModel model = objectMapper.readValue(new File(yamlPath), ApiModel.class);
-            if (model.getContents().keySet().size() > 0) {
-                for (String s : model.getContents().keySet()) {
+            ApiList model = objectMapper.readValue(new File(yamlPath), ApiList.class);
+            if (model.getApi().keySet().size() > 0) {
+                for (String s : model.getApi().keySet()) {
                     String string = yamlPath.replace(yamlPath.split("/")[yamlPath.split("/").length - 1], "");
                     log.error("jsonFilePath is :" + string);
-                    Api api = model.getContents().get(s);
+                    Api api = model.getApi().get(s);
                     log.info("当前api是：" + api);
                     if (api != null) {
                         api.setJsonFilePath(string);
@@ -61,16 +88,22 @@ public class ApiModel {
         log.error("yaml转换失败");
         return null;
     }
-    public static ApiModel load(String yamlPath) {
+
+    /**
+     * 废弃
+     * @param yamlPath
+     * @return
+     */
+    private static ApiList load1(String yamlPath) {
 
         ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
         try {
-            ApiModel model = objectMapper.readValue(new File(yamlPath), ApiModel.class);
-            if (model.getContents().keySet().size() > 0) {
-                for (String s : model.getContents().keySet()) {
+            ApiList model = objectMapper.readValue(new File(yamlPath), ApiList.class);
+            if (model.getApi().keySet().size() > 0) {
+                for (String s : model.getApi().keySet()) {
                     String string = yamlPath.replace(yamlPath.split("/")[yamlPath.split("/").length - 1], "");
                     log.error("jsonFilePath is :" + string);
-                    Api api = model.getContents().get(s);
+                    Api api = model.getApi().get(s);
                     log.info("当前api是：" + api);
                     if (api != null) {
                         api.setJsonFilePath(string);

@@ -13,6 +13,8 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass
 
 public class ApiMain {
     public static void main(String[] args){
+        System.setProperty("api", "src/main/resources/test_framework_service/api");
+
         //必须1.6.0才能正确运行
         LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
                 .selectors(

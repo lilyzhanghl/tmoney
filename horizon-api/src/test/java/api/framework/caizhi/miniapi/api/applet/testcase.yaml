@@ -1,0 +1,19 @@
+name: xxx
+describle: xxx
+testCaseList:
+  - api: morningtest
+    action: getDetail
+    param:
+      id: xxx
+      appId: defaultConfig.app.h5station.appId
+    results:
+      - assertParam:
+          path: retdata
+        expect: defaultConfig.app.appId
+        matcher: equals
+      - assertParam:
+          path: ret
+        expect: 0
+        matcher: equals
+  - api: morningtest
+    action: xx
