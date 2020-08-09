@@ -8,15 +8,15 @@ import org.junit.platform.launcher.listeners.SummaryGeneratingListener;
 import org.junit.platform.launcher.listeners.TestExecutionSummary;
 
 import static org.junit.platform.engine.discovery.ClassNameFilter.includeClassNamePatterns;
+import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass;
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPackage;
 
 public class Main {
     public static void main(String[] args){
-
         LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
                 .selectors(
-                        selectPackage("test_framework")
-//                        ,selectClass(PageTest.class)
+                        selectPackage("test_framework"),
+                        selectClass(DDTest.class)
                 )
                 .filters(
                         includeClassNamePatterns(".*")
